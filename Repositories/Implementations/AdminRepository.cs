@@ -90,13 +90,13 @@ namespace Repositories.Implementations
         }
 
         public async Task<List<t_Student>> GetAllStudents()
-{
-    var students = new List<t_Student>();
+        {
+            var students = new List<t_Student>();
 
-    await _connection.OpenAsync();
-    try
-    {
-        using (var cmd = new NpgsqlCommand(@"
+            await _connection.OpenAsync();
+            try
+            {
+                using (var cmd = new NpgsqlCommand(@"
             SELECT 
                 s.c_id, s.c_name, s.c_email, s.c_dob, s.c_mobile_no, s.c_gender, s.c_password,
                 s.c_guardian_name, s.c_enroll_date, s.c_profile_pic, s.c_status,
@@ -108,108 +108,106 @@ namespace Repositories.Implementations
                 t_class c ON s.c_classid = c.c_classid
             JOIN 
                 t_section sec ON s.c_sectionid = sec.c_sectionid;", _connection))
-        {
-            using (var reader = await cmd.ExecuteReaderAsync())
-            {
-                while (await reader.ReadAsync())
                 {
-                    students.Add(new t_Student
+                    using (var reader = await cmd.ExecuteReaderAsync())
                     {
-                        c_studentId = reader.GetInt32(0),
-                        c_studentName = reader.GetString(1),
-                        c_studentEmail= reader.GetString(2),
-                        c_studentDOB = reader.GetDateTime(3),
-                        c_studentPhone = reader.GetString(4),
-                        c_studentGender = reader.GetString(5),
-                        c_password = reader.GetString(6),
-                        c_studentGuardianDetails = reader.GetString(7),
-                        c_studentEnrollDate = reader.GetDateTime(8),
-                        c_studentProfile = reader.IsDBNull(9) ? null : reader.GetString(9),
-                        c_studentStatus = reader.GetString(10),
-                        c_class = new t_Class { c_classId = reader.GetInt32(11), c_className = reader.GetString(12) },
-                        c_section = new t_Section { c_sectionId = reader.GetInt32(13), c_sectionName = reader.GetString(14) }
-                    });
+                        while (await reader.ReadAsync())
+                        {
+                            students.Add(new t_Student
+                            {
+                                c_studentId = reader.GetInt32(0),
+                                c_studentName = reader.GetString(1),
+                                c_studentEmail = reader.GetString(2),
+                                c_studentDOB = reader.GetDateTime(3),
+                                c_studentPhone = reader.GetInt64(4).ToString(),
+                                c_studentGender = reader.GetString(5),
+                                c_password = reader.GetString(6),
+                                c_studentGuardianDetails = reader.GetString(7),
+                                c_studentEnrollDate = reader.GetDateTime(8),
+                                c_studentProfile = reader.IsDBNull(9) ? null : reader.GetString(9),
+                                c_studentStatus = reader.GetString(10),
+                                c_class = new t_Class { c_classId = reader.GetInt32(11), c_className = reader.GetString(12) },
+                                c_section = new t_Section { c_sectionId = reader.GetInt32(13), c_sectionName = reader.GetString(14) }
+                            });
+                        }
+                    }
                 }
             }
-        }
-    }
-    finally
-    {
-        await _connection.CloseAsync();
-    }
-
-    return students;
-}
-
-public async Task<List<t_Class>> GetAllClasses(){
-    var classes = new List<t_Class>();
-
-    await _connection.OpenAsync();
-    try
-    {
-        using (var cmd = new NpgsqlCommand("SELECT c_classid, c_classname FROM t_class;", _connection))
-        {
-            using (var reader = await cmd.ExecuteReaderAsync())
+            finally
             {
-                while (await reader.ReadAsync())
+                await _connection.CloseAsync();
+            }
+
+            return students;
+        }
+
+        public async Task<List<t_Class>> GetAllClasses()
+        {
+            var classes = new List<t_Class>();
+
+            await _connection.OpenAsync();
+            try
+            {
+                using (var cmd = new NpgsqlCommand("SELECT c_classid, c_classname FROM t_class;", _connection))
                 {
-                    classes.Add(new t_Class
+                    using (var reader = await cmd.ExecuteReaderAsync())
                     {
-                        c_classId = reader.GetInt32(0),
-                        c_className = reader.GetString(1)
-                    });
+                        while (await reader.ReadAsync())
+                        {
+                            classes.Add(new t_Class
+                            {
+                                c_classId = reader.GetInt32(0),
+                                c_className = reader.GetString(1)
+                            });
+                        }
+                    }
                 }
             }
+            finally
+            {
+                await _connection.CloseAsync();
+            }
+
+            return classes;
         }
-    }
-    finally
-    {
-        await _connection.CloseAsync();
-    }
 
-    return classes;
-}
+        public async Task<List<t_Section>> GetAllSections()
+        {
+            var sections = new List<t_Section>();
 
-public async Task<List<t_Section>> GetAllSections()
-{
-    var sections = new List<t_Section>();
-
-    await _connection.OpenAsync();
-    try
-    {
-        using (var cmd = new NpgsqlCommand(@"
+            await _connection.OpenAsync();
+            try
+            {
+                using (var cmd = new NpgsqlCommand(@"
             SELECT s.c_sectionid, s.c_sectionname, c.c_classid, c.c_classname 
             FROM t_section s
             JOIN t_class c ON s.c_classid = c.c_classid;", _connection))
-        {
-            using (var reader = await cmd.ExecuteReaderAsync())
-            {
-                while (await reader.ReadAsync())
                 {
-                    sections.Add(new t_Section
+                    using (var reader = await cmd.ExecuteReaderAsync())
                     {
-                        c_sectionId = reader.GetInt32(0),
-                        c_sectionName = reader.GetString(1),
-                        c_classId = reader.GetInt32(2),  // Assign class ID
-                        c_class = new t_Class
+                        while (await reader.ReadAsync())
                         {
-                            c_classId = reader.GetInt32(2),
-                            c_className = reader.GetString(3)
+                            sections.Add(new t_Section
+                            {
+                                c_sectionId = reader.GetInt32(0),
+                                c_sectionName = reader.GetString(1),
+                                c_classId = reader.GetInt32(2),  // Assign class ID
+                                c_class = new t_Class
+                                {
+                                    c_classId = reader.GetInt32(2),
+                                    c_className = reader.GetString(3)
+                                }
+                            });
                         }
-                    });
+                    }
                 }
             }
+            finally
+            {
+                await _connection.CloseAsync();
+            }
+
+            return sections;
         }
-    }
-    finally
-    {
-        await _connection.CloseAsync();
-    }
-
-    return sections;
-}
-
-
-
     }
 }

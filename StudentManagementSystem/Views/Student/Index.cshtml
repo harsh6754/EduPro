@@ -1,0 +1,231 @@
+@{
+    ViewData["Title"] = "Contacts";
+    Layout = "../Shared/_Layout.cshtml";
+}
+<div class="container mt-4">
+    <h3>Contacts</h3>
+    <button type="button" id="btnadd" class="k-button k-button-lg k-button-solid-info" onclick="addForm()">✚</button>
+</div>
+<br>
+<div id="grid"></div>
+<span id="notification"></span>
+<div id="myKModal">
+    <form id="contactForm"></form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        buildForm();
+        loadWindows();
+        loadKendo();
+    });
+
+    function loadWindows() {
+        $("#myKModal").kendoWindow({
+            width: "600px",
+            title: "Contact Form",
+            visible: false,
+            modal: true,
+            actions: ["Close"]
+        });
+
+        $("#notification").kendoNotification({
+            allowHideAfter: 1000,
+            width: 300,
+            position: {
+                pinned: true,
+                top: 30,
+                right: 30,
+            }
+        });
+    }
+
+    function addForm() {
+        var form = $("#contactForm").getKendoForm();
+        $("#contactForm").data("kendoForm").setOptions({
+            formData: {
+                StudentId: "0",
+                StudentName: "",
+                StudentEmail: "",
+                StudentMobile: "",
+                StudentDOB: "",
+                StudentGender: "",
+                StudentStatus: "A",
+                StudentImage: null,
+                StudentClass: "",
+                StudentEnrollDate: "",
+                StudentSection: "",
+            }
+        });
+        openModal();
+    }
+
+
+    function buildForm() {
+        const validationSuccess = $("#validation-success");
+        $("#contactForm").kendoForm({
+            formData: {
+              StudentId: "0",
+                StudentName: "",
+                StudentEmail: "",
+                StudentMobile: "",
+                StudentDOB: "",
+                StudentGender: "",
+                StudentStatus: "A",
+                StudentImage: null,
+                StudentClass: "",
+                StudentEnrollDate: "",
+                StudentSection: "",
+            },
+            items: [
+                {
+                    field: "ContactId",
+                    label: "",
+                    editor: function (container, options) {
+                        $('<input type="hidden" id="studentid" name="' + options.field + '" value="0" />').appendTo(container);
+                    }
+                },
+                { field: "Name", label: "Name", validation: { required: true } },
+                { field: "Email", label: "Email", validation: { required: true, email: true } },
+                { field: "Address", label: "Address" },
+                { field: "Mobile", label: "Mobile" },
+                {
+                    field: "Status",
+                    label: "Status",
+                    editor: "DropDownList",
+                    editorOptions: { dataSource: ["Favourate", "Active", "Inactive"], optionLabel: "Select Status" }
+                },
+                {
+                    field: "Group",
+                    label: "Group",
+                    editor: "MultiSelect",
+                    editorOptions: { dataSource: ["Relative", "Friend", "Social", "Professional"], placeholder: "Select Group" }
+                },
+                {
+                    field: "Image",
+                    label: "Image:",
+                    editor: function (container, options) {
+                        $('<input type="file" name="' + options.field + '" />')
+                            .appendTo(container)
+                            .kendoUpload();
+                    }
+                },
+            ],
+            buttonsTemplate: '<button type="submit" class="k-button k-button-lg k-button-solid-info ">Save</button><button class="k-button-solid-base k-button-lg"> Clear</button>',
+            validateField: function (e) {
+                validationSuccess.html("");
+            },
+            submit: function (e) {
+                e.preventDefault();
+                const ContactData = new FormData();
+                ContactData.append("c_ContactId", e.model.ContactId);
+                ContactData.append("c_UserId", @Context.Session.GetInt32("UserId"));
+                ContactData.append("c_Contactname", e.model.Name);
+                ContactData.append("c_Email", e.model.Email);
+                ContactData.append("c_Address", e.model.Address);
+                ContactData.append("c_Mobile", e.model.Mobile);
+                ContactData.append("c_Status", e.model.Status);
+                ContactData.append("c_Group", e.model.Group.join());
+                var imageFile = $("input[name=Image]")[0].files[0];
+                if (imageFile) {
+                    ContactData.append("ProfilePicture", imageFile);
+                }
+                $.ajax({
+                    url: "/ContactSingle/Create",
+                    method: "post",
+                    contentType: false,
+                    processData: false,
+                    data: ContactData,
+                    success: function (result) {
+                        if (result.success) {
+                            $("#notification").getKendoNotification().show(e.model.ContactId == 0 ? "Insert Successfully!!" :
+                                "Update Successfully!!", "success");
+                            $("#myKModal").data("kendoWindow").close();
+                            loadKendo();
+                        } else {
+                            $("#notification").getKendoNotification().show(result.message, "error");
+                            $("#myKModal").data("kendoWindow").close();
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        $("#notification").getKendoNotification().show("Not inserted or updated some error", "error");
+                    }
+                });
+                validationSuccess.html("<div class='k-messagebox k-messagebox-success'>Form data is valid!</div>");
+            },
+            clear: function (ev) {
+                validationSuccess.html("");
+            }
+        });
+    }
+
+    function openModal() {
+        $("#myKModal").data("kendoWindow").center().open();
+    }
+
+    function closeModal() {
+        $("#myKModal").data("kendoWindow").close();
+    }
+
+    function loadKendo() {
+        const staticPath = "../../contact_images/";
+        $.ajax({
+            url: "/Student/GetAllStudents", 
+            type: 'GET',
+            success: function (response) {
+                console.log(response);
+                $("#grid").kendoGrid({
+                    dataSource: {
+                        data: response,
+                        schema: {
+                            model: {
+                                fields: {
+                                    c_ContactId: { type: "number" },
+                                    c_ContactName: { type: "string" },
+                                    c_Email: { type: "string" },
+                                    c_Mobile: { type: "string" },
+                                    c_Address: { type: "string" },
+                                    c_Status: { type: "string" },
+                                    c_Group: { type: "string" },
+                                    c_Image: { type: "string" }
+                                }
+                            }
+                        },
+                        pageSize: 4
+                    },
+                    height: 400,
+                    pageable: true,
+                    sortable: true,
+                    filterable: true,
+                    columns: [
+                        {
+                            title: "Edit",
+                            template: `<button class='k-button k-button-solid-info' onclick='editForm(#=c_ContactId#)'>Edit</button>`,
+                            width: 50
+                        },
+                        { field: "c_ContactName", title: "Name", width: "150px" },
+                        { field: "c_Email", title: "Email", width: "100px" },
+                        { field: "c_Mobile", title: "Mobile", width: "80px" },
+                        { field: "c_Address", title: "Address", width: "200px" },
+                        { field: "c_Status", title: "Status", width: "200px" },
+                        { field: "c_Group", title: "Group", width: "200px" },
+                        {
+                            field: "c_Image", title: "Image", template: `<img src='${staticPath}#=c_Image#' alt='ProfileImage' style='width:50px;height:50px;border-radius:50%;' />`,
+                            width: 100
+                        },
+                        {
+                            title: "Delete",
+                            template: `<button class='k-button k-button-solid-error' onclick='deleteData(#=c_ContactId#,"#=c_ContactName#")'>✘</button>`,
+                            width: 70
+                        }
+                    ],
+                });
+            },
+            error: function (xhr, status, error) {
+                $('#responseMessage').addClass("alert alert-danger");
+                $('#responseMessage').text('Error: ' + xhr.responseText);
+            }
+        });
+    }
+
+</script>

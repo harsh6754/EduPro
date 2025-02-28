@@ -13,6 +13,7 @@ builder.Services.AddScoped<NpgsqlConnection>(provider =>
     return new NpgsqlConnection(configuration.GetConnectionString("pgconnection"));
 });
 
+
 builder.Services.AddSession(option =>{
     option.IdleTimeout = TimeSpan.FromMinutes(30);
     option.Cookie.HttpOnly = true;
