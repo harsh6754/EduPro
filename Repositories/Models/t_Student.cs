@@ -29,7 +29,7 @@ namespace StudentManagementSystem.Models
         [StringLength(10)]
         public string c_studentPhone { get; set; }
 
-        public string c_password { get; private set; }
+        public string c_password { get;  set; }
 
         [Required(ErrorMessage ="Please enter Student DOB")]
         [Display(Name = "Student DOB")]
@@ -41,6 +41,8 @@ namespace StudentManagementSystem.Models
         public string c_studentGender { get; set; }
 
         public t_Class c_class { get; set; }   
+
+        public t_Section c_section { get; set; }
 
 
         [Required(ErrorMessage ="Please enter Student Guardian Details")]

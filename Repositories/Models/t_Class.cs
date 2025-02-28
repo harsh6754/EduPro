@@ -10,6 +10,5 @@ namespace StudentManagementSystem.Models
         public int c_classId { get; set; }
         public string c_className { get; set; }
 
-        public t_Section c_section { get; set; }
     }
 }

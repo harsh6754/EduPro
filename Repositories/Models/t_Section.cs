@@ -10,5 +10,11 @@ namespace StudentManagementSystem.Models
         public int c_sectionId { get; set; }    
         public string c_sectionName { get; set; }
 
+        public int c_classId { get; set; }  // New field
+
+        public t_Class c_class { get; set; }
+
+        
+
     }
 }
