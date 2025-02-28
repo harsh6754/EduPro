@@ -132,23 +132,23 @@ public class StudentRepository : IStudentInterface
         return studentList;
     }
 
-    public async Task<t_Student> GetOne(string contactid)
+    public async Task<t_Student> GetOne(string studentid)
     {
-        t_Student contact = null;
+        t_Student student = null;
 
         // Open the connection
         _conn.Open();
 
-        using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_contact where c_contactid=@c_contactid", _conn))
+        using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_student where c_id=@c_id", _conn))
         {
-            cm.Parameters.AddWithValue("@c_contactid", int.Parse(contactid));
+            cm.Parameters.AddWithValue("@c_id", int.Parse(studentid));
 
             // Execute the reader
             using (NpgsqlDataReader r = await cm.ExecuteReaderAsync())
             {
                 if (r.Read()) // Check if there is any data
                 {
-                    contact = new t_Student()
+                    student = new t_Student()
                     {
                         c_studentId = Convert.ToInt32(r["c_id"]),
                         c_studentName = r["c_name"].ToString(),
@@ -169,7 +169,7 @@ public class StudentRepository : IStudentInterface
         }
         _conn.Close();
 
-        return contact;
+        return student;
     }
 
 
