@@ -202,7 +202,7 @@ public class StudentRepository : IStudentInterface
         }
         catch (Exception ex)
         {
-            System.Console.WriteLine("fuck error in contactRepository --> Update" + ex);
+            System.Console.WriteLine("fuck error in cont alskfjdslactRepository --> Update" + ex);
             return 0;
         }
     }
