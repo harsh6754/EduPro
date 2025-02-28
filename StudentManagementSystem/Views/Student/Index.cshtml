@@ -13,6 +13,45 @@
     <form id="contactForm"></form>
 </div>
 
+<div id="studentCard"></div>
+
+<!-- Data Card Overlay -->
+<div id="dataCard" class="data-card">
+    <div class="card-content">
+        <h4>Loading Data...</h4>
+        <button class="k-button k-button-solid-error" onclick="closeDataCard()">✖</button>
+    </div>
+</div>
+
+<style>
+    .grid-container.blurred {
+        filter: blur(5px);
+        pointer-events: none;
+    }
+    .data-card {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1001;
+        border-radius: 8px;
+    }
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .card-content button {
+        margin-top: 10px;
+    }
+</style>
+
+
+
 <script>
     $(document).ready(function () {
         buildForm();
@@ -38,6 +77,16 @@
                 right: 30,
             }
         });
+    }
+
+     function openDataCard() {
+        $("#dataCard").fadeIn();
+        $("#grid").addClass("blurred");
+    }
+
+    function closeDataCard() {
+        $("#dataCard").fadeOut();
+        $("#grid").removeClass("blurred");
     }
 
     function addForm() {
@@ -167,68 +216,88 @@
         $("#myKModal").data("kendoWindow").close();
     }
 
-    function loadKendo() {
-    const staticPath = "../../contact_images/";
-    $.ajax({
-        url: "/Student/GetAllStudents",
-        type: 'GET',
-        success: function (response) {
-            console.log(response);
-            $("#grid").kendoGrid({
-                dataSource: {
-                    data: response,
-                    schema: {
-                        model: {
-                            fields: {
-                                c_studentId: { type: "number" },
-                                c_studentName: { type: "string" },
-                                c_studentEmail: { type: "string" },
-                                c_studentPhone: { type: "string" },
-                                c_studentStatus: { type: "string" },
-                                c_class: { type: "object" }, // Class object
-                                c_section: { type: "object" }, // Section object
-                                c_studentProfile: { type: "string" }
+function loadKendo() {
+        openDataCard(); // Show the data card overlay when loading starts
+        const staticPath = "../../contact_images/";
+        $.ajax({
+            url: "/Student/GetAllStudents",
+            type: 'GET',
+            success: function (response) {
+                $("#grid").kendoGrid({
+                    dataSource: {
+                        data: response,
+                        schema: {
+                            model: {
+                                fields: {
+                                    c_studentId: { type: "number" },
+                                    c_studentName: { type: "string" },
+                                    c_studentEmail: { type: "string" },
+                                    c_studentPhone: { type: "string" },
+                                    c_studentStatus: { type: "string" },
+                                    c_class: { type: "object" },
+                                    c_section: { type: "object" },
+                                    c_studentProfile: { type: "string" }
+                                }
                             }
+                        },
+                        pageSize: 4
+                    },
+                    height: 400,
+                    pageable: true,
+                    sortable: true,
+                    filterable: true,
+                    columns: [
+                        {
+                            title: "Edit",
+                            template: `<button class='k-button k-button-solid-info' onclick='editForm(#=c_studentId#)'>Edit</button>`,
+                            width: 50
+                        },
+                        { field: "c_studentName", title: "Name", width: "150px" },
+                        { field: "c_studentEmail", title: "Email", width: "150px" },
+                        { field: "c_studentPhone", title: "Phone", width: "120px" },
+                        { field: "c_studentStatus", title: "Status", width: "120px" },
+                        { field: "c_class.c_className", title: "Class", width: "100px" },
+                        { field: "c_section.c_sectionName", title: "Section", width: "100px" },
+                        {
+                            field: "c_studentProfile", 
+                            title: "Profile", 
+                            template: `<img src='${staticPath}#=c_studentProfile#' alt='ProfileImage' style='width:50px;height:50px;border-radius:50%;' />`,
+                            width: 100
+                        },
+                        {
+                            title: "Delete",
+                            template: `<button class='k-button k-button-solid-error' onclick='deleteData(#=c_studentId#,"#=c_studentName#")'>✘</button>`,
+                            width: 70
                         }
-                    },
-                    pageSize: 4
-                },
-                height: 400,
-                pageable: true,
-                sortable: true,
-                filterable: true,
-                columns: [
-                    {
-                        title: "Edit",
-                        template: `<button class='k-button k-button-solid-info' onclick='editForm(#=c_studentId#)'>Edit</button>`,
-                        width: 50
-                    },
-                    { field: "c_studentName", title: "Name", width: "150px" },
-                    { field: "c_studentEmail", title: "Email", width: "150px" },
-                    { field: "c_studentPhone", title: "Phone", width: "120px" },
-                    { field: "c_studentStatus", title: "Status", width: "120px" },
-                    { field: "c_class.c_className", title: "Class", width: "100px" },
-                    { field: "c_section.c_sectionName", title: "Section", width: "100px" },
-                    {
-                        field: "c_studentProfile", 
-                        title: "Profile", 
-                        template: `<img src='${staticPath}#=c_studentProfile#' alt='ProfileImage' style='width:50px;height:50px;border-radius:50%;' />`,
-                        width: 100
-                    },
-                    {
-                        title: "Delete",
-                        template: `<button class='k-button k-button-solid-error' onclick='deleteData(#=c_studentId#,"#=c_studentName#")'>✘</button>`,
-                        width: 70
-                    }
-                ],
-            });
-        },
-        error: function (xhr, status, error) {
-            $('#responseMessage').addClass("alert alert-danger");
-            $('#responseMessage').text('Error: ' + xhr.responseText);
-        }
-    });
-}
+                    ],
+                });
+                closeDataCard(); // Hide the data card overlay when loading is complete
+            },
+            error: function (xhr, status, error) {
+                $('#responseMessage').addClass("alert alert-danger");
+                $('#responseMessage').text('Error: ' + xhr.responseText);
+                closeDataCard();
+            }
+        });
+    }
 
+
+function displayCard(data) {
+    const staticPath = "../../contact_images/";
+
+    $("#studentCard").html(`
+        <div class="card" style="border:1px solid #ddd; padding: 15px; width: 300px; border-radius: 10px;">
+            <div style="text-align: center;">
+                <img src="${staticPath}${data.c_studentProfile}" alt="Profile" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;">
+            </div>
+            <h3 style="text-align: center;">${data.c_studentName}</h3>
+            <p><strong>Email:</strong> ${data.c_studentEmail}</p>
+            <p><strong>Phone:</strong> ${data.c_studentPhone}</p>
+            <p><strong>Status:</strong> ${data.c_studentStatus}</p>
+            <p><strong>Class:</strong> ${data.c_class ? data.c_class.c_className : "N/A"}</p>
+            <p><strong>Section:</strong> ${data.c_section ? data.c_section.c_sectionName : "N/A"}</p>
+        </div>
+    `);
+}
 
 </script>
