@@ -63,7 +63,7 @@ namespace Repositories.Implementations
                 VALUES(
                     @c_name, @c_email, @c_dob, @c_mobile_no, @c_gender, @c_password,
                     @c_classid, @c_sectionid, @c_guardian_name, @c_enroll_date, @c_profile_pic, @c_status
-                ) RETURNING c_studentid", _connection))
+                ) RETURNING c_id", _connection))
                 {
                     cmd.Parameters.AddWithValue("@c_name", student.c_studentName);
                     cmd.Parameters.AddWithValue("@c_email", student.c_studentEmail);
@@ -119,7 +119,7 @@ namespace Repositories.Implementations
                                 c_studentName = reader.GetString(1),
                                 c_studentEmail = reader.GetString(2),
                                 c_studentDOB = reader.GetDateTime(3),
-                                c_studentPhone = reader.GetInt64(4).ToString(),
+                                c_studentPhone = reader.GetString(4),
                                 c_studentGender = reader.GetString(5),
                                 c_password = reader.GetString(6),
                                 c_studentGuardianDetails = reader.GetString(7),
@@ -170,7 +170,6 @@ namespace Repositories.Implementations
 
             return classes;
         }
-
         public async Task<List<t_Section>> GetAllSections()
         {
             var sections = new List<t_Section>();
@@ -178,10 +177,7 @@ namespace Repositories.Implementations
             await _connection.OpenAsync();
             try
             {
-                using (var cmd = new NpgsqlCommand(@"
-            SELECT s.c_sectionid, s.c_sectionname, c.c_classid, c.c_classname 
-            FROM t_section s
-            JOIN t_class c ON s.c_classid = c.c_classid;", _connection))
+                using (var cmd = new NpgsqlCommand("SELECT * FROM t_section;", _connection))
                 {
                     using (var reader = await cmd.ExecuteReaderAsync())
                     {
@@ -190,13 +186,7 @@ namespace Repositories.Implementations
                             sections.Add(new t_Section
                             {
                                 c_sectionId = reader.GetInt32(0),
-                                c_sectionName = reader.GetString(1),
-                                c_classId = reader.GetInt32(2),  // Assign class ID
-                                c_class = new t_Class
-                                {
-                                    c_classId = reader.GetInt32(2),
-                                    c_className = reader.GetString(3)
-                                }
+                                c_sectionName = reader.GetString(1)
                             });
                         }
                     }

@@ -3,7 +3,7 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 <div class="container mt-4">
-    <h3>Contacts</h3>
+    <h3>Insert Student Records</h3>
     <button type="button" id="btnadd" class="k-button k-button-lg k-button-solid-info" onclick="addForm()">✚</button>
 </div>
 <br>
@@ -28,6 +28,7 @@
         filter: blur(5px);
         pointer-events: none;
     }
+
     .data-card {
         display: none;
         position: fixed;
@@ -40,11 +41,13 @@
         z-index: 1001;
         border-radius: 8px;
     }
+
     .card-content {
         display: flex;
         flex-direction: column;
         align-items: center;
     }
+
     .card-content button {
         margin-top: 10px;
     }
@@ -79,7 +82,7 @@
         });
     }
 
-     function openDataCard() {
+    function openDataCard() {
         $("#dataCard").fadeIn();
         $("#grid").addClass("blurred");
     }
@@ -96,8 +99,10 @@
                 StudentId: "0",
                 StudentName: "",
                 StudentEmail: "",
+                StudentPassword: "",
                 StudentMobile: "",
                 StudentDOB: "",
+                StudentGuardian: "",
                 StudentGender: "",
                 StudentStatus: "A",
                 StudentImage: null,
@@ -112,46 +117,170 @@
 
     function buildForm() {
         const validationSuccess = $("#validation-success");
+
         $("#contactForm").kendoForm({
             formData: {
-              StudentId: "0",
+                StudentId: "0",
                 StudentName: "",
                 StudentEmail: "",
+                StudentPassword: "",
                 StudentMobile: "",
                 StudentDOB: "",
                 StudentGender: "",
-                StudentStatus: "A",
+                StudentStatus: "",
                 StudentImage: null,
+                StudentGuardian: "",
                 StudentClass: "",
                 StudentEnrollDate: "",
                 StudentSection: "",
             },
             items: [
                 {
-                    field: "ContactId",
+                    field: "StudentId",
                     label: "",
                     editor: function (container, options) {
                         $('<input type="hidden" id="studentid" name="' + options.field + '" value="0" />').appendTo(container);
                     }
                 },
-                { field: "Name", label: "Name", validation: { required: true } },
-                { field: "Email", label: "Email", validation: { required: true, email: true } },
-                { field: "Address", label: "Address" },
-                { field: "Mobile", label: "Mobile" },
                 {
-                    field: "Status",
+                    field: "StudentName",
+                    label: "Name:",
+                    editor: function (container, options) {
+                        $('<input type="text" name="' + options.field + '" class="k-textbox" required />').appendTo(container);
+                    }
+                },
+                {
+                    field: "StudentEmail",
+                    label: "Email:",
+                    editor: function (container, options) {
+                        $('<input type="email" name="' + options.field + '" class="k-textbox" required />').appendTo(container);
+                    }
+                },
+
+                {
+                    field: "StudentPassword",
+                    label: "Password:",
+                    editor: function (container, options) {
+                        var passwordInput = $('<input type="password" name="' + options.field + '" class="k-textbox" required readonly />');
+                        passwordInput.appendTo(container);
+
+                        // Listen for changes in StudentName and StudentMobile
+                        $("input[name='StudentName'], input[name='StudentMobile']").on("input", function () {
+                            var name = $("input[name='StudentName']").val();
+                            var mobile = $("input[name='StudentMobile']").val();
+                            var password = generatePassword(name, mobile);
+                            passwordInput.val(password);
+                        });
+
+                        function generatePassword(name, mobile) {
+                            var namePart = name ? name.substring(0, 4) : "abcd"; // First 4 chars or default 'abcd'
+                            var mobilePart = mobile ? mobile.slice(-4) : "0000"; // Last 4 digits or default '0000'
+                            return namePart + mobilePart;
+                        }
+                    }
+                },
+                {
+                    field: "StudentGuardian",
+                    label: "Guardian:",
+                    editor: function (container, options) {
+                        $('<input type="text" name="' + options.field + '" class="k-textbox" required />').appendTo(container);
+                    }
+                },
+                {
+                    field: "StudentMobile",
+                    label: "Mobile:",
+                    editor: function (container, options) {
+                        $('<input type="text" name="' + options.field + '" class="k-textbox" required />').appendTo(container);
+                    }
+                },
+                {
+                    field: "StudentDOB",
+                    label: "DOB:",
+                    editor: function (container, options) {
+                        $('<input name="' + options.field + '" required />')
+                            .appendTo(container)
+                            .kendoDatePicker({
+                                format: "yyyy-MM-dd", // Adjust format as needed
+                                value: new Date(),    // Optional: Default to current date
+                                max: new Date()       // Prevent selecting future dates
+                            });
+                    }
+                },
+
+                {
+                    field: "StudentGender",
+                    label: "Gender:",
+                    editor: "DropDownList",
+                    editorOptions: {
+                        dataSource: ["Male", "Female", "Other"],
+                        optionLabel: "Select Gender"
+                    }
+                },
+                {
+                    field: "StudentStatus",
                     label: "Status",
                     editor: "DropDownList",
-                    editorOptions: { dataSource: ["Favourate", "Active", "Inactive"], optionLabel: "Select Status" }
+                    editorOptions: {
+                        dataSource: [
+                            { text: "Active", value: "Active" },
+                            { text: "Inactive", value: "Inactive" }
+                        ],
+                        dataTextField: "text",
+                        dataValueField: "value",
+                        optionLabel: "Select Status"
+                    }
                 },
                 {
-                    field: "Group",
-                    label: "Group",
-                    editor: "MultiSelect",
-                    editorOptions: { dataSource: ["Relative", "Friend", "Social", "Professional"], placeholder: "Select Group" }
+                    field: "StudentClass",
+                    label: "Class:",
+                    editor: "DropDownList",
+                    editorOptions: {
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: "/Student/GetAllClasses", // Update with correct API
+                                    dataType: "json"
+                                }
+                            }
+                        },
+                        dataTextField: "c_className",
+                        dataValueField: "c_classId",
+                        optionLabel: "Select Class"
+                    }
                 },
                 {
-                    field: "Image",
+                    field: "StudentSection",
+                    label: "Section:",
+                    editor: "DropDownList",
+                    editorOptions: {
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    url: "/Student/GetAllSections", // Update with correct API
+                                    dataType: "json"
+                                }
+                            }
+                        },
+                        dataTextField: "c_sectionName",
+                        dataValueField: "c_sectionId",
+                        optionLabel: "Select Section"
+                    }
+                },
+                {
+                    field: "StudentEnrollDate",
+                    label: "Enroll Date:",
+                    editor: function (container, options) {
+                        $('<input name="' + options.field + '" required />')
+                            .appendTo(container)
+                            .kendoDatePicker({
+                                format: "yyyy-MM-dd", // Adjust as per requirement
+                                value: new Date(),    // Optional: Default to current date
+                            });
+                    }
+                },
+
+                {
+                    field: "StudentImage",
                     label: "Image:",
                     editor: function (container, options) {
                         $('<input type="file" name="' + options.field + '" />')
@@ -160,35 +289,44 @@
                     }
                 },
             ],
-            buttonsTemplate: '<button type="submit" class="k-button k-button-lg k-button-solid-info ">Save</button><button class="k-button-solid-base k-button-lg"> Clear</button>',
+            buttonsTemplate: '<button type="submit" class="k-button k-button-lg k-button-solid-info">Save</button><button type="reset" class="k-button-solid-base k-button-lg">Clear</button>',
             validateField: function (e) {
                 validationSuccess.html("");
             },
             submit: function (e) {
                 e.preventDefault();
+
                 const ContactData = new FormData();
-                ContactData.append("c_ContactId", e.model.ContactId);
-                ContactData.append("c_UserId", @Context.Session.GetInt32("UserId"));
-                ContactData.append("c_Contactname", e.model.Name);
-                ContactData.append("c_Email", e.model.Email);
-                ContactData.append("c_Address", e.model.Address);
-                ContactData.append("c_Mobile", e.model.Mobile);
-                ContactData.append("c_Status", e.model.Status);
-                ContactData.append("c_Group", e.model.Group.join());
-                var imageFile = $("input[name=Image]")[0].files[0];
+                ContactData.append("c_id", e.model.StudentId);
+                ContactData.append("c_name", e.model.StudentName);
+                ContactData.append("c_email", e.model.StudentEmail);
+                ContactData.append("c_password", e.model.StudentPassword);
+                ContactData.append("c_mobile_no", e.model.StudentMobile);
+                ContactData.append("c_status", e.model.StudentStatus);
+                ContactData.append("c_class_id", e.model.StudentClass);
+                ContactData.append("c_section_id", e.model.StudentSection);
+                ContactData.append("c_gender", e.model.StudentGender);
+                ContactData.append("c_dob", e.model.StudentDOB);
+                ContactData.append("c_enroll_date", e.model.StudentEnrollDate);
+                ContactData.append("c_guardian", e.model.StudentGuardian);
+
+                var imageFile = $("input[name=StudentImage]")[0].files[0];
                 if (imageFile) {
                     ContactData.append("ProfilePicture", imageFile);
                 }
+
                 $.ajax({
-                    url: "/ContactSingle/Create",
+                    url: "/Student/AddStudent",
                     method: "post",
                     contentType: false,
                     processData: false,
                     data: ContactData,
                     success: function (result) {
                         if (result.success) {
-                            $("#notification").getKendoNotification().show(e.model.ContactId == 0 ? "Insert Successfully!!" :
-                                "Update Successfully!!", "success");
+                            $("#notification").getKendoNotification().show(
+                                e.model.StudentId == "0" ? "Inserted Successfully!!" : "Updated Successfully!!",
+                                "success"
+                            );
                             $("#myKModal").data("kendoWindow").close();
                             loadKendo();
                         } else {
@@ -196,17 +334,19 @@
                             $("#myKModal").data("kendoWindow").close();
                         }
                     },
-                    error: function (xhr, status, error) {
-                        $("#notification").getKendoNotification().show("Not inserted or updated some error", "error");
+                    error: function () {
+                        $("#notification").getKendoNotification().show("Not inserted or updated, some error occurred", "error");
                     }
                 });
+
                 validationSuccess.html("<div class='k-messagebox k-messagebox-success'>Form data is valid!</div>");
             },
-            clear: function (ev) {
+            clear: function () {
                 validationSuccess.html("");
             }
         });
     }
+
 
     function openModal() {
         $("#myKModal").data("kendoWindow").center().open();
@@ -216,7 +356,7 @@
         $("#myKModal").data("kendoWindow").close();
     }
 
-function loadKendo() {
+    function loadKendo() {
         openDataCard(); // Show the data card overlay when loading starts
         const staticPath = "../../contact_images/";
         $.ajax({
@@ -259,8 +399,8 @@ function loadKendo() {
                         { field: "c_class.c_className", title: "Class", width: "100px" },
                         { field: "c_section.c_sectionName", title: "Section", width: "100px" },
                         {
-                            field: "c_studentProfile", 
-                            title: "Profile", 
+                            field: "c_studentProfile",
+                            title: "Profile",
                             template: `<img src='${staticPath}#=c_studentProfile#' alt='ProfileImage' style='width:50px;height:50px;border-radius:50%;' />`,
                             width: 100
                         },
@@ -282,10 +422,10 @@ function loadKendo() {
     }
 
 
-function displayCard(data) {
-    const staticPath = "../../contact_images/";
+    function displayCard(data) {
+        const staticPath = "../../contact_images/";
 
-    $("#studentCard").html(`
+        $("#studentCard").html(`
         <div class="card" style="border:1px solid #ddd; padding: 15px; width: 300px; border-radius: 10px;">
             <div style="text-align: center;">
                 <img src="${staticPath}${data.c_studentProfile}" alt="Profile" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;">
@@ -298,6 +438,6 @@ function displayCard(data) {
             <p><strong>Section:</strong> ${data.c_section ? data.c_section.c_sectionName : "N/A"}</p>
         </div>
     `);
-}
+    }
 
 </script>

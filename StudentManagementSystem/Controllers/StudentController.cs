@@ -13,7 +13,7 @@ namespace StudentManagementSystem.Controllers
     // [Route("[controller]")]
     public class StudentController : Controller
     {
-    
+
         private readonly IAdminInterface _adminInterface;
 
         public StudentController(IAdminInterface adminInterface)
@@ -78,8 +78,10 @@ namespace StudentManagementSystem.Controllers
                     {
                         await student.StudentPic.CopyToAsync(stream);
                     }
+                }else{
+
                 }
-                student.c_studentId = (int)HttpContext.Session.GetInt32("c_studentId");
+                // student.c_studentId = (int)HttpContext.Session.GetInt32("c_studentId");
                 var result = 0;
                 if (student.c_studentId == 0)
                 {
@@ -104,6 +106,22 @@ namespace StudentManagementSystem.Controllers
                     kvp => kvp.Value.Errors.Select(err => err.ErrorMessage).ToArray()
                     );
             return BadRequest(new { success = false, message = errors });
+        }
+        #endregion
+
+        #region GetAllClasses
+        public async Task<ActionResult> GetAllClasses()
+        {
+            List<t_Class> classes = await _adminInterface.GetAllClasses();
+            return Json(classes);
+        }
+        #endregion
+
+        #region GetAllSections
+        public async Task<ActionResult> GetAllSections()
+        {
+            List<t_Section> sections = await _adminInterface.GetAllSections();
+            return Json(sections);
         }
         #endregion
 
