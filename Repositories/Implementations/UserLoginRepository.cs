@@ -55,5 +55,40 @@ namespace Repositories.Implementations
             return studentData;
         }
         #endregion
+
+        #region TeacherLogin
+        public async Task<t_Teacher> TeacherLogin(t_TeacherLogin TeacherLogin){
+            t_Teacher teacherData = new t_Teacher();
+            var qry = "SELECT * FROM t_teachers WHERE c_temail = @c_temail AND c_tpassword = @c_tpassword;";
+            try{
+                using (NpgsqlCommand cmd = new NpgsqlCommand(qry, _connection)){
+                    cmd.Parameters.AddWithValue("@c_temail", TeacherLogin.T_Email);
+                    cmd.Parameters.AddWithValue("@c_tpassword", TeacherLogin.T_PasswordHash);
+                    await _connection.OpenAsync();
+                    var reader = await cmd.ExecuteReaderAsync();
+                    if(reader.Read()){
+                        teacherData.TeacherId = (int)reader["c_tid"];
+                        teacherData.T_Name = (string)reader["c_teachername"];
+                        teacherData.T_Email = (string)reader["c_temail"];
+                        teacherData.T_PasswordHash = (string)reader["c_tpassword"];
+                        teacherData.T_MobileNumber = Convert.ToInt64(reader["c_tmobno"]);
+                        teacherData.T_DateOfBirth = Convert.ToDateTime(reader["c_tdob"]);
+                        teacherData.T_Qualification = (string)reader["c_tqualification"];
+                        teacherData.T_Experience = (int)reader["c_experience"];
+                        teacherData.T_ExpertSubject = (string)reader["c_expert_subject"];
+                        teacherData.T_SubjectId = (int)reader["c_subjectid"];
+                        teacherData.T_Class_Id = (int)reader["c_class_id"];
+                    }
+                }
+            }
+            catch (Exception e){
+                Console.WriteLine("----------->Teacher Login Error : " + e.Message);
+            }
+            finally{
+                await _connection.CloseAsync();
+            }
+            return teacherData;
+        }
+        #endregion
     }
 }

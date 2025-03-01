@@ -20,19 +20,18 @@
 
 <style>
     .container {
-    width: 100%;
-    max-width: 400px; /* Adjust width */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin: auto;
-}
-
-.k-textbox,
-.k-dropdown {
-    width: 90% !important; /* Ensure elements take full width */
-}
-
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        margin: auto;
+    }
+    
+    .k-textbox,
+    .k-dropdown {
+        width: 90% !important;
+    }
 </style>
 
 @section Scripts {
@@ -121,7 +120,7 @@
                 setTimeout(() => { window.location.href = "/Student/Index"; }, 1500);
                 return;
             }
-
+            
             var LoginData = $(this).serialize();
 
             $.ajax({
@@ -132,7 +131,15 @@
                 success: function (result) {
                     if (result.success) {
                         validationSuccess.show("Login successful!", "success");
-                        setTimeout(() => { window.location.href = "/Home/Index"; }, 1500);
+                        setTimeout(() => {
+                            if (role === "Admin") {
+                                window.location.href = "/Student/Index";
+                            } else if (role === "Student") {
+                                window.location.href = "/UserLogin/CommonLogin";
+                            } else if (role === "Teacher") {
+                                window.location.href = "/UserLogin/TeacherLogin";
+                            }
+                        }, 1500);
                     } else {
                         validationSuccess.show(result.message, "error");
                     }

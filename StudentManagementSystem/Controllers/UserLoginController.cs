@@ -57,6 +57,35 @@ namespace StudentManagementSystem.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> TeacherLogin(t_TeacherLogin TeacherLogin){
+            if (!ModelState.IsValid)
+            {
+                return Json(new { success = false, message = "Invalid input data." });
+            }
+            try{
+                var teacherData = await _userLogin.TeacherLogin(TeacherLogin);
+                if(teacherData != null && teacherData.TeacherId != 0){
+                    HttpContext.Session.SetInt32("TeacherId", teacherData.TeacherId);
+                    HttpContext.Session.SetString("T_Name", teacherData.T_Name);
+
+                    _logger.LogInformation("User {TeacherId} logged in successfully.", teacherData.TeacherId);
+                    return Json(new { success = true, message = "Login Successful" });
+                }
+                else
+                {
+                    _logger.LogWarning("Login attempt failed for email: {Email}",TeacherLogin.T_Email);
+                    return Json(new { success = false, message = "Username or password incorrect" });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred during login for email: {Email}", TeacherLogin.T_Email);
+                return Json(new { success = false, message = "An error occurred. Please try again later." });
+            }
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
