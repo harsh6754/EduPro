@@ -11,5 +11,11 @@ namespace Repositories.Interfaces
     {
          Task<int> AddStudent(t_Student student); // ✅
 
+        // Task<int> AssignSubClass(t_teacherUpdate teacher);
+
+        Task<List<t_Class>> GetAllClass();
+        Task<List<t_subjects>> GetAllSubjects();
+
+        Task<List<t_teacherGet>> GetAllTeachers();
     }
 }
