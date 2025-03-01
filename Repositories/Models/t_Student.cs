@@ -40,9 +40,8 @@ namespace StudentManagementSystem.Models
         [Display(Name = "Gender")]
         public string c_studentGender { get; set; }
 
-        public t_Class c_class { get; set; }
-        public int c_sectionid { get; set; }   
-        public int c_classid { get; set; }   
+        public t_Class? c_class { get; set; }
+        public t_Section? c_Section { get; set; }
 
 
         [Required(ErrorMessage = "Please enter Student Guardian Details")]
@@ -56,7 +55,7 @@ namespace StudentManagementSystem.Models
 
         [Required(ErrorMessage = "Please Add Student Profile")]
         [Display(Name = "Student Profile")]
-        public string c_studentProfile { get; set; }
+        public string? c_studentProfile { get; set; }
 
         public IFormFile? StudentPic { get; set; } // ✅ Nullable (optional)
 

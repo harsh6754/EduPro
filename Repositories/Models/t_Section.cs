@@ -7,8 +7,9 @@ namespace StudentManagementSystem.Models
 {
     public class t_Section
     {
-        public int c_sectionId { get; set; }    
-        public string c_sectionName { get; set; }
+        public int c_sectionId { get; set; }
+        public string? c_sectionName { get; set; }
+        public int? c_classid { get; set; }
 
     }
 }

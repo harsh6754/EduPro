@@ -33,30 +33,24 @@ namespace StudentManagementSystem.Controllers
 
             return Ok(student);
         }
-        [HttpPost]
-        public async Task<ActionResult> Create(t_Student student)
+        [HttpGet]
+        public async Task<List<t_Student>> GetAll()
         {
-            student.c_studentId = Convert.ToInt32(HttpContext.Session.GetInt32("UserId"));  // Set before checking ModelState
+            List<t_Student> student = new List<t_Student>();
 
-            if (ModelState.IsValid)
+            student = await _student.GetAll();
+            return student;
+        }
+        [HttpPost]
+        public async Task<ActionResult> Create([FromForm] t_Student student)
+        {
+
+            int result = await _student.Add(student);
+            if (result > 0)
             {
-                if (student.c_studentId == 0)  // New Task
-                {
-                    int result = await _student.Add(student);
-                    if (result > 0)
-                    {
-                        return RedirectToAction("List");
-                    }
-                }
-                else  // Existing Task
-                {
-                    int result = await _student.Update(student);
-                    if (result > 0)
-                    {
-                        return RedirectToAction("List");
-                    }
-                }
+                return RedirectToAction("List");
             }
+
 
             foreach (var error in ModelState)
             {
@@ -84,21 +78,38 @@ namespace StudentManagementSystem.Controllers
             List<t_Student> tasks = await _student.GetAllByUser(userId.ToString());
             return View(tasks);
         }
-        public async Task<ActionResult> Delete(string id)
-        {
 
-            int status = await _student.Delete(id);
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int id)
+        {
+            System.Console.WriteLine("Delete controller called");
+            var status = await _student.Delete(id);
             if (status == 1)
             {
                 ViewData["Message"] = "Contact Delete successfully";
-                return RedirectToAction("List", "Task");
+                // return RedirectToAction("List", "Task");
+                return Ok(status);
             }
             else
             {
                 ViewData["Message"] = "There is some error";
-                return RedirectToAction("List", "Task");
+                // return RedirectToAction("List", "Task");
+                return BadRequest();
             }
         }
+
+        public async Task<IActionResult> GetClasses()
+        {
+            var rooms = await _student.GetClasses();
+            return Ok(rooms);
+        }
+
+        public IActionResult GetSectionsByClassId(int id)
+        {
+            var Cupboard = _student.GetSectionsByClassId(id);
+            return Ok(Cupboard);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

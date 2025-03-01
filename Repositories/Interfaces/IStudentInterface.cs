@@ -13,6 +13,8 @@ namespace Repositories.Interfaces
         Task<t_Student> GetOne(string studentId);
         Task<int> Add(t_Student studentData);
         Task<int> Update(t_Student studentData);
-        Task<int> Delete(string studentid);
+        Task<int> Delete(int studentid);
+        Task<List<t_Class>> GetClasses();
+        Task<List<t_Section>> GetSectionsByClassId(int id);
     }
 }
