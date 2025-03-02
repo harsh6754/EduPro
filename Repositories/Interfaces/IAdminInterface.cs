@@ -9,7 +9,14 @@ namespace Repositories.Interfaces
 {
     public interface IAdminInterface
     {
-         Task<int> AddStudent(t_Student student); // ✅
 
+        Task<List<t_Student>> GetAll();
+        Task<List<t_Student>> GetAllByUser(string studentid);
+        Task<t_Student> GetOne(string studentId);
+        Task<int> Add(t_Student studentData);
+        Task<int> Update(t_Student studentData);
+        Task<int> Delete(int studentid);
+        Task<List<t_Class>> GetClasses();
+        Task<List<t_Section>> GetSectionsByClassId(int id);
     }
 }

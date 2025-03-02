@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "BZeO1aZfuXU=",
+  "dgSpecHash": "DH0Gf8NcNLE=",
   "success": true,
   "projectFilePath": "C:\\Users\\AS\\Desktop\\harsh\\EduPro\\Repositories\\Repositories.csproj",
   "expectedPackageFiles": [
@@ -18,5 +18,12 @@
     "C:\\Users\\AS\\.nuget\\packages\\system.buffers\\4.6.0\\system.buffers.4.6.0.nupkg.sha512",
     "C:\\Users\\AS\\.nuget\\packages\\system.text.encodings.web\\8.0.0\\system.text.encodings.web.8.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\AS\\Desktop\\harsh\\EduPro\\Repositories\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
