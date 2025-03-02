@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\Assignment\Assignment25\EduPro\Repositories\bin\Debug\net8.0\Repositories.deps.json
 C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\Assignment\Assignment25\EduPro\Repositories\bin\Debug\net8.0\Repositories.dll
 C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\Assignment\Assignment25\EduPro\Repositories\bin\Debug\net8.0\Repositories.pdb
@@ -11,6 +12,21 @@ C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\Assignment\Assignment25\EduPr
 C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\Assignment\Assignment25\EduPro\Repositories\obj\Debug\net8.0\refint\Repositories.dll
 C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\Assignment\Assignment25\EduPro\Repositories\obj\Debug\net8.0\Repositories.pdb
 C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\Assignment\Assignment25\EduPro\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+=======
+C:\Users\AS\Desktop\clone\EduPro\Repositories\bin\Debug\net8.0\Repositories.deps.json
+C:\Users\AS\Desktop\clone\EduPro\Repositories\bin\Debug\net8.0\Repositories.dll
+C:\Users\AS\Desktop\clone\EduPro\Repositories\bin\Debug\net8.0\Repositories.pdb
+C:\Users\AS\Desktop\clone\EduPro\Repositories\obj\Debug\net8.0\Repositories.csproj.AssemblyReference.cache
+C:\Users\AS\Desktop\clone\EduPro\Repositories\obj\Debug\net8.0\Repositories.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\AS\Desktop\clone\EduPro\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfoInputs.cache
+C:\Users\AS\Desktop\clone\EduPro\Repositories\obj\Debug\net8.0\Repositories.AssemblyInfo.cs
+C:\Users\AS\Desktop\clone\EduPro\Repositories\obj\Debug\net8.0\Repositories.csproj.CoreCompileInputs.cache
+C:\Users\AS\Desktop\clone\EduPro\Repositories\obj\Debug\net8.0\Repositories.sourcelink.json
+C:\Users\AS\Desktop\clone\EduPro\Repositories\obj\Debug\net8.0\Repositories.dll
+C:\Users\AS\Desktop\clone\EduPro\Repositories\obj\Debug\net8.0\refint\Repositories.dll
+C:\Users\AS\Desktop\clone\EduPro\Repositories\obj\Debug\net8.0\Repositories.pdb
+C:\Users\AS\Desktop\clone\EduPro\Repositories\obj\Debug\net8.0\ref\Repositories.dll
+>>>>>>> 87c80590f29cbe257276d98ba89a8848aed854ef
 C:\Users\AS\Desktop\harsh\EduPro\Repositories\bin\Debug\net8.0\Repositories.deps.json
 C:\Users\AS\Desktop\harsh\EduPro\Repositories\bin\Debug\net8.0\Repositories.dll
 C:\Users\AS\Desktop\harsh\EduPro\Repositories\bin\Debug\net8.0\Repositories.pdb

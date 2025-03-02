@@ -3,10 +3,11 @@ using Npgsql;
 using Repositories.Interfaces;
 using StudentManagementSystem.Models;
 
-public class AdminRepository : IAdminInterface
+public class StudentRepository : IStudentInterface
 {
+
     private readonly NpgsqlConnection _conn;
-    public AdminRepository(NpgsqlConnection connection)
+    public StudentRepository(NpgsqlConnection connection)
     {
         _conn = connection;
     }
@@ -111,53 +112,6 @@ public class AdminRepository : IAdminInterface
         return studentList;
     }
 
-    public async Task<List<t_Student>> GetAllByUser(string userid)
-    {
-        DataTable dt = new DataTable();
-        List<t_Student> studentList = new List<t_Student>();
-        _conn.Open();
-        using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_student where c_id = @c_id", _conn))
-        {
-            cm.Parameters.AddWithValue("@c_id", int.Parse(userid));
-            // Execute the reader
-            using (NpgsqlDataReader dr = await cm.ExecuteReaderAsync())
-            {
-                if (dr.HasRows)
-                {
-                    dt.Load(dr);
-                }
-                studentList = (from DataRow r in dt.Rows
-                               where r["c_userid"].ToString() == userid
-                               select new t_Student()
-                               {
-                                   c_studentId = Convert.ToInt32(r["c_id"]),
-                                   c_studentName = r["c_name"].ToString(),
-                                   c_studentEmail = r["c_email"].ToString(),
-                                   c_studentDOB = Convert.ToDateTime(r["c_dob"].ToString()),
-                                   c_studentPhone = r["c_mobile_no"].ToString(),
-                                   c_studentGender = r["c_gender"].ToString(),
-                                   c_password = r["c_password"].ToString(),
-                                   c_studentGuardianDetails = r["c_guardian_name"].ToString(),
-                                   c_studentEnrollDate = Convert.ToDateTime(r["c_enroll_date"].ToString()),
-                                   c_studentStatus = r["c_profile_pic"].ToString(),
-                                   c_studentProfile = r["c_status"].ToString(),
-                                   c_class = new t_Class
-                                   {
-                                       c_classId = Convert.ToInt32(r["c_classid"]),
-                                       c_className = r["c_className"].ToString()
-                                   },
-                                   c_Section = new t_Section
-                                   {
-                                       c_sectionId = Convert.ToInt32(r["c_sectionid"]),
-                                       c_sectionName = r["c_sectionName"].ToString(),
-                                       c_classid = Convert.ToInt32(r["c_classid"].ToString())
-                                   }
-                               }).ToList();
-            }
-        }
-        _conn.Close();
-        return studentList;
-    }
 
     public async Task<t_Student> GetOne(string studentid)
     {
@@ -218,8 +172,20 @@ public class AdminRepository : IAdminInterface
     {
         try
         {
-            using (
-            NpgsqlCommand cm = new NpgsqlCommand(@"UPDATE t_student set c_id = @c_id, c_name = @c_name,c_email=@c_email, c_dob=@c_dob, c_mobile_no=@c_mobile_no, c_gender=@c_gender, c_password = @c_password, c_classid = @c_classid, c_sectionid = @c_sectionid, c_guardian_name = @c_guardian_name, c_enroll_date = @c_enroll_date, c_profile_pic = @c_profile_pic, c_status = @c_status", _conn))
+            using (NpgsqlCommand cm = new NpgsqlCommand(@"UPDATE t_student SET 
+                c_name = @c_name, 
+                c_email = @c_email, 
+                c_dob = @c_dob, 
+                c_mobile_no = @c_mobile_no, 
+                c_gender = @c_gender, 
+                c_password = @c_password, 
+                c_classid = @c_classid, 
+                c_sectionid = @c_sectionid, 
+                c_guardian_name = @c_guardian_name, 
+                c_enroll_date = @c_enroll_date, 
+                c_profile_pic = @c_profile_pic, 
+                c_status = @c_status
+                WHERE c_id = @c_id", _conn))
             {
                 cm.Parameters.AddWithValue("@c_id", data.c_studentId);
                 cm.Parameters.AddWithValue("@c_name", data.c_studentName);
@@ -232,18 +198,19 @@ public class AdminRepository : IAdminInterface
                 cm.Parameters.AddWithValue("@c_sectionid", data.c_Section.c_sectionId);
                 cm.Parameters.AddWithValue("@c_guardian_name", data.c_studentGuardianDetails);
                 cm.Parameters.AddWithValue("@c_enroll_date", data.c_studentEnrollDate);
-                cm.Parameters.AddWithValue("@c_profile_pic", data.c_studentProfile == null ? DBNull.Value : data.c_studentProfile);
+                cm.Parameters.AddWithValue("@c_profile_pic", data.c_studentProfile ?? (object)DBNull.Value);
                 cm.Parameters.AddWithValue("@c_status", data.c_studentStatus);
-                _conn.Close();
+
                 _conn.Open();
-                cm.ExecuteNonQuery();
+                int rowsAffected = await cm.ExecuteNonQueryAsync();
                 _conn.Close();
-                return 1;
+
+                return rowsAffected;
             }
         }
         catch (Exception ex)
         {
-            System.Console.WriteLine("fuck error in contactRepository --> Update" + ex);
+            Console.WriteLine("Error in Update Student in student repository: " + ex.Message);
             return 0;
         }
     }
@@ -315,3 +282,4 @@ public class AdminRepository : IAdminInterface
     }
 
 }
+

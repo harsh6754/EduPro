@@ -583,6 +583,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Microsoft.AspNetCore.Http >= 2.3.0",
       "Npgsql >= 9.0.3",
       "Repositories >= 1.0.0"
     ]
@@ -640,6 +641,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Microsoft.AspNetCore.Http": {
+            "target": "Package",
+            "version": "[2.3.0, )"
+          },
           "Npgsql": {
             "target": "Package",
             "version": "[9.0.3, )"

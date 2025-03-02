@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v8.0": {
       "StudentManagementSystem/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Http": "2.3.0",
           "Npgsql": "9.0.3",
           "Repositories": "1.0.0"
         },

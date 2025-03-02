@@ -4,21 +4,98 @@
 }
 
 <h3>Student Tree and List</h3>
-
+<div class="container mt-4">
+    <h3>Contacts</h3>
+    <button type="button" id="btnadd" class="k-button k-button-lg k-button-solid-info" onclick="addForm()">✚</button>
+</div>
+<br>
+<div id="grid"></div>
+<span id="notification"></span>
 <div id="treeList"></div>
+<div id="myKModal">
+    <form id="contactForm"></form>
+</div>
 <div id="grid"></div>
 
+<!-- Modal for Editing Student Details -->
+<div id="editStudentModal">
+    <form id="studentForm">
+        <input type="hidden" id="studentId" />
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="studentName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="studentEmail" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Phone</label>
+            <input type="text" id="studentPhone" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" id="studentDOB" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Gender</label>
+            <select id="studentGender" class="form-control">
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Class</label>
+            <select id="studentClass" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <label>Section</label>
+            <select id="studentSection" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            <label>Profile Picture</label>
+            <input type="file" id="profilePicture" class="form-control" />
+            <img id="studentProfileImg" src="" alt="Profile" width="100" height="100" />
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" onclick="updateStudent()">Update</button>
+            <button type="button" class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+        </div>
+    </form>
+</div>
 
 @section Scripts {
-
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
     <script>
         $(document).ready(function () {
             loadStudents();
+            loadEditWindow();
         });
+        function addForm() {
+            var form = $("#studentForm").getKendoForm();
+            $("#studentForm").data("kendoForm").setOptions({
+                formData: {
+                    ContactId: "0",
+                    Name: "",
+                    Email: "",
+                    Address: "",
+                    Mobile: "",
+                    Status: "A",
+                    Group: [],
+                    Image: null
+                }
+            });
+            openModal();
+        }
+
+        function loadEditWindow() {
+            $("#editStudentModal").kendoWindow({
+                width: "600px",
+                title: "Edit Student",
+                visible: false,
+                modal: true,
+                actions: ["Close"]
+            });
+        }
 
         function loadStudents() {
             const staticPath = "../../student_images/";
@@ -27,32 +104,6 @@
                 type: 'GET',
                 success: function (response) {
                     console.log("Student Data:", response);
-
-                    const classGroups = {};
-                    const treeData = [];
-
-                    response.forEach(student => {
-                        if (!classGroups[student.c_class.c_classId]) {
-                            classGroups[student.c_class.c_classId] = {
-                                c_className: student.c_class.c_className,
-                                items: []
-                            };
-                            treeData.push(classGroups[student.c_class.c_classId]);
-                        }
-
-                        classGroups[student.c_class.c_classId].items.push({
-                            c_ContactName: `${student.c_studentName} - ${student.c_Section.c_sectionName}`
-                        });
-                    });
-
-                    $("#treeList").kendoTreeView({
-                        dataSource: treeData,
-                        dataTextField: "c_className",
-                        loadOnDemand: false,
-                        expand: function (e) {
-                            console.log("Expanded node:", e.node);
-                        }
-                    });
 
                     $("#grid").kendoGrid({
                         dataSource: {
@@ -66,8 +117,8 @@
                                         c_studentPhone: { type: "string" },
                                         c_class: { type: "object" },
                                         c_Section: { type: "object" },
-                                        c_studentEnrollDate: { type: "date" },
-                                        c_studentStatus: { type: "string" },
+                                        c_studentDOB: { type: "date" },
+                                        c_studentGender: { type: "string" },
                                         c_studentProfile: { type: "string" }
                                     }
                                 }
@@ -84,8 +135,8 @@
                             { field: "c_studentPhone", title: "Phone", width: "120px" },
                             { field: "c_class.c_className", title: "Class", width: "120px" },
                             { field: "c_Section.c_sectionName", title: "Section", width: "120px" },
-                            { field: "c_studentEnrollDate", title: "Enroll Date", format: "{0:MM/dd/yyyy}", width: "120px" },
-                            { field: "c_studentStatus", title: "Status", width: "100px" },
+                            { field: "c_studentDOB", title: "DOB", format: "{0:MM/dd/yyyy}", width: "120px" },
+                            { field: "c_studentGender", title: "Gender", width: "100px" },
                             {
                                 field: "c_studentProfile",
                                 title: "Profile",
@@ -112,13 +163,86 @@
         }
 
         function editStudent(studentId) {
-            alert("Edit function triggered for Student ID: " + studentId);
+            $.ajax({
+                url: `/Student/GetOne/${studentId}`,
+                type: 'GET',
+                success: function (response) {
+                    $("#studentId").val(response.c_studentId);
+                    $("#studentName").val(response.c_studentName);
+                    $("#studentEmail").val(response.c_studentEmail);
+                    $("#studentPhone").val(response.c_studentPhone);
+                    $("#studentDOB").val(response.c_studentDOB.split('T')[0]);
+                    $("#studentGender").val(response.c_studentGender);
+                    $("#studentProfileImg").attr("src", "../../student_images/" + response.c_studentProfile);
+
+                    loadClasses(response.c_class.c_classId);
+                    loadSections(response.c_Section.c_sectionId);
+
+                    $("#editStudentModal").data("kendoWindow").center().open();
+                },
+                error: function (xhr) {
+                    alert("Error: " + xhr.responseText);
+                }
+            });
         }
 
+        function loadClasses(selectedClassId) {
+            $.ajax({
+                url: "/Student/GetClasses",
+                type: "GET",
+                success: function (data) {
+                    let options = "<option value=''>Select Class</option>";
+                    data.forEach(cls => {
+                        options += `<option value="${cls.c_classId}" ${cls.c_classId === selectedClassId ? "selected" : ""}>${cls.c_className}</option>`;
+                    });
+                    $("#studentClass").html(options);
+                }
+            });
+        }
+
+        function loadSections(selectedSectionId) {
+            $.ajax({
+                url: "/Student/GetSections",
+                type: "GET",
+                success: function (data) {
+                    let options = "<option value=''>Select Section</option>";
+                    data.forEach(sec => {
+                        options += `<option value="${sec.c_sectionId}" ${sec.c_sectionId === selectedSectionId ? "selected" : ""}>${sec.c_sectionName}</option>`;
+                    });
+                    $("#studentSection").html(options);
+                }
+            });
+        }
+
+        function updateStudent() {
+            const formData = new FormData();
+            formData.append("c_studentId", $("#studentId").val());
+            formData.append("c_studentName", $("#studentName").val());
+            formData.append("c_studentEmail", $("#studentEmail").val());
+            formData.append("c_studentPhone", $("#studentPhone").val());
+            formData.append("c_studentDOB", $("#studentDOB").val());
+            formData.append("c_studentGender", $("#studentGender").val());
+
+            $.ajax({
+                url: "/Student/Update",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function () {
+                    alert("Student updated successfully!");
+                    $("#editStudentModal").data("kendoWindow").close();
+                    loadStudents();
+                },
+                error: function (xhr) {
+                    alert("Error updating student: " + xhr.responseText);
+                }
+            });
+        }
         function deleteStudent(studentId, studentName) {
-            if (confirm(`Are you sure you want to delete ${studentName}?`)) {
+            if (confirm(`Are you sure you want to delete ${studentName} ?`)) {
                 $.ajax({
-                    url: `/Student/Delete/${studentId}`,
+                    url: ` /Student/Delete / ${studentId}`,
                     type: "DELETE",
                     success: function () {
                         alert("Deleted successfully!");
