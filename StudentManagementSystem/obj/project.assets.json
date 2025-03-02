@@ -594,11 +594,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\EduPro\\StudentManagementSystem\\StudentManagementSystem.csproj",
+      "projectUniqueName": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\StudentManagementSystem.csproj",
       "projectName": "StudentManagementSystem",
-      "projectPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\EduPro\\StudentManagementSystem\\StudentManagementSystem.csproj",
+      "projectPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\StudentManagementSystem.csproj",
       "packagesPath": "C:\\Users\\agarw\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\EduPro\\StudentManagementSystem\\obj\\",
+      "outputPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -619,8 +619,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\EduPro\\Repositories\\Repositories.csproj": {
-              "projectPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\EduPro\\Repositories\\Repositories.csproj"
+            "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\Repositories\\Repositories.csproj": {
+              "projectPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\Repositories\\Repositories.csproj"
             }
           }
         }

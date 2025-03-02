@@ -3,6 +3,8 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert CDN added -->
+
 <div class="d-flex justify-content-center align-items-center vh-70 bg-light">
     <div class="card shadow-lg p-4" style="width: 380px; border-radius: 12px;">
         <div class="text-center">
@@ -103,6 +105,26 @@
                 }
             }
 
+             function showSuccessAlert(role) {
+                let roleText = role === "Admin" ? "Admin" : (role === "Student" ? "Student" : "Teacher");
+
+                Swal.fire({
+                    title: `${roleText} Login Successful!`,
+                    text: `Welcome back, ${roleText}!`,
+                    icon: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    if (role === "Admin") {
+                        window.location.href = "/Student/Index";
+                    } else if (role === "Student") {
+                        window.location.href = "/StudentDashboard/Index";
+                    } else if (role === "Teacher") {
+                        window.location.href = "/Teacher/Index";
+                    }
+                });
+            }
+
             function initializeForm(role) {
                 $("#login-container").empty().kendoForm({
                     formData: {
@@ -159,7 +181,8 @@
                 else if (role === "Teacher") loginUrl = "/TeacherLogin/TeacherLogins";
 
                 if (email === "admin@admin.com" && password === "123456789" && role === "Admin") {
-                    validationSuccess.show("Admin Login successful!", "success");
+                    @* validationSuccess.show("Admin Login successful!", "success"); *@
+                     showSuccessAlert(role);
                     setTimeout(() => { window.location.href = "/Student/Index"; }, 1500);
                     return;
                 }
@@ -174,22 +197,26 @@
                     success: function (result) {
                         if (result.success) {
                             let successMessage = "Login successful!"; // Default message
-
                             if (role === "Student") {
-                                successMessage = "Student Login successful!";
+                                @* successMessage = "Student Login successful!"; *@
+                                 showSuccessAlert(role);
                             } else if (role === "Teacher") {
-                                successMessage = "Teacher Login successful!";
+                                 showSuccessAlert(role);
+                                @* successMessage = "Teacher Login successful!"; *@
                             } else if (role === "Admin") {
-                                successMessage = "Admin Login successful!";
-                            }
+                                 showSuccessAlert(role);
+                                @* successMessage = "Admin Login successful!"; *@
+                            }else {
+                            Swal.fire({ title: "Error", text: result.message, icon: "error" });
+                        }
 
-                            validationSuccess.show(successMessage, "success");
+                            @* validationSuccess.show(successMessage, "success"); *@
 
                             setTimeout(() => {
                                 if (role === "Admin") {
                                     window.location.href = "/Student/Index";
                                 } else if (role === "Student") {
-                                    window.location.href = "/UserLogin/CommonLogin";
+                                    window.location.href = "/StudentDashboard/Index";
                                 } else if (role === "Teacher") {
                                     window.location.href = "/Teacher/Index";
                                 }
