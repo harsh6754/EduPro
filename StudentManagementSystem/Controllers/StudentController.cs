@@ -50,8 +50,6 @@ namespace StudentManagementSystem.Controllers
             {
                 return RedirectToAction("List");
             }
-
-
             foreach (var error in ModelState)
             {
                 Console.WriteLine($"Key: {error.Key}");
@@ -60,23 +58,52 @@ namespace StudentManagementSystem.Controllers
                     Console.WriteLine($"Error: {err.ErrorMessage}");
                 }
             }
-
             return Ok(student);
         }
 
-        public async Task<ActionResult> List()
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            int? userId = HttpContext.Session.GetInt32("UserId");
-            if (userId == null)
+            var student = await _student.GetOne(id.ToString());
+            if (student == null)
             {
-                TempData["Message"] = "Session expired. Please log in again.";
-                return RedirectToAction("Login", "Account");
+                return NotFound();
             }
 
-            string result = userId.ToString();
+            ViewBag.Classes = await _student.GetClasses(); // Fetch classes
+            ViewBag.Sections = await _student.GetSectionsByClassId(student.c_class.c_classId); // Fetch sections
 
-            List<t_Student> tasks = await _student.GetAllByUser(userId.ToString());
-            return View(tasks);
+            return View(student);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(t_Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                if (student.StudentPic != null)
+                {
+                    var filePath = Path.Combine("wwwroot/student_images", student.StudentPic.FileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await student.StudentPic.CopyToAsync(stream);
+                    }
+                    student.c_studentProfile = student.StudentPic.FileName;
+                }
+
+                int result = await _student.Update(student);
+                if (result > 0)
+                {
+                    return Ok("sucess");
+                }
+                ModelState.AddModelError("", "Failed to update student.");
+            }
+
+            ViewBag.Classes = await _student.GetClasses();
+            ViewBag.Sections = await _student.GetSectionsByClassId(student.c_class.c_classId);
+
+            return View(student);
         }
 
         [HttpDelete]
@@ -109,7 +136,6 @@ namespace StudentManagementSystem.Controllers
             var Cupboard = _student.GetSectionsByClassId(id);
             return Ok(Cupboard);
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
