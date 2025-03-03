@@ -575,11 +575,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\Repositories\\Repositories.csproj",
+      "projectUniqueName": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\Repositories\\Repositories.csproj",
       "projectName": "Repositories",
-      "projectPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\Repositories\\Repositories.csproj",
+      "projectPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\Repositories\\Repositories.csproj",
       "packagesPath": "C:\\Users\\agarw\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\Repositories\\obj\\",
+      "outputPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\Repositories\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
