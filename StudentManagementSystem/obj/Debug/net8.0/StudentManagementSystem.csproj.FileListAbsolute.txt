@@ -38,3 +38,6 @@ C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\
 C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
 C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
 C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
+C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\bin\Debug\net8.0\Razorpay.dll
+C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\bin\Debug\net8.0\BouncyCastle.Crypto.dll

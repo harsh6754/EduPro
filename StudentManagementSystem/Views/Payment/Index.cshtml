@@ -1,0 +1,109 @@
+@{
+    ViewData["Title"] = "Payment";
+    Layout = "../Shared/_StudentDashboardLayout.cshtml";
+}
+
+<h2 class="text-center mt-4 fw-bold text-primary">Make a Secure Payment</h2>
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card payment-card shadow p-4 rounded-4">
+        <div class="text-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/3502/3502608.png" alt="Education Course Payment" width="90">
+
+            <h4 class="mt-3 text-secondary fw-bold">Complete Your Payment</h4>
+            <p class="text-muted">Fast, Secure, and Reliable Transactions</p>
+        </div>
+
+        <div class="mt-4">
+            <label class="form-label fw-semibold">Enter Amount (INR)</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text bg-light"><i class="fas fa-rupee-sign"></i></span>
+                <input type="number" id="amount" class="form-control text-center border-2" value="100" min="1" />
+            </div>
+
+            <button class="btn btn-success w-100 mt-3 fw-bold py-2 shadow-sm" onclick="payNow()">
+                <i class="fas fa-lock"></i> Proceed to Pay
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Razorpay Script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function payNow() {
+            var amount = $("#amount").val();
+            if (!amount || amount <= 0) {
+                alert("Please enter a valid amount.");
+                return;
+            }
+
+            $.ajax({
+                url: '/Payment/CreateOrder',
+                type: 'POST',
+                data: { amount: amount },
+                success: function (response) {
+                    if (response.success) {
+                        let student = JSON.parse(localStorage.getItem("Student"));
+                        var options = {
+                            "key": response.key,
+                            "amount": amount * 100, // Amount in paise
+                            "currency": "INR",
+                            "order_id": response.orderId,
+                            "handler": function (paymentResponse) {
+                                verifyPayment(paymentResponse);
+                            },
+                            "prefill": {
+                                "name": student?.c_studentName || "John Doe",
+                                "email": student?.c_studentEmail || "johndoe@example.com",
+                                "contact": student?.c_studentPhone || "9999999999"
+                            },
+                            "theme": {
+                                "color": "#3399cc"
+                            }
+                        };
+                        var rzp1 = new Razorpay(options);
+                        rzp1.open();
+                    } else {
+                        alert(response.message || "Payment initiation failed.");
+                    }
+                },
+                error: function () {
+                    alert("Something went wrong. Please try again.");
+                }
+            });
+        }
+
+        function verifyPayment(paymentResponse) {
+            $.ajax({
+                url: '/Payment/VerifyPayment',
+                type: 'POST',
+                data: JSON.stringify(paymentResponse),
+                contentType: "application/json",
+                success: function (response) {
+                    if (response.success) {
+                        alert("Payment Successful!");
+                    } else {
+                        alert(response.message || "Payment verification failed.");
+                    }
+                },
+                error: function () {
+                    alert("Error verifying payment. Please contact support.");
+                }
+            });
+        }
+    </script>
+}
+
+
+
+
+@* Use the following Razorpay test card details for payment:
+
+Card Number: 4111 1111 1111 1111
+Expiry: 12/30
+CVV: 123
+OTP: 123456 *@
