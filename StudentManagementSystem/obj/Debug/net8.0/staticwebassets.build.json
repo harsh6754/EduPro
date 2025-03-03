@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ur64eTEIO39CGeZNQg/m3zCfxPGXPR9oVejleTRpAYc=",
+  "Hash": "/SbsoyqWmEaJIrHGtn0wiZJqkT5B5jDtkL2jE5dUZug=",
   "Source": "StudentManagementSystem",
   "BasePath": "_content/StudentManagementSystem",
   "Mode": "Default",
@@ -1193,6 +1193,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\AS\\Desktop\\clone\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\h@gmail.com.png",
+      "SourceId": "StudentManagementSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\AS\\Desktop\\clone\\EduPro\\StudentManagementSystem\\wwwroot\\",
+      "BasePath": "_content/StudentManagementSystem",
+      "RelativePath": "student_images/h@gmail.com.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\student_images\\h@gmail.com.png"
     }
   ]
 }

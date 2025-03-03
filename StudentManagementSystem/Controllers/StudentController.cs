@@ -34,7 +34,7 @@ namespace StudentManagementSystem.Controllers
             return Ok(student);
         }
         [HttpGet]
-        public async Task<List<t_Student>> GetAll()
+        public async Task<List<t_Student>> StudentList()
         {
             List<t_Student> student = new List<t_Student>();
 
@@ -44,21 +44,41 @@ namespace StudentManagementSystem.Controllers
         [HttpPost]
         public async Task<ActionResult> Create([FromForm] t_Student student)
         {
-
-            int result = await _student.Add(student);
-            if (result > 0)
+            System.Console.WriteLine("create is called");
+            if (student.StudentPic != null && student.StudentPic.Length > 0)
             {
-                return RedirectToAction("List");
-            }
-            foreach (var error in ModelState)
-            {
-                Console.WriteLine($"Key: {error.Key}");
-                foreach (var err in error.Value.Errors)
+                var fileName = student.c_studentEmail + Path.GetExtension(student.StudentPic.FileName);
+                var filePath = Path.Combine("../StudentManagementSystem/wwwroot/student_images", fileName);
+                Directory.CreateDirectory(Path.Combine("../StudentManagementSystem/wwwroot/student_images"));
+                student.c_studentProfile = fileName;
+                System.IO.File.Delete(filePath);
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    Console.WriteLine($"Error: {err.ErrorMessage}");
+                    student.StudentPic.CopyTo(stream);
                 }
             }
-            return Ok(student);
+            var result = 0;
+            if (student.c_studentId == 0)
+            {
+                result = await _student.Add(student);
+                if (result > 0)
+                {
+                    return Ok(student);
+                }
+            }
+            else
+            {
+                result = await _student.Update(student);
+            }
+            if (result == 0)
+            {
+                return BadRequest(new { success = false, message = "There was some error while adding the contact" });
+            }
+            else
+            {
+                return Ok(new { success = true, message = "contact Insterted Successfully!!!!!" });
+            }
+
         }
 
         [HttpGet]
@@ -73,7 +93,7 @@ namespace StudentManagementSystem.Controllers
             ViewBag.Classes = await _student.GetClasses(); // Fetch classes
             ViewBag.Sections = await _student.GetSectionsByClassId(student.c_class.c_classId); // Fetch sections
 
-            return View(student);
+            return Ok(student);
         }
 
 
@@ -130,6 +150,11 @@ namespace StudentManagementSystem.Controllers
             var rooms = await _student.GetClasses();
             return Ok(rooms);
         }
+        public async Task<IActionResult> GetAllSections()
+        {
+            var rooms = await _student.GetClasses();
+            return Ok(rooms);
+        }
 
         public IActionResult GetSectionsByClassId(int id)
         {
@@ -137,10 +162,7 @@ namespace StudentManagementSystem.Controllers
             return Ok(Cupboard);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
-        }
+
+
     }
 }

@@ -1,126 +1,102 @@
 @{
-    ViewData["Title"] = "Student List";
+    ViewData["Title"] = "Home Page";
     Layout = "../Shared/_AdminLayout.cshtml";
 }
-
-<h3>Student Tree and List</h3>
-
+<h3>Tree and Group List</h3>
 <div id="treeList"></div>
 <div id="grid"></div>
-
 <script>
     $(document).ready(function () {
-        loadStudents();
+        loadTree();
     });
-
-    function loadStudents() {
+    function loadTree() {
         const staticPath = "../../student_images/";
         $.ajax({
-            url: "./Student/List",
+            url: "./Student/GetAll",
             type: 'GET',
             success: function (response) {
-                console.log("Student Data:", response);
-
-                const classGroups = {};
-                const treeData = [];
-
-                response.forEach(student => {
-                    if (!classGroups[student.c_class.c_classId]) {
-                        classGroups[student.c_class.c_classId] = {
-                            c_className: student.c_class.c_className,
-                            items: []
+                console.log(response);
+                const groupedData = [];
+                const userGroups = {};
+                response.forEach(item => {
+                    if (!userGroups[item.c_studentId]) {
+                        // Create a parent node for each unique c_UserId (User Name as Title)
+                        userGroups[item.c_UserId] = {
+                            c_ContactName: ` ${item.c_ContactName} (User ID: ${item.c_UserId})`,
+                            items: [] // Store child contacts
                         };
-                        treeData.push(classGroups[student.c_class.c_classId]);
-                    }
-
-                    classGroups[student.c_class.c_classId].items.push({
-                        c_ContactName: `${student.c_studentName} - ${student.c_Section.c_sectionName}`
+                        }
+                        // Add the contact as a child node
+                        userGroups[item.c_UserId].items.push({
+                            c_ContactName: ` ${item.c_ContactName} - ${item.c_Mobile || 'No Mobile'}`,
+                        });
                     });
-                });
-
+                    
                 $("#treeList").kendoTreeView({
-                    dataSource: treeData,
-                    dataTextField: "c_className",
-                    loadOnDemand: false,
+                    dataSource: groupedData,
+                    dataTextField: "c_Name",
+                    loadOnDemand: false, // Load all nodes initially
                     expand: function (e) {
                         console.log("Expanded node:", e.node);
                     }
                 });
-
                 $("#grid").kendoGrid({
                     dataSource: {
                         data: response,
+                        group: [
+                            { field: "c_UserName" } // Grouping by UserId and UserName
+                        ],
                         schema: {
                             model: {
                                 fields: {
-                                    c_studentId: { type: "number" },
-                                    c_studentName: { type: "string" },
-                                    c_studentEmail: { type: "string" },
-                                    c_studentPhone: { type: "string" },
-                                    c_class: { type: "object" },
-                                    c_Section: { type: "object" },
-                                    c_studentEnrollDate: { type: "date" },
-                                    c_studentStatus: { type: "string" },
-                                    c_studentProfile: { type: "string" }
+                                    c_ContactId: { type: "number" },
+                                    c_ContactName: { type: "string" },
+                                    c_Email: { type: "string" },
+                                    c_Mobile: { type: "string" },
+                                    c_Address: { type: "string" },
+                                    c_Status: { type: "string" },
+                                    c_Group: { type: "string" },
+                                    c_Image: { type: "string" }
                                 }
                             }
                         },
-                        pageSize: 5
+                        pageSize: 4
                     },
-                    height: 500,
+                    height: 400,
                     pageable: true,
                     sortable: true,
                     filterable: true,
                     columns: [
-                        { field: "c_studentName", title: "Student Name", width: "150px" },
-                        { field: "c_studentEmail", title: "Email", width: "150px" },
-                        { field: "c_studentPhone", title: "Phone", width: "120px" },
-                        { field: "c_class.c_className", title: "Class", width: "120px" },
-                        { field: "c_Section.c_sectionName", title: "Section", width: "120px" },
-                        { field: "c_studentEnrollDate", title: "Enroll Date", format: "{0:MM/dd/yyyy}", width: "120px" },
-                        { field: "c_studentStatus", title: "Status", width: "100px" },
+                        { field: "c_UserName", title: "UserName", },
                         {
-                            field: "c_studentProfile",
-                            title: "Profile",
-                            template: `<img src='${staticPath}#=c_studentProfile#' alt='Profile' style='width:50px;height:50px;border-radius:50%;' />`,
+                            title: "Edit",
+                            template: `<button class='k-button k-button-lg k-button-solid-info' onclick='editData(#=c_ContactId#)'>&hellip;</button>`,
+                            width: 50
+                        },
+                        { field: "c_ContactName", title: "Name", width: "150px" },
+                        { field: "c_Email", title: "Email", width: "100px" },
+                        { field: "c_Mobile", title: "Mobile", width: "80px" },
+                        { field: "c_Address", title: "Address", width: "200px" },
+                        { field: "c_Status", title: "Status", width: "200px" },
+                        { field: "c_Group", title: "Group", width: "200px" },
+                        {
+                            field: "c_Image",
+                            title: "Image",
+                            template: `<img src='${staticPath}#=c_Image#' alt='Profile Image' style='width:50px;height:50px;border-radius:50%;' />`,
                             width: 100
                         },
                         {
-                            title: "Edit",
-                            template: `<button class='k-button k-button-lg k-button-solid-info' onclick='editStudent(#=c_studentId#)'>&hellip;</button>`,
-                            width: 50
-                        },
-                        {
                             title: "Delete",
-                            template: `<button class='k-button k-button-lg k-button-solid-error' onclick='deleteStudent(#=c_studentId#,"#=c_studentName#")'>✘</button>`,
+                            template: `<button class='k-button k-button-lg k-button-solid-error' onclick='deleteData(#=c_ContactId#,"#=c_ContactName#")'>✘</button>`,
                             width: 70
                         }
                     ]
                 });
             },
-            error: function (xhr) {
-                console.error("Error loading students:", xhr.responseText);
+            error: function (xhr, status, error) {
+                $('#responseMessage').addClass("alert alert-danger");
+                $('#responseMessage').text('Error: ' + xhr.responseText);
             }
         });
-    }
-
-    function editStudent(studentId) {
-        alert("Edit function triggered for Student ID: " + studentId);
-    }
-
-    function deleteStudent(studentId, studentName) {
-        if (confirm(`Are you sure you want to delete ${studentName}?`)) {
-            $.ajax({
-                url: `./Student/Delete/${studentId}`,
-                type: "DELETE",
-                success: function () {
-                    alert("Deleted successfully!");
-                    loadStudents();
-                },
-                error: function (xhr) {
-                    alert("Error: " + xhr.responseText);
-                }
-            });
-        }
     }
 </script>

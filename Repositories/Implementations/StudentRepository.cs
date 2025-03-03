@@ -23,8 +23,8 @@ public class StudentRepository : IStudentInterface
             cm.Parameters.AddWithValue("@c_mobile_no", data.c_studentPhone);
             cm.Parameters.AddWithValue("@c_gender", data.c_studentGender);
             cm.Parameters.AddWithValue("@c_password", data.c_password);
-            cm.Parameters.AddWithValue("@c_classid", data.c_class.c_classId);
-            cm.Parameters.AddWithValue("@c_sectionid", data.c_Section.c_sectionId);
+            cm.Parameters.AddWithValue("@c_classid", data.c_class?.c_classId ?? (object)DBNull.Value);
+            cm.Parameters.AddWithValue("@c_sectionid", data.c_Section?.c_sectionId ?? (object)DBNull.Value);
             cm.Parameters.AddWithValue("@c_guardian_name", data.c_studentGuardianDetails);
             cm.Parameters.AddWithValue("@c_enroll_date", data.c_studentEnrollDate);
             cm.Parameters.AddWithValue("@c_profile_pic", data.c_studentProfile == null ? DBNull.Value : data.c_studentProfile);
@@ -37,7 +37,7 @@ public class StudentRepository : IStudentInterface
         }
         catch (Exception ex)
         {
-            System.Console.WriteLine("Add karvama problem chhe, repository ---> add" + ex);
+            System.Console.WriteLine("Add karvama problem chhe, repository ---> add" + ex.Message);
             return 0;
         }
     }
@@ -104,7 +104,7 @@ public class StudentRepository : IStudentInterface
                            {
                                c_sectionId = Convert.ToInt32(r["c_sectionid"]),
                                c_sectionName = r["c_sectionName"].ToString(),
-                               c_classid = Convert.ToInt32(r["c_classid"].ToString())
+                               c_classId = Convert.ToInt32(r["c_classid"].ToString())
                            }
 
                        }).ToList();
@@ -157,7 +157,7 @@ public class StudentRepository : IStudentInterface
                         {
                             c_sectionId = Convert.ToInt32(r["c_sectionid"]),
                             c_sectionName = r["c_sectionName"].ToString(),
-                            c_classid = Convert.ToInt32(r["c_classid"].ToString())
+                            c_classId = Convert.ToInt32(r["c_classid"].ToString())
                         }
                     };
                 }
@@ -269,7 +269,7 @@ public class StudentRepository : IStudentInterface
                   {
                       c_sectionId = Convert.ToInt32(r["c_sectionid"]),
                       c_sectionName = r["c_sectionName"].ToString(),
-                      c_classid = Convert.ToInt32(r["c_classid"].ToString())
+                      c_classId = Convert.ToInt32(r["c_classid"].ToString())
                   }
             ).ToList();
             _conn.Close();
