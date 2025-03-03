@@ -183,6 +183,14 @@
             return;
         }
 
+        if(role === "Admin" && email === "admin@admin.com" && password === "admin") {
+            showSuccessAlert(role);
+            setTimeout(() => {
+                window.location.href = "/AdminDashboard/Index";
+            }, 1500);
+            return;
+        }
+
         // Define login URLs based on role
         const loginUrls = {
             "Admin": "/UserLogin/AdminLogin",
@@ -208,7 +216,7 @@
                     showSuccessAlert(role);
                     setTimeout(() => {
                         const dashboardUrls = {
-                            "Admin": "/Student/Index",
+                            "Admin": "/AdminDashboard/Index",   
                             "Student": "/StudentDashboard/Index",
                             "Teacher": "/TeacherDashboard/Index"
                         };
@@ -226,11 +234,6 @@
         });
     });
 });
-
-
-
-
-
             // Clear form fields on button click
             $(document).on("click", "#clear-btn", function () {
                 initializeForm("Admin"); // Reset to default Admin role

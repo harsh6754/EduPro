@@ -18,6 +18,26 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/AddExamTimetable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcQWRkRXhhbVRpbWV0YWJsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/DisplayAllETable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcRGlzcGxheUFsbEVUYWJsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/EditExamTimetable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcRWRpdEV4YW1UaW1ldGFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/ExamTimeTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcRXhhbVRpbWVUYWJsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -32,6 +52,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Shared/_AdminDashboardLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkRhc2hib2FyZExheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Shared/_StudentDashboardLayout.cshtml]
@@ -60,10 +84,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/StudentDashboard/UpComingExam.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudERhc2hib2FyZFxVcENvbWluZ0V4YW0uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Student/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/TeacherDashboard/Index.cshtml]

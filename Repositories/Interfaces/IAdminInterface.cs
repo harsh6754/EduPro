@@ -2,21 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Repositories.Models;
 using StudentManagementSystem.Models;
-
 
 namespace Repositories.Interfaces
 {
     public interface IAdminInterface
     {
-
-        Task<List<t_Student>> GetAll();
-        Task<List<t_Student>> GetAllByUser(string studentid);
-        Task<t_Student> GetOne(string studentId);
-        Task<int> Add(t_Student studentData);
-        Task<int> Update(t_Student studentData);
-        Task<int> Delete(int studentid);
-        Task<List<t_Class>> GetClasses();
-        Task<List<t_Section>> GetSectionsByClassId(int id);
+        Task<List<t_Exam>> GetAllETimetableData();
+        Task<t_Exam> GetETimetableData(int classid);
+        Task<int> Update(t_Exam exam);
+        Task<int> Add(t_Exam  examVM);
+        Task<int> Delete(int classid);
+        Task<List<t_Class>> GetAllClass();
     }
 }

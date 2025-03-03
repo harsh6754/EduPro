@@ -29,6 +29,7 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .navbar {
@@ -48,7 +49,7 @@
             color: white;
             padding: 10px;
             transition: width 0.3s;
-            overflow: hidden;
+            overflow-y: auto;
         }
 
         .sidebar-header {
@@ -93,62 +94,64 @@
             flex-grow: 1;
             padding: 20px;
             transition: margin-left 0.3s;
+            height: calc(100vh - 70px); /* Ensure it fills remaining space */
+    overflow-y: auto; /* Enable scrolling only for content */
         }
 
         .collapsed {
             width: 60px !important;
         }
 
-        .collapsed + #main-content {
+        .collapsed+#main-content {
             margin-left: 60px !important;
         }
 
         .sidebar-menu li {
-    list-style: none;
-    margin: 10px 0;
-}
+            list-style: none;
+            margin: 10px 0;
+        }
 
-.sidebar-menu li a {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    text-decoration: none;
-    color: black;
-    font-size: 16px;
-    position: relative;
-    border-radius: 5px;
-}
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            position: relative;
+            border-radius: 5px;
+        }
 
-.sidebar-menu li a.active {
-    background: white;
-    border: 2px solid black;
-    padding: 10px 15px;
-    font-weight: bold;
-    border-radius: 30px; /* Oval effect */
-    position: relative;
-}
+        .sidebar-menu li a.active {
+            background: white;
+            border: 2px solid black;
+            padding: 10px 15px;
+            font-weight: bold;
+            border-radius: 30px;
+            /* Oval effect */
+            position: relative;
+        }
 
-.sidebar-menu li a.active::before,
-.sidebar-menu li a.active::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 15px;
-    height: 20px;
-    background: white;
-    border: 2px solid black;
-    border-radius: 50%;
-}
+        .sidebar-menu li a.active::before,
+        .sidebar-menu li a.active::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 20px;
+            background: white;
+            border: 2px solid black;
+            border-radius: 50%;
+        }
 
-.sidebar-menu li a.active::before {
-    left: -10px;
-}
+        .sidebar-menu li a.active::before {
+            left: -10px;
+        }
 
-.sidebar-menu li a.active::after {
-    right: -10px;
-}
-
+        .sidebar-menu li a.active::after {
+            right: -10px;
+        }
     </style>
 </head>
 <body>
@@ -169,6 +172,7 @@
             <div class="sidebar-header">
                 <span id="user-avatar"></span>
             </div>
+             <h1 style="display: flex; justify-content: center; align-items: center;">Student</h1>
             <ul class="sidebar-menu">
                 <li class="nav-item">
                     <a class="nav-link text-white" asp-controller="StudentDashboard" asp-action="Index">

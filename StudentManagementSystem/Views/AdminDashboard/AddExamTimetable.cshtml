@@ -1,0 +1,115 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h3 class="text-center text-primary mb-4">Upload Exam Timetable</h3>
+        <div id="validation-success" class="mb-3"></div>
+        
+        <form id="e-form" class="d-flex flex-column gap-3">
+            <div class="form-group">
+                <label class="fw-bold">Exam Timetable</label>
+                <input type="file" id="img" name="Image" class="form-control border-primary shadow-sm" required />
+            </div>
+
+            <div class="form-group">
+                <label class="fw-bold">Select Class</label>
+                <input id="classes-dropdown" name="Classes" required />
+            </div>
+
+            <div class="d-flex justify-content-center mt-3 gap-3">
+                <button type="submit" class="btn btn-success btn-lg shadow-sm">Submit</button>
+                <button type="reset" class="btn btn-warning btn-lg shadow-sm">Clear</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const validationSuccess = $('#validation-success');
+        loadClasses();
+
+        $("#classes-dropdown").kendoDropDownList({
+            optionLabel: "Select Class",
+            dataSource: [],
+            dataTextField: "text",
+            dataValueField: "value",
+            filter: "contains",
+            height: 200
+        });
+
+        $("#e-form").kendoForm({
+            validateable: {
+                validateOnBlur: true,
+                validationSummary: false,
+                errorTemplate: '<span class="k-error"></span>'
+            },
+            submit: function (e) {
+                e.preventDefault();
+                validationSuccess.html("");
+
+                const formData = new FormData();
+                const fileInput = $('#img')[0].files[0];
+                const selectedClass = $("#classes-dropdown").data("kendoDropDownList").value();
+
+                if (fileInput) formData.append("Image", fileInput);
+                if (selectedClass) formData.append("CClassId", selectedClass);
+
+                $.ajax({
+                    url: "/AdminDashboard/AddExamTimetable",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            window.location.href = "/AdminDashboard/DisplayAllETable";
+                        } else {
+                            showErrorMessage(response.message);
+                        }
+                    },
+                    error: function (xhr) {
+                        showErrorMessage(xhr.responseText);
+                    }
+                });
+            },
+            clear: function () {
+                validationSuccess.html("");
+                $('#img').val('');
+                $("#classes-dropdown").data("kendoDropDownList").value("");
+            }
+        });
+
+        function loadClasses() {
+            $.ajax({
+                url: "/AdminDashboard/GetClasses",
+                type: "GET",
+                success: function (response) {
+                    var dropdown = $("#classes-dropdown").data("kendoDropDownList");
+                    dropdown.setDataSource({
+                        data: response.map(c => ({ text: c.c_className, value: c.c_classId }))
+                    });
+                },
+                error: function (xhr) {
+                    showErrorMessage(xhr.responseText);
+                }
+            });
+        }
+
+        function showErrorMessage(message) {
+            validationSuccess.html(`<div class='alert alert-danger'><strong>Error:</strong> ${message}</div>`);
+        }
+    });
+</script>
+
+<style>
+    .container {
+        max-width: 600px;
+    }
+    .card {
+        border-radius: 15px;
+    }
+</style>

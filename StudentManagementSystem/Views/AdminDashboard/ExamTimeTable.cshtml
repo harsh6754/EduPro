@@ -1,0 +1,66 @@
+@* @{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+@if (Context.Session.GetInt32("ClassId") == 0)
+{
+    @Url.Action("Index", "Home")
+    ;
+}
+<h1>Exam Timetable</h1>
+<div class="responsemessage"></div>
+<div class="container">
+    <div class="image">
+        <img id="img" style="height:40rem;width:40rem;object-fit:fill"></img>
+    </div>
+    <div id="deletebtn">
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Home/DisplayETable",
+            type: "GET",
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                console.log(response)
+                if (response.cClassId == 0) {
+                    window.location.href = "./AddExamTimetable";
+                }
+                $('#img').attr("src", `../../exam_timetable/${response.cImage}`);
+                $('#deletebtn').append(`<button id="delete" onclick="deleteTable(${response.cClassId})" class="k-button k-button-lg k-button-solid-error mt-5">Delete</button>`);
+                $('#responsemessage').addClass("k-messagebox k-messagebox-success");
+                $('#responsemessage').text(response.message);
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                $('#responsemessage').addClass("k-messagebox k-messagebox-error");
+                $('#responsemessage').text(xhr.responseText);
+            }
+        })
+    })
+    function deleteTable (id) {
+        $.ajax({
+            url: `/Home/DeletExamTimetable/${id}`,
+            type: "POST",
+            success: function (response) {
+                console.log(response);
+                if (response.success) {
+                    window.location.href = "/Home/ExamTimeTable";
+                    $('#responsemessage').addClass("k-messagebox k-messagebox-success");
+                    $('#responsemessage').text(response.message);
+                } else {
+                    $('#responsemessage').addClass("k-messagebox k-messagebox-error");
+                    $('#responsemessage').text(response.message);
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                $('#responsemessage').addClass("k-messagebox k-messagebox-error");
+                $('#responsemessage').text(xhr.responseText);
+            }
+        })
+    }
+</script> *@ 

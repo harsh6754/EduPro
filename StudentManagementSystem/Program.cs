@@ -12,7 +12,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ITeacherRating, TeacherRatingRepository>();
 builder.Services.AddScoped<IUserLoginInterface, UserLoginRepository>(); 
-builder.Services.AddScoped<IAdminInterface, AdminRepository>(); 
+builder.Services.AddScoped<IAdminInterface,AdminDashboardRepository>();
 builder.Services.AddScoped<NpgsqlConnection>(provider =>
 {
     var configuration = provider.GetRequiredService<IConfiguration>();

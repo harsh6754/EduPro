@@ -1,8 +1,112 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@* @{
+    ViewData["Title"] = "Student Management";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-primary fw-bold">Student Management System</h1>
+        <p class="text-muted fs-5">A seamless way to manage student records, attendance, and more.</p>
+    </div>
+
+    <!-- Kendo UI Slider -->
+    <div id="slider-container" class="mb-5">
+        <div id="image-slider"></div>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-lg p-3">
+                <div class="card-body text-center">
+                    <i class="k-icon k-i-user text-primary fs-1"></i>
+                    <h5 class="card-title mt-2">Student Profiles</h5>
+                    <p class="card-text">Easily manage student details, grades, and attendance.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-lg p-3">
+                <div class="card-body text-center">
+                    <i class="k-icon k-i-calendar text-success fs-1"></i>
+                    <h5 class="card-title mt-2">Attendance Tracking</h5>
+                    <p class="card-text">Monitor and analyze student attendance patterns.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-lg p-3">
+                <div class="card-body text-center">
+                    <i class="k-icon k-i-folder text-danger fs-1"></i>
+                    <h5 class="card-title mt-2">Assignments & Reports</h5>
+                    <p class="card-text">Manage student assignments and generate performance reports.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-5">
+        <button id="learn-more" class="k-button k-primary k-button-lg">Get Started</button>
+    </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        // Kendo Image Slider
+        $("#image-slider").kendoSlider({
+            increaseButtonTitle: "Next",
+            decreaseButtonTitle: "Previous",
+            min: 1,
+            max: 3,
+            smallStep: 1,
+            largeStep: 1,
+            change: function (e) {
+                changeSliderImage(e.value);
+            }
+        });
+
+        function changeSliderImage(value) {
+            const images = [
+                "https://source.unsplash.com/900x400/?education,students",
+                "https://source.unsplash.com/900x400/?school,classroom",
+                "https://source.unsplash.com/900x400/?teacher,learning"
+            ];
+            $("#slider-container").css("background", `url(${images[value - 1]}) center/cover`);
+        }
+
+        changeSliderImage(1);
+
+        // Button Click Event
+        $("#learn-more").click(function () {
+            alert("Explore more features coming soon!");
+        });
+    });
+</script>
+
+<style>
+    .container {
+        max-width: 900px;
+    }
+
+    #slider-container {
+        height: 300px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .k-button-lg {
+        padding: 12px 24px;
+    }
+</style> *@
