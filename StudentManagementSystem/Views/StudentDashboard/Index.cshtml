@@ -3,9 +3,10 @@
     Layout = "../Shared/_StudentDashboardLayout.cshtml";
 }
 
-
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://kendo.cdn.telerik.com/2024.1.119/js/kendo.all.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode"></script> <!-- QR Code Scanner Library -->
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2024.1.119/styles/kendo.default-v2.min.css">
 
 <div id="studentProfileCard" class="k-card k-card-flat">
     <div class="k-card-body">
@@ -43,12 +44,24 @@
         </div>
 
         <button id="editProfileBtn" class="k-button k-primary">Edit Profile</button>
+
+        <!-- QR Code Generation -->
+        <div class="qr-section">
+            <h4>Scan QR Code to Verify</h4>
+            <div id="qrcode"></div>
+        </div>
+
+        <!-- Real-Time QR Scanner -->
+        <div class="qr-section">
+            <h4>Scan Your QR Code</h4>
+            <div id="qr-reader" class="qr-reader-box"></div>
+            <p id="scanStatus" class="k-text-secondary"></p>
+        </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        // Fetch student data from session storage
         let studentData = sessionStorage.getItem("Student");
 
         if (studentData) {
@@ -63,26 +76,96 @@
             $("#studentEnrollDate").text(new Date(studentData.c_studentEnrollDate).toLocaleDateString());
             $("#studentStatus").text(studentData.c_studentStatus);
 
-            // Profile image fallback
             let profileImg = studentData.c_studentProfile || "default-profile.png";
             $("#studentProfilePic").attr("src", profileImg);
+
+            // Generate QR Code with student email
+            $("#qrcode").kendoQRCode({
+                value: studentData.c_studentEmail,
+                size: 200
+            });
+
+            let html5QrCode; // Declare globally for stop functionality
+
+            // Initialize Real-Time QR Scanner
+            function startQRScanner() {
+                if (!html5QrCode) {
+                    html5QrCode = new Html5Qrcode("qr-reader");
+                }
+
+                html5QrCode.start(
+                    { facingMode: "environment" }, // Use rear camera
+                    {
+                        fps: 10,  // Scans per second
+                        qrbox: { width: 250, height: 250 }
+                    },
+                    function (decodedText) {
+                        verifyQRCode(decodedText);
+                    },
+                    function (errorMessage) {
+                        console.log("QR Scanner Error: ", errorMessage);
+                    }
+                ).catch(err => {
+                    console.log("Unable to start scanner: ", err);
+                });
+            }
+
+            function stopQRScanner() {
+                if (html5QrCode) {
+                    html5QrCode.stop().then(() => {
+                        $("#qr-reader").hide(); // Hide the scanner div
+                        console.log("QR Scanner stopped successfully.");
+                    }).catch(err => {
+                        console.log("Error stopping scanner: ", err);
+                    });
+                }
+            }
+
+            function verifyQRCode(scannedData) {
+                if (scannedData === studentData.c_studentEmail) {
+                    Swal.fire({
+                        title: "Student Verified",
+                        text: "Your account is verified successfully!",
+                        icon: "success",
+                        confirmButtonText: "OK"
+                    }).then(() => {
+                        $("#qrcode").addClass("blur-effect");
+                        stopQRScanner(); // Stop scanner on verification
+                        $("#scanStatus").text("Verified ✅").css("color", "green");
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Verification Failed",
+                        text: "Invalid QR Code!",
+                        icon: "error",
+                        confirmButtonText: "Retry"
+                    });
+                }
+            }
+
+            // Conditionally start scanner only if not verified
+            if (studentData.c_studentStatus !== "Verified") {
+                startQRScanner();
+            }
+
         } else {
             kendo.alert("No student data found in session storage.");
         }
 
         // Kendo Button Click Event
-       $("#editProfileBtn").kendoButton({
-    click: function () {
-        Swal.fire({
-            title: "Edit Profile",
-            text: "Edit profile feature coming soon!",
-            icon: "info",
-            confirmButtonText: "OK"
+        $("#editProfileBtn").kendoButton({
+            click: function () {
+                Swal.fire({
+                    title: "Edit Profile",
+                    text: "Edit profile feature coming soon!",
+                    icon: "info",
+                    confirmButtonText: "OK"
+                });
+            }
         });
-    }
-});
     });
 </script>
+
 
 <style>
     .k-card {
@@ -93,9 +176,11 @@
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
     }
+
     .profile-header {
         margin-bottom: 20px;
     }
+
     .profile-pic {
         width: 120px;
         height: 120px;
@@ -104,13 +189,24 @@
         border: 3px solid #0073e6;
         box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
     }
+
     .k-row {
         display: flex;
         justify-content: space-between;
         padding: 10px 0;
         border-bottom: 1px solid #ddd;
     }
-    .k-row:last-child {
-        border-bottom: none;
+
+    .qr-section {
+        margin-top: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .blur-effect {
+        filter: blur(5px);
+        transition: filter 0.5s ease-in-out;
     }
 </style>
