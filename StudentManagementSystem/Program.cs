@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
+builder.Services.AddScoped<ITeacherRating, TeacherRatingRepository>();
 builder.Services.AddScoped<IUserLoginInterface, UserLoginRepository>(); 
 builder.Services.AddScoped<IAdminInterface, AdminRepository>(); 
 builder.Services.AddScoped<NpgsqlConnection>(provider =>

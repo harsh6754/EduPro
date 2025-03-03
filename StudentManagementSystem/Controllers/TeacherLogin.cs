@@ -39,7 +39,12 @@ namespace StudentManagementSystem.Controllers
                     HttpContext.Session.SetString("T_Name", teacherData.T_Name);
 
                     _logger.LogInformation("User {TeacherId} logged in successfully.", teacherData.TeacherId);
-                    return Json(new { success = true, message = "Teacher Login Successful" });
+                    return Json(new { 
+                    success = true, 
+                    message = "Teacher Login Successful",
+                    teacherData = teacherData,
+                    role = "Teacher"
+                    });
                 }
                 else
                 {

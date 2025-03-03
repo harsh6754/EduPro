@@ -105,44 +105,55 @@
 
         // Handle form submission
         $("#loginform").on("submit", function (e) {
-            e.preventDefault();
+    e.preventDefault();
 
-            let email = $("#Email").val();
-            let password = $("#Password").val();
-            let role = $("#Role").val();
+    let email = $("#Email").val();
+    let password = $("#Password").val();
+    let role = $("#Role").val();
 
-            let loginUrl = "/UserLogin/CommonLogin";
-            if (role === "Student") loginUrl = "/UserLogin/CommonLogin";
-            else if (role === "Teacher") loginUrl = "/TeacherLogin/TeacherLogins";
+    let loginUrl = "/UserLogin/CommonLogin";
+    if (role === "Student") loginUrl = "/UserLogin/CommonLogin";
+    else if (role === "Teacher") loginUrl = "/TeacherLogin/TeacherLogins";
 
-            if (email === "admin@admin.com" && password === "123456789" && role === "Admin") {
+    if (email === "admin@admin.com" && password === "123456789" && role === "Admin") {
+        validationSuccess.show("Login successful!", "success");
+
+        // Store in sessionStorage
+        sessionStorage.setItem("UserRole", role);
+        sessionStorage.setItem("UserEmail", email);
+
+        setTimeout(() => { window.location.href = "/Student/Index"; }, 1500);
+        return;
+    } 
+
+    var LoginData = $(this).serialize();
+
+    $.ajax({
+        url: "http://localhost:5194/TeacherLogin/TeacherLogins",
+        method: "POST",
+        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+        data: LoginData,
+        success: function (result) {
+            if (result.success) {
                 validationSuccess.show("Login successful!", "success");
-                setTimeout(() => { window.location.href = "/Student/Index"; }, 1500);
-                return;
-            } 
-            
-            var LoginData = $(this).serialize();
+                console.log(result);
 
-            $.ajax({
-                url: "http://localhost:5194/TeacherLogin/TeacherLogins",
-                method: "POST",
-                headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                data: LoginData,
-                success: function (result) {
-                    if (result.success) {
-                        validationSuccess.show("Login successful!", "success");
-                        setTimeout(() => {
-                             window.location.href = "/Teacher/Index";
-                        }, 1500);
-                    } else {
-                        validationSuccess.show(result.message, "error");
-                    }
-                },
-                error: function () {
-                    validationSuccess.show("Something went wrong. Please try again.", "error");
-                }
-            });
-        });
+                // Store Teacher details in sessionStorage
+              sessionStorage.setItem("Teacher", JSON.stringify(result.teacherData));
+
+                setTimeout(() => {
+                    window.location.href = "/TeacherDashboard/Index";
+                }, 1500);
+            } else {
+                validationSuccess.show(result.message, "error");
+            }
+        },
+        error: function () {
+            validationSuccess.show("Something went wrong. Please try again.", "error");
+        }
+    });
+});
+
 
         // Clear form fields on button click
         $("#clear-btn").on("click", function () {

@@ -26,36 +26,51 @@ namespace StudentManagementSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CommonLogin(t_Login Login)
+public async Task<IActionResult> CommonLogin(t_Login Login)
+{
+    if (!ModelState.IsValid)
+    {
+        return Json(new { success = false, message = "Invalid input data." });
+    }
+
+    try
+    {
+        var studentData = await _userLogin.Login(Login);
+        if (studentData != null && studentData.c_studentId != 0)
         {
-            if (!ModelState.IsValid)
-            {
-                return Json(new { success = false, message = "Invalid input data." });
-            }
+            // Store data in session
+            HttpContext.Session.SetInt32("StudentId", studentData.c_studentId);
+            HttpContext.Session.SetString("StudentName", studentData.c_studentName);
+            HttpContext.Session.SetString("StudentEmail", studentData.c_studentEmail);
+            HttpContext.Session.SetString("UserRole", "Student");
 
-            try
-            {
-                var studentData = await _userLogin.Login(Login);
-                if (studentData != null && studentData.c_studentId != 0)
-                {
-                    HttpContext.Session.SetInt32("StudentId", studentData.c_studentId);
-                    HttpContext.Session.SetString("StudentName", studentData.c_studentName);
+            _logger.LogInformation("User {StudentId} logged in successfully.", studentData.c_studentId);
 
-                    _logger.LogInformation("User {StudentId} logged in successfully.", studentData.c_studentId);
-                    return Json(new { success = true, message = "Login Successful" });
-                }
-                else
-                {
-                    _logger.LogWarning("Login attempt failed for email: {Email}",Login.c_StudentEmail);
-                    return Json(new { success = false, message = "Username or password incorrect" });
-                }
-            }
-            catch (Exception ex)
+            // Return data to be stored in sessionStorage on frontend
+            return Json(new
             {
-                _logger.LogError(ex, "An error occurred during login for email: {Email}", Login.c_StudentEmail);
-                return Json(new { success = false, message = "An error occurred. Please try again later." });
-            }
+                success = true,
+                message = "Login Successful",
+                studentData = studentData,
+                // studentId = studentData.c_studentId,
+                // studentName = studentData.c_studentName,
+                // email = studentData.c_studentEmail,
+                role = "Student"
+            });
         }
+        else
+        {
+            _logger.LogWarning("Login attempt failed for email: {Email}", Login.c_StudentEmail);
+            return Json(new { success = false, message = "Username or password incorrect" });
+        }
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "An error occurred during login for email: {Email}", Login.c_StudentEmail);
+        return Json(new { success = false, message = "An error occurred. Please try again later." });
+    }
+}
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
