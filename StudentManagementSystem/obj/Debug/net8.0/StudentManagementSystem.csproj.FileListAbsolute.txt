@@ -21,7 +21,6 @@ C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\
 C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cache
 C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.RazorAssemblyInfo.cs
-C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.sourcelink.json
 C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.StudentManagementSystem.Microsoft.AspNetCore.StaticWebAssets.props

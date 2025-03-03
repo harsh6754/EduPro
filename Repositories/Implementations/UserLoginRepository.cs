@@ -27,6 +27,9 @@ namespace Repositories.Implementations
                 {
                     cmd.Parameters.AddWithValue("@c_email", Login.c_StudentEmail);
                     cmd.Parameters.AddWithValue("@c_password", Login.c_password);
+
+                    t_Class t_class = new t_Class();
+                    t_Section t_section = new t_Section();
                     await _connection.OpenAsync();
                     var reader = await cmd.ExecuteReaderAsync();
                     if (reader.Read())
@@ -41,6 +44,13 @@ namespace Repositories.Implementations
                         studentData.c_studentEnrollDate = Convert.ToDateTime(reader["c_enroll_date"]);
                         studentData.c_studentProfile = (string)reader["c_profile_pic"];
                         studentData.c_studentStatus = (string)reader["c_status"];
+                        studentData.c_class = new t_Class{
+                            c_classId = (int)reader["c_classid"]
+                        };
+
+                        studentData.c_section = new t_Section{
+                            c_sectionId = (int)reader["c_sectionid"]
+                        };
                     }
                 }
             }

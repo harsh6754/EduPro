@@ -41,8 +41,7 @@ namespace StudentManagementSystem.Models
         public string c_studentGender { get; set; }
 
         public t_Class? c_class { get; set; }
-        public t_Section? c_Section { get; set; }
-
+        public t_Section? c_section { get; set; }
 
         [Required(ErrorMessage = "Please enter Student Guardian Details")]
         [Display(Name = "Student Guardian Details")]
