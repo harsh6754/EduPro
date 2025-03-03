@@ -1,0 +1,241 @@
+@{
+    ViewData["Title"] = "Login";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert CDN added -->
+
+<div class="d-flex justify-content-center align-items-center vh-70 bg-light">
+    <div class="card shadow-lg p-4" style="width: 380px; border-radius: 12px;">
+        <div class="text-center">
+            <h3 class="fw-bold mb-3">Welcome Back!</h3>
+            <p class="text-muted">Please login to your account</p>
+        </div>
+        <form id="loginform" method="post">
+            @Html.AntiForgeryToken() <!-- CSRF Token -->
+            <div id="login-container"></div> <!-- Kendo UI Form will be rendered here -->
+        </form>
+    </div>
+</div>
+
+<div id="validation-success"></div>
+
+<style>
+    .container {
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        margin: auto;
+    }
+
+    .k-textbox,
+    .k-dropdown {
+        width: 90% !important;
+    }
+</style>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const validationSuccess = $("#validation-success").kendoNotification({
+                stacking: "down",
+                autoHideAfter: 3000
+            }).data("kendoNotification");
+
+            function getFormFields(role) {
+                if (role === "Teacher") {
+                    return [
+                        {
+                            field: "T_Email",
+                            label: "Email Address:",
+                            validation: {
+                                required: { message: "Please enter your email address." },
+                                email: { message: "Please enter a valid email address." }
+                            },
+                            editor: function (container) {
+                                $('<input type="email" id="Email" name="T_Email" class="k-textbox" placeholder="Enter your email" />')
+                                    .appendTo(container)
+                                    .kendoTextBox();
+                            }
+                        },
+                        {
+                            field: "T_PasswordHash",
+                            label: "Password:",
+                            validation: { required: { message: "Please enter your password." } },
+                            editor: function (container) {
+                                $('<input type="password" id="Password" name="T_PasswordHash" class="k-textbox w-100" placeholder="Enter your password" />')
+                                    .appendTo(container)
+                                    .kendoTextBox();
+                            }
+                        }
+                    ];
+                } else {
+                    return [
+                        {
+                            field: "c_StudentEmail",
+                            label: "Email Address:",
+                            validation: {
+                                required: { message: "Please enter your email address." },
+                                email: { message: "Please enter a valid email address." }
+                            },
+                            editor: function (container) {
+                                $('<input type="email" id="Email" name="c_StudentEmail" class="k-textbox" placeholder="Enter your email" />')
+                                    .appendTo(container)
+                                    .kendoTextBox();
+                            }
+                        },
+                        {
+                            field: "c_password",
+                            label: "Password:",
+                            validation: { required: { message: "Please enter your password." } },
+                            editor: function (container) {
+                                $('<input type="password" id="Password" name="c_password" class="k-textbox w-100" placeholder="Enter your password" />')
+                                    .appendTo(container)
+                                    .kendoTextBox();
+                            }
+                        }
+                    ];
+                }
+            }
+
+             function showSuccessAlert(role) {
+                let roleText = role === "Admin" ? "Admin" : (role === "Student" ? "Student" : "Teacher");
+
+                Swal.fire({
+                    title: `${roleText} Login Successful!`,
+                    text: `Welcome back, ${roleText}!`,
+                    icon: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    if (role === "Admin") {
+                        window.location.href = "/Student/Index";
+                    } else if (role === "Student") {
+                        window.location.href = "/StudentDashboard/Index";
+                    } else if (role === "Teacher") {
+                        window.location.href = "/Teacher/Index";
+                    }
+                });
+            }
+
+            function initializeForm(role) {
+                $("#login-container").empty().kendoForm({
+                    formData: {
+                        c_StudentEmail: "",
+                        c_password: "",
+                        T_Email: "",
+                        T_PasswordHash: "",
+                        c_role: role
+                    },
+                    validatable: {
+                        validateOnBlur: true,
+                        validationSummary: false,
+                        errorTemplate: "<span class='k-form-error'>#:message#</span>"
+                    },
+                    items: [
+                        {
+                            field: "c_role",
+                            label: "Role:",
+                            editor: function (container) {
+                                $('<select id="Role" name="c_role" class="k-dropdown w-100"></select>')
+                                    .appendTo(container)
+                                    .kendoDropDownList({
+                                        dataSource: ["Admin", "Student", "Teacher"],
+                                        value: role,
+                                        change: function (e) {
+                                            initializeForm(this.value());
+                                        }
+                                    });
+                            }
+                        },
+                        ...getFormFields(role)
+                    ],
+                    buttonsTemplate: `
+                        <div class="d-flex flex-row gap-3 mt-3" style="justify-content: space-between;">
+                            <button type="submit" class="k-button k-button-lg k-button-solid-primary w-100">Login</button>
+                            <button type="button" id="clear-btn" class="k-button k-button-lg k-button-outline-base w-100">Clear</button>
+                        </div>
+                    `
+                });
+            }
+
+            initializeForm("Admin"); // Initialize form with default role
+
+            // Handle form submission
+            $(document).ready(function () {
+    $("#loginform").on("submit", function (e) {
+        e.preventDefault();
+
+        let email = $("#Email").val().trim();
+        let password = $("#Password").val().trim();
+        let role = $("#Role").val().trim();
+        let token = $('input[name="__RequestVerificationToken"]').val();
+
+        if (!email || !password || !role) {
+            Swal.fire({ title: "Error", text: "All fields are required!", icon: "error" });
+            return;
+        }
+
+        // Define login URLs based on role
+        const loginUrls = {
+            "Admin": "/UserLogin/AdminLogin",
+            "Student": "/UserLogin/CommonLogin",
+            "Teacher": "/TeacherLogin/TeacherLogins"
+        };
+
+        let loginUrl = loginUrls[role] || "/UserLogin/CommonLogin"; // Default to Student login if role is unknown
+
+        let loginData = $(this).serialize();
+
+        $.ajax({
+            url: loginUrl,
+            method: "POST",
+            headers: { "RequestVerificationToken": token },
+            data: loginData,
+            success: function (result) {
+                console.log(result);
+
+                if (result.success) {
+                    sessionStorage.setItem(role, JSON.stringify(result[`${role.toLowerCase()}Data`]));
+                    
+                    showSuccessAlert(role);
+                    setTimeout(() => {
+                        const dashboardUrls = {
+                            "Admin": "/Student/Index",
+                            "Student": "/StudentDashboard/Index",
+                            "Teacher": "/TeacherDashboard/Index"
+                        };
+
+                        window.location.href = dashboardUrls[role] || "/"; // Default to home if role is unknown
+                    }, 1500);
+                } else {
+                    Swal.fire({ title: "Error", text: result.message, icon: "error" });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Login Error:", error);
+                Swal.fire({ title: "Error", text: "Something went wrong. Please try again.", icon: "error" });
+            }
+        });
+    });
+});
+
+
+
+
+
+            // Clear form fields on button click
+            $(document).on("click", "#clear-btn", function () {
+                initializeForm("Admin"); // Reset to default Admin role
+                validationSuccess.hide();
+            });
+        });
+    </script>
+}
