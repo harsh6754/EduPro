@@ -15,7 +15,7 @@ namespace Repositories.Implementations
             _connection = connection;
         }
 
-        public async Task<List<TeacherInfo>> GetTeachersByClassIdAsync(int studentId)
+        public async Task<List<TeacherInfo>> GetTeachersByClassIdAsync(int classId)
 {
     var teachers = new List<TeacherInfo>();
     await _connection.OpenAsync();
@@ -29,7 +29,7 @@ WHERE s.c_id = @StudentId;
 
     using (var cmd = new NpgsqlCommand(query, _connection))
     {
-        cmd.Parameters.AddWithValue("studentId", studentId);
+        cmd.Parameters.AddWithValue("studentId", classId);
         using (var reader = await cmd.ExecuteReaderAsync())
         {
             while (await reader.ReadAsync())
