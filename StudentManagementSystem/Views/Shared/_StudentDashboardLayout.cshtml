@@ -102,6 +102,53 @@
         .collapsed + #main-content {
             margin-left: 60px !important;
         }
+
+        .sidebar-menu li {
+    list-style: none;
+    margin: 10px 0;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.sidebar-menu li a.active {
+    background: white;
+    border: 2px solid black;
+    padding: 10px 15px;
+    font-weight: bold;
+    border-radius: 30px; /* Oval effect */
+    position: relative;
+}
+
+.sidebar-menu li a.active::before,
+.sidebar-menu li a.active::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 20px;
+    background: white;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+.sidebar-menu li a.active::before {
+    left: -10px;
+}
+
+.sidebar-menu li a.active::after {
+    right: -10px;
+}
+
     </style>
 </head>
 <body>
@@ -170,6 +217,10 @@
 
     <script>
         $(document).ready(function () {
+             $(".sidebar-menu li a").click(function () {
+        $(".sidebar-menu li a").removeClass("active"); // Remove active from all
+        $(this).addClass("active"); // Add active class to clicked item
+    });
             $("#user-avatar").kendoAvatar({
                 type: "image",
                 image: "https://via.placeholder.com/50", // Replace with actual user image URL

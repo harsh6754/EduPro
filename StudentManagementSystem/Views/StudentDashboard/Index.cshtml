@@ -2,11 +2,10 @@
     ViewData["Title"] = "Student Dashboard";
     Layout = "../Shared/_StudentDashboardLayout.cshtml";
 }
-@{
-    ViewBag.Title = "Student Profile";
-}
 
-<h2 class="k-header">Student Profile</h2>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <div id="studentProfileCard" class="k-card k-card-flat">
     <div class="k-card-body">
@@ -72,11 +71,16 @@
         }
 
         // Kendo Button Click Event
-        $("#editProfileBtn").kendoButton({
-            click: function () {
-                kendo.alert("Edit profile feature coming soon!");
-            }
+       $("#editProfileBtn").kendoButton({
+    click: function () {
+        Swal.fire({
+            title: "Edit Profile",
+            text: "Edit profile feature coming soon!",
+            icon: "info",
+            confirmButtonText: "OK"
         });
+    }
+});
     });
 </script>
 
