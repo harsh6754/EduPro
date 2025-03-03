@@ -173,6 +173,28 @@
           }
         }
       },
+      "Microsoft.Win32.SystemEvents/9.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "Npgsql/9.0.3": {
         "type": "package",
         "dependencies": {
@@ -196,6 +218,31 @@
         },
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Drawing.Common/9.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "9.0.2"
+        },
+        "compile": {
+          "lib/net8.0/System.Drawing.Common.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/net8.0/System.Private.Windows.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Drawing.Common.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/net8.0/System.Private.Windows.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Text.Encodings.Web/8.0.0": {
@@ -503,6 +550,38 @@
         "microsoft.net.http.headers.nuspec"
       ]
     },
+    "Microsoft.Win32.SystemEvents/9.0.2": {
+      "sha512": "5BkGZ6mHp2dHydR29sb0fDfAuqkv30AHtTih8wMzvPZysOmBFvHfnkR2w3tsc0pSiIg8ZoKyefJXWy9r3pBh0w==",
+      "type": "package",
+      "path": "microsoft.win32.systemevents/9.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Win32.SystemEvents.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Win32.SystemEvents.targets",
+        "lib/net462/Microsoft.Win32.SystemEvents.dll",
+        "lib/net462/Microsoft.Win32.SystemEvents.xml",
+        "lib/net8.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/net8.0/Microsoft.Win32.SystemEvents.xml",
+        "lib/net9.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/net9.0/Microsoft.Win32.SystemEvents.xml",
+        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.xml",
+        "microsoft.win32.systemevents.9.0.2.nupkg.sha512",
+        "microsoft.win32.systemevents.nuspec",
+        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll",
+        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.xml",
+        "runtimes/win/lib/net9.0/Microsoft.Win32.SystemEvents.dll",
+        "runtimes/win/lib/net9.0/Microsoft.Win32.SystemEvents.xml",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "Npgsql/9.0.3": {
       "sha512": "tPvY61CxOAWxNsKLEBg+oR646X4Bc8UmyQ/tJszL/7mEmIXQnnBhVJZrZEEUv0Bstu0mEsHZD5At3EO8zQRAYw==",
       "type": "package",
@@ -538,6 +617,48 @@
         "lib/netstandard2.0/System.Buffers.xml",
         "system.buffers.4.6.0.nupkg.sha512",
         "system.buffers.nuspec"
+      ]
+    },
+    "System.Drawing.Common/9.0.2": {
+      "sha512": "JU947wzf8JbBS16Y5EIZzAlyQU+k68D7LRx6y03s2wlhlvLqkt/8uPBrjv2hJnnaJKbdb0GhQ3JZsfYXhrRjyg==",
+      "type": "package",
+      "path": "system.drawing.common/9.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Drawing.Common.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Drawing.Common.targets",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net462/System.Drawing.Common.dll",
+        "lib/net462/System.Drawing.Common.pdb",
+        "lib/net462/System.Drawing.Common.xml",
+        "lib/net8.0/System.Drawing.Common.dll",
+        "lib/net8.0/System.Drawing.Common.pdb",
+        "lib/net8.0/System.Drawing.Common.xml",
+        "lib/net8.0/System.Private.Windows.Core.dll",
+        "lib/net8.0/System.Private.Windows.Core.xml",
+        "lib/net9.0/System.Drawing.Common.dll",
+        "lib/net9.0/System.Drawing.Common.pdb",
+        "lib/net9.0/System.Drawing.Common.xml",
+        "lib/net9.0/System.Private.Windows.Core.dll",
+        "lib/net9.0/System.Private.Windows.Core.xml",
+        "lib/netstandard2.0/System.Drawing.Common.dll",
+        "lib/netstandard2.0/System.Drawing.Common.pdb",
+        "lib/netstandard2.0/System.Drawing.Common.xml",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "system.drawing.common.9.0.2.nupkg.sha512",
+        "system.drawing.common.nuspec",
+        "useSharedDesignerContext.txt"
       ]
     },
     "System.Text.Encodings.Web/8.0.0": {
@@ -584,27 +705,28 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "Npgsql >= 9.0.3",
-      "Repositories >= 1.0.0"
+      "Repositories >= 1.0.0",
+      "System.Drawing.Common >= 9.0.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\agarw\\.nuget\\packages\\": {},
+    "C:\\Users\\AMBAN\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\StudentManagementSystem\\StudentManagementSystem.csproj",
+      "projectUniqueName": "C:\\Users\\AMBAN\\OneDrive\\Desktop\\EduTrackPro\\EduPro\\studentmanagementsystem\\StudentManagementSystem.csproj",
       "projectName": "StudentManagementSystem",
-      "projectPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\StudentManagementSystem\\StudentManagementSystem.csproj",
-      "packagesPath": "C:\\Users\\agarw\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\StudentManagementSystem\\obj\\",
+      "projectPath": "C:\\Users\\AMBAN\\OneDrive\\Desktop\\EduTrackPro\\EduPro\\studentmanagementsystem\\StudentManagementSystem.csproj",
+      "packagesPath": "C:\\Users\\AMBAN\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\AMBAN\\OneDrive\\Desktop\\EduTrackPro\\EduPro\\studentmanagementsystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\agarw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\AMBAN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -619,8 +741,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\Repositories\\Repositories.csproj": {
-              "projectPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\Repositories\\Repositories.csproj"
+            "C:\\Users\\AMBAN\\OneDrive\\Desktop\\EduTrackPro\\EduPro\\Repositories\\Repositories.csproj": {
+              "projectPath": "C:\\Users\\AMBAN\\OneDrive\\Desktop\\EduTrackPro\\EduPro\\Repositories\\Repositories.csproj"
             }
           }
         }
@@ -643,6 +765,10 @@
           "Npgsql": {
             "target": "Package",
             "version": "[9.0.3, )"
+          },
+          "System.Drawing.Common": {
+            "target": "Package",
+            "version": "[9.0.2, )"
           }
         },
         "imports": [

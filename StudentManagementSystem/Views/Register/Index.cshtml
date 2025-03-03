@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Teacher Registration</title>
+
+    <!-- ✅ Kendo UI Styles & Scripts (Uncommented) -->
+    @* <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2024.1.120/styles/kendo.default-v2.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2024.1.120/js/kendo.all.min.js"></script> *@
+
+</head>
+<body>
+
+    <div id="wizard"></div>
+
+    <script>
+      $(document).ready(function () {
+    $("#wizard").kendoWizard({
+        steps: [
+            {
+                label: "Step 1: Personal Details",
+                content: `
+                    <form id="step1">
+                        <label>Full Name:</label>
+                        <input id="fullName" class="k-textbox" style="width: 100%;" required><br><br>
+                        
+                        <label>Email:</label>
+                        <input id="email" type="email" class="k-textbox" style="width: 100%;" required><br><br>
+
+                        <label>Password:</label>
+                        <input id="password" type="password" class="k-textbox" style="width: 100%;" required><br><br>
+
+                        <label>Phone Number:</label>
+                        <input id="phone" class="k-maskedtextbox" style="width: 100%;" data-mask="(000) 000-0000"><br><br>
+
+                        <label>Date of Birth:</label>
+                        <input id="dob" style="width: 100%;"><br><br>
+                    </form>
+                `
+            },
+            {
+                label: "Step 2: Qualifications",
+                content: `
+                    <form id="step2">
+                        <label>Qualification:</label>
+                        <input id="qualification" style="width: 100%;"><br><br>
+
+                        <label>Experience (Years):</label>
+                        <input id="experience" style="width: 100%;"><br><br>
+
+                        <label>Subject Expertise:</label>
+                        <select id="subjects" multiple="multiple" style="width: 100%;"></select><br><br>
+                    </form>
+                `
+            },
+            {
+                label: "Step 3: Security Check",
+                content: `
+                    <form id="step3">
+                        <label>Captcha Verification:</label>
+                        <div class="captcha-container">
+                            <img id="captchaImage" src="" alt="Captcha" />
+                            <button type="button" id="refreshCaptcha" class="k-button">↻</button>
+                        </div>
+                        <input id="captchaInput" class="k-textbox" style="width: 100%;" placeholder="Enter Captcha" required>
+                        <input type="hidden" id="captchaId">
+
+                          <button id="submitBtn" class="k-button k-primary">Submit</button>
+                    </form>
+                `
+            },
+            
+        ]
+    });
+
+    // ✅ Initialize Kendo Components
+    $("#dob").kendoDatePicker();
+    $("#phone").kendoMaskedTextBox({ mask: "(00) 000-0000" });
+    $("#qualification").kendoDropDownList({
+        dataSource: ["B.Ed", "M.Ed", "PhD", "MSc", "MA"],
+        optionLabel: "Select Qualification..."
+    });
+    $("#experience").kendoSlider({
+        min: 0, max: 50, smallStep: 1, largeStep: 5
+    });
+    $("#subjects").kendoMultiSelect({
+        dataSource: ["Math", "Physics", "Chemistry", "Biology", "Computer Science"],
+        placeholder: "Select Subjects..."
+    });
+
+    // ✅ Load CAPTCHA on Page Load
+    function loadCaptcha() {
+        $.get("/captcha/generate", function (data) {
+            $("#captchaImage").attr("src", data.CaptchaImage);
+            $("#captchaId").val(data.CaptchaId);
+        });
+    }
+    loadCaptcha();
+
+    // ✅ Validate CAPTCHA
+    function validateCaptcha() {
+        var isValid = false;
+        var captchaId = $("#captchaId").val();
+        var captchaInput = $("#captchaInput").val().trim();
+
+        if (!captchaInput) {
+            alert("Please enter the CAPTCHA.");
+            return false;
+        }
+
+        $.ajax({
+            url: "/captcha/validate",
+            method: "POST",
+            async: false,
+            contentType: "application/json",
+            data: JSON.stringify({ CaptchaId: captchaId, CaptchaInput: captchaInput }),
+            success: function (response) {
+                isValid = response.success;
+                if (!isValid) {
+                    alert("Invalid CAPTCHA. Try again.");
+                    loadCaptcha();
+                }
+            },
+            error: function (xhr) {
+                console.error("Captcha validation error:", xhr.responseText);
+                alert("Error validating CAPTCHA. Please try again.");
+                loadCaptcha();
+            }
+        });
+
+        return isValid;
+    }
+
+    // ✅ Refresh CAPTCHA
+    $("#refreshCaptcha").click(function () {
+        loadCaptcha();
+    });
+
+    // ✅ Submit Button Click
+    $("#submitBtn").click(function (e) {
+        e.preventDefault();
+        debugger;
+
+        if (!validateCaptcha()) return; // Stop submission if CAPTCHA fails
+
+        var teacherData = {
+            T_Name: $("#fullName").val(),
+            T_Email: $("#email").val(),
+            T_PasswordHash: $("#password").val(),
+            T_MobileNumber: $("#phone").val(),
+            T_DateOfBirth: $("#dob").val(),
+            T_Qualification: $("#qualification").val(),
+            T_Experience: $("#experience").val(),
+            T_ExpertSubject: $("#subjects").val() ? $("#subjects").val().toString() : "",
+            T_Class_Id: $("#className").length ? $("#className").val() : 0, // ✅ Fixed potential issue
+            T_SubjectId: $("#subjectDropdown").length ? $("#subjectDropdown").val() : 0 // ✅ Fixed potential issue
+        };
+
+        // ✅ Convert T_MobileNumber to valid number
+        teacherData.T_MobileNumber = teacherData.T_MobileNumber.replace(/\D/g, ""); // Remove non-numeric characters
+        teacherData.T_MobileNumber = Number(teacherData.T_MobileNumber);
+
+        if (teacherData.T_DateOfBirth) {
+            let dob = new Date(teacherData.T_DateOfBirth);
+            teacherData.T_DateOfBirth = dob.toISOString().split("T")[0]; // Extract YYYY-MM-DD
+        }
+
+        console.log("Fixed Teacher Data Sent:", teacherData);
+
+        $.ajax({
+            url: "./Register/RegisterTeacher",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(teacherData),
+            success: function (response) {
+                console.log("Success Response:", response);
+                if (response.success) {
+                    alert(response.message);
+                    window.location.href = "/Dashboard/Index";
+                } else {
+                    alert("Error: " + response.message);
+                }
+            },
+            error: function (xhr) {
+                console.error("AJAX Error:", error, xhr.responseText);
+                alert("Server error: " + xhr.responseText);
+            }
+        });
+    });
+});
+
+    </script>
+
+</body>
+</html>

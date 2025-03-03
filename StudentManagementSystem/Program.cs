@@ -1,7 +1,21 @@
 using Npgsql;
+using Repositories.Implementations;
+using Repositories.Interfaces;
+using StudentManagementSystem.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ✅ Register Repository
+builder.Services.AddScoped<ITeacherInterface, TeacherRepository>();
+
+
+builder.Services
+    .AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        // This stops System.Text.Json from converting property names to camelCase
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<NpgsqlConnection>(provider =>

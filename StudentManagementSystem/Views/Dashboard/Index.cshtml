@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Teacher Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .k-card {
+            width: 220px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            text-align: center;
+        }
+
+        .card-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-body {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <div id="menu"></div>
+
+    <!-- Dashboard -->
+    <div class="dashboard-container">
+        <!-- Assigned Students -->
+        <div class="card">
+            <h3>Assigned Students</h3>
+            <div id="students"></div>
+        </div>
+
+        <!-- Upcoming Classes -->
+        <div class="card">
+            <h3>Upcoming Classes</h3>
+            <div id="classSchedule"></div>
+        </div>
+
+        <!-- Recent Uploads -->
+        <div class="card">
+            <h3>Recent Uploads</h3>
+            <div id="fileManager"></div>
+        </div>
+
+        <!-- Performance Analytics -->
+        <div class="card">
+            <h3>Performance Analytics</h3>
+            <div id="analyticsChart"></div>
+        </div>
+    </div>
+
+    <!-- Notifications & Alerts -->
+    <div id="notifications"></div>
+
+    <script>
+        $(document).ready(function () {
+            // ✅ Menu Navigation
+            $("#menu").kendoMenu({
+                dataSource: [
+                    { text: "Dashboard" },
+                    { text: "Classes", items: [{ text: "Schedule" }, { text: "Assignments" }] },
+                    { text: "Uploads", items: [{ text: "Materials" }, { text: "Notes" }] }
+                ]
+            });
+
+            function loadStudents() {
+                $.ajax({
+                    url: "/Dashboard/GetStudentsByTeacher", // Ensure this matches your controller route
+                    type: "GET",
+                    success: function (response) {
+                        if (response.success) {
+                            $("#students").kendoListView({
+                                dataSource: {
+                                    data: response.data
+                                },
+                                template: `
+                                <div class="k-card">
+                                    <div class="card-header">#: c_studentName #</div>
+                                    <div class="card-body">Class ID: #: c_classId #</div>
+                                </div>
+                            `
+                            });
+                        } else {
+                            $("#students").html("<p>No students found.</p>");
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error fetching students:", xhr.responseText);
+                        $("#students").html("<p>Error loading students.</p>");
+                    }
+                });
+            }
+
+            // ✅ Load Students on Page Load
+            loadStudents();
+
+            function loadUpcomingClasses() {
+                $.ajax({
+                    url: "/Dashboard/GetUpcomingClasses",
+                    type: "GET",
+                    success: function (response) {
+                        if (response.success) {
+                            $("#classSchedule").kendoListView({
+                                dataSource: {
+                                    data: response.data
+                                },
+                                template: `
+                        <div class="k-card">
+                            <div class="card-header">Subject ID: #: SubjectId #</div>
+                            <div class="card-body">
+                                Time: #: StartTime  # - #: EndTime # <br>
+                                Weekday: #: Weekday #
+                            </div>
+                        </div>
+                    `
+                            });
+                        } else {
+                            $("#classSchedule").html("<p>No upcoming classes.</p>");
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error fetching classes:", xhr.responseText);
+                        $("#classSchedule").html("<p>Error loading classes.</p>");
+                    }
+                });
+            }
+            loadUpcomingClasses();
+
+            // ✅ File Manager for Uploads
+            $("#fileManager").kendoFileManager({
+                dataSource: {
+                    transport: {
+                        read: function (options) {
+                            options.success([
+                                { name: "Lecture1.pdf", size: "2MB" },
+                                { name: "Homework.docx", size: "1MB" }
+                            ]);
+                        }
+                    }
+                }
+            });
+
+            // ✅ Performance Analytics (Pie & Bar Charts)
+            $("#analyticsChart").kendoChart({
+                title: { text: "Student Performance" },
+                series: [
+                    { type: "pie", data: [{ category: "Pass", value: 70 }, { category: "Fail", value: 30 }] }
+                ]
+            });
+
+            // ✅ Real-time Notifications
+            $("#notifications").kendoNotification();
+            var notify = $("#notifications").data("kendoNotification");
+            notify.show("Welcome to Teacher Dashboard!", "info");
+        });
+    </script>
+
+</body>
+
+</html>

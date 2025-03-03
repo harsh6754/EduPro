@@ -569,23 +569,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\agarw\\.nuget\\packages\\": {},
+    "C:\\Users\\AMBAN\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\Repositories\\Repositories.csproj",
+      "projectUniqueName": "C:\\Users\\AMBAN\\OneDrive\\Desktop\\EduTrackPro\\EduPro\\Repositories\\Repositories.csproj",
       "projectName": "Repositories",
-      "projectPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\Repositories\\Repositories.csproj",
-      "packagesPath": "C:\\Users\\agarw\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\agarw\\OneDrive\\Desktop\\Casepoint\\Training\\Assignment\\Assignment25\\Repositories\\obj\\",
+      "projectPath": "C:\\Users\\AMBAN\\OneDrive\\Desktop\\EduTrackPro\\EduPro\\Repositories\\Repositories.csproj",
+      "packagesPath": "C:\\Users\\AMBAN\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\AMBAN\\OneDrive\\Desktop\\EduTrackPro\\EduPro\\Repositories\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\agarw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\AMBAN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
