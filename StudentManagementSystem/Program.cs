@@ -14,6 +14,7 @@ builder.Services.AddScoped<ITeacherInterface, TeacherRepository>();
 builder.Services.AddScoped<ITeacherRating, TeacherRatingRepository>();
 builder.Services.AddScoped<IUserLoginInterface, UserLoginRepository>(); 
 builder.Services.AddScoped<IAdminInterface,AdminDashboardRepository>();
+builder.Services.AddScoped<IStudentInterface,StudentRepository>();
 builder.Services.AddScoped<NpgsqlConnection>(provider =>
 {
     var configuration = provider.GetRequiredService<IConfiguration>();

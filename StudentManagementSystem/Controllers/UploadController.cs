@@ -52,7 +52,7 @@ namespace mvc.Controllers
             try
             {
                 // Ensure Upload Directory Exists
-                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "StudentManagementSystem/wwwroot", "Teaching_Material");
+                string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Teaching_Material");
                 if (!Directory.Exists(uploadsFolder))
                 {
                     Directory.CreateDirectory(uploadsFolder);

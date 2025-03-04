@@ -43,6 +43,10 @@ namespace StudentManagementSystem.Models
         public t_Class? c_class { get; set; }
         public t_Section? c_section { get; set; }
 
+        // public t_Section? c_Section { get; set; }
+        
+        // public int t_section_id{get;set;}
+
         [Required(ErrorMessage = "Please enter Student Guardian Details")]
         [Display(Name = "Student Guardian Details")]
         public string c_studentGuardianDetails { get; set; }

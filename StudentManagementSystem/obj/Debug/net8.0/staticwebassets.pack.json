@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\image\\d25e0db1-0dab-4d1e-ab6a-3bc18b853c51.jpg",
+      "PackagePath": "staticwebassets\\image\\d25e0db1-0dab-4d1e-ab6a-3bc18b853c51.jpg"
+    },
+    {
       "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
@@ -267,6 +271,18 @@
     {
       "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\kendo\\kendo.default-v2.min.css",
       "PackagePath": "staticwebassets\\lib\\kendo\\kendo.default-v2.min.css"
+    },
+    {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\agrawalharsh1008@gmail.com.jpg",
+      "PackagePath": "staticwebassets\\student_images\\agrawalharsh1008@gmail.com.jpg"
+    },
+    {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\agrawalharsh101@gmail.com.jpg",
+      "PackagePath": "staticwebassets\\student_images\\agrawalharsh101@gmail.com.jpg"
+    },
+    {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\agrawalharsh10281@gmail.com.jpg",
+      "PackagePath": "staticwebassets\\student_images\\agrawalharsh10281@gmail.com.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.StudentManagementSystem.Microsoft.AspNetCore.StaticWebAssets.props",

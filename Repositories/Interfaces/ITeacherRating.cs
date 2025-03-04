@@ -12,5 +12,7 @@ namespace Repositories.Interfaces
     Task<t_TeacherRating> InsertTeacherRatingAsync(int c_stud_id, int c_teacher_id, int c_rating);
     Task<t_material> GetLatestUploadedFile();
 
+    Task<t_Exam> GetAllETimetableData(int classid);
+    
     }
 }
