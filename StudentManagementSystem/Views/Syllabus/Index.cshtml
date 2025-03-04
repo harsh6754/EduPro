@@ -1,0 +1,235 @@
+@{
+    ViewData["Title"] = "Syllabus Page";
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kendo UI Form</title>
+
+    <!-- ✅ Include Kendo UI Styles & Scripts -->
+    @* <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2024.1.120/styles/kendo.default-v2.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2024.1.120/js/kendo.all.min.js"></script> *@
+</head>
+
+<body>
+
+    <div class="container" style="width: 50%; margin: auto; padding: 20px;">
+        <h2>Syllabus Complete Form</h2>
+
+        <form id="classForm">
+            <!-- Class Dropdown -->
+            <label for="classDropdown">Select Class:</label>
+            <input id="classDropdown" required />
+
+            <!-- Subject Dropdown -->
+            <label for="subjectDropdown">Select Subject:</label>
+            <input id="subjectDropdown" required />
+
+            <!-- MultiSelect for Topics -->
+            <label for="topicMultiSelect">Select Topics:</label>
+            <input id="topicMultiSelect" name="topicMultiSelect" />
+
+            <!-- DatePicker -->
+            <label for="datePicker">Select Date:</label>
+            <input id="datePicker" required />
+
+            <!-- Submit Button -->
+            <button type="submit" class="k-button k-primary" style="margin-top: 10px;">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            console.log("✅ Page Loaded. Initializing Kendo UI components...");
+
+            // ✅ Initialize Class Dropdown
+            var classDropdown = $("#classDropdown").kendoDropDownList({
+                dataTextField: "c_className",
+                dataValueField: "c_classId",
+                optionLabel: "Select Class",
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "/Syllabus/GetClassName/8",
+                            dataType: "json"
+                        }
+                    }
+                },
+                change: function () {
+                    var selectedClassId = this.value();
+                    console.log("📌 Class Selected:", selectedClassId);
+
+                    if (selectedClassId) {
+                        loadSubjects(selectedClassId);
+                    } else {
+                        subjectDropdown.setDataSource([]);
+                        subjectDropdown.value("");
+                        subjectDropdown.refresh();
+                    }
+                }
+            }).data("kendoDropDownList");
+
+            // ✅ Initialize Subject Dropdown (Initially Empty)
+            var subjectDropdown = $("#subjectDropdown").kendoDropDownList({
+                dataTextField: "c_subjectname",
+                dataValueField: "c_subid",
+                optionLabel: "Select Subject",
+                autoBind: false,
+                dataSource: [],
+                change: function () {
+                    var selectedSubjectId = this.value();
+                    console.log("📌 Subject Selected:", selectedSubjectId);
+
+                    if (selectedSubjectId) {
+                        topicMultiSelect.dataSource.read();
+                    } else {
+                        topicMultiSelect.setDataSource([]);
+                    }
+                }
+            }).data("kendoDropDownList");
+
+
+            function loadSubjects(classId) {
+                if (!classId) {
+                    console.warn("⚠️ No class selected. Clearing subjects.");
+                    subjectDropdown.setDataSource(new kendo.data.DataSource({ data: [] }));
+                    subjectDropdown.value("");
+                    subjectDropdown.refresh();
+                    return;
+                }
+
+                console.log("📌 Fetching subjects for class:", classId);
+
+                $.ajax({
+                    url: `/Syllabus/GetSubjectByClass/${classId}`,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("✅ API Response (Subjects):", response);
+
+                        if (!response || response.length === 0) {
+                            console.warn("⚠️ No subjects found, clearing dropdown.");
+                            subjectDropdown.setDataSource(new kendo.data.DataSource({ data: [] }));
+                            subjectDropdown.value("");
+                            subjectDropdown.refresh();
+                            return;
+                        }
+
+                        // ✅ Re-initialize Subject Dropdown to prevent issues
+                        $("#subjectDropdown").kendoDropDownList({
+                            dataTextField: "c_subjectname",
+                            dataValueField: "c_subid",
+                            optionLabel: "Select Subject",
+                            dataSource: response, // ✅ Directly bind API data
+                            change: function () {
+                                console.log("📌 Subject Selected:", this.value());
+                            }
+                        });
+
+                        subjectDropdown = $("#subjectDropdown").data("kendoDropDownList");
+
+                        console.log("📌 Data Bound. Current Items in Dropdown:", subjectDropdown.dataSource.data());
+
+                        // ✅ Ensure default value is set properly
+                        setTimeout(() => {
+                            subjectDropdown.value(response[0].c_subid);
+                            console.log("✅ Default Subject Selected:", subjectDropdown.value());
+
+                            // ✅ Trigger change event
+                            subjectDropdown.trigger("change");
+                            console.log("✅ Change event triggered.");
+                        }, 200); // Slight delay ensures UI updates correctly
+                    },
+                    error: function (err) {
+                        console.error("❌ Error fetching subjects:", err);
+                    }
+                });
+            }
+
+
+
+            // ✅ Initialize MultiSelect for Topics
+            var topicMultiSelect = $("#topicMultiSelect").kendoMultiSelect({
+                dataTextField: "c_topicname",
+                dataValueField: "c_topicname",
+                autoBind: false,
+                dataSource: {
+                    transport: {
+                        read: function (options) {
+                            var selectedSubjectId = subjectDropdown.value();
+                            console.log("📌 Fetching Topics for Subject ID:", selectedSubjectId);
+
+                            if (!selectedSubjectId) {
+                                console.warn("⚠️ No subject selected, clearing topics.");
+                                options.success([]);
+                                return;
+                            }
+
+                            $.ajax({
+                                url: `/Syllabus/GetTopicNames/${selectedSubjectId}`,
+                                dataType: "json",
+                                success: function (response) {
+                                    console.log("✅ Topics Retrieved:", response);
+                                    options.success(response);
+                                },
+                                error: function (err) {
+                                    console.error("❌ Error fetching topics:", err);
+                                    options.error(err);
+                                }
+                            });
+                        }
+                    }
+                }
+            }).data("kendoMultiSelect");
+
+            // ✅ Initialize DatePicker
+            $("#datePicker").kendoDatePicker({
+                format: "yyyy-MM-dd"
+            });
+
+            // ✅ Form Submit Handling - Now Sends Data to Server
+            $("#classForm").submit(function (e) {
+                e.preventDefault(); // Prevent default form submission
+
+                var topic = $("#topicMultiSelect").data("kendoMultiSelect").value();
+                var topicsValue = topic.length > 0 ? topic.join(",") : null; // Convert to NULL if empty
+
+                var formData = {
+                    c_class_id: $("#classDropdown").data("kendoDropDownList").value(),
+                    c_subject_id: $("#subjectDropdown").data("kendoDropDownList").value(),
+                    c_topicsName: topicsValue, // Pass NULL if no topics selected
+                    c_lectureDate: $("#datePicker").data("kendoDatePicker").value()
+                };
+
+
+                console.log("📌 Submitting Form Data:", formData); // Debugging
+
+                // ✅ Send Data to Server
+                $.ajax({
+                    url: "/Syllabus/EntryCompleteTopics", // Change this to your backend API endpoint
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(formData), // Convert to JSON
+                    success: function (res) {
+                        console.log("✅ Data Successfully Stored:", res);
+                        alert("Syllabus successfully saved!"); // Show success message
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("❌ Error storing data:", xhr.responseText);
+                        alert("Failed to save syllabus. Please try again.");
+                    }
+                });
+            });
+
+
+        });
+    </script>
+
+</body>
+
+</html>

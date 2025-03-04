@@ -63,6 +63,7 @@ namespace StudentManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 var ClassId = exam.CClassId;
+                Console.WriteLine("controller classid: "+ClassId);
                 HttpContext.Session.SetInt32("ClassId", Convert.ToInt32(ClassId));
                 if (exam.Image != null && exam.Image.Length > 0)
                 {

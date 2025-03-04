@@ -1,0 +1,305 @@
+@{
+    ViewBag.Title = "Teacher Dashboard";
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .k-card {
+            width: 220px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            text-align: center;
+        }
+
+        .card-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-body {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+
+ 
+
+    <!-- Navigation -->
+    <div id="menu"></div>
+
+    <!-- Dashboard -->
+    <div class="dashboard-container">
+        <!-- Assigned Students -->
+        <div class="card">
+            <h3>Assigned Students</h3>
+            <div id="students"></div>
+        </div>
+
+        <!-- Upcoming Classes -->
+        <div class="card">
+            <h3>Upcoming Classes</h3>
+            <div id="classSchedule"></div>
+        </div>
+
+        <!-- Recent Uploads -->
+        <div class="card">
+            <h3>Recent Uploads</h3>
+            <div id="fileManager"></div>
+        </div>
+
+        <div id="pdfViewerContainer" style="display: none; margin-top: 20px;">
+            <h4>PDF Preview</h4>
+            <div id="pdfViewer"></div>
+        </div>
+
+        <!-- Performance Analytics -->
+        <div class="card">
+            <h3>Performance Analytics</h3>
+            <div id="analyticsChart"></div>
+        </div>
+
+
+
+
+    </div>
+ <div id="timeline"></div>
+    
+
+    <!-- Notifications & Alerts -->
+    <div id="notifications"></div>
+
+    <script>
+        $(document).ready(function () {
+            // ✅ Menu Navigation
+            $("#menu").kendoMenu({
+                dataSource: [
+                    { text: "Dashboard" },
+                    { text: "Classes", items: [{ text: "Schedule" }, { text: "Assignments" }] },
+                    { text: "Uploads", items: [{ text: "Materials" }, { text: "Notes" }] }
+                ]
+            });
+
+            function loadStudents() {
+                $.ajax({
+                    url: "/Dashboard/GetStudentsByTeacher", // Ensure this matches your controller route
+                    type: "GET",
+                    success: function (response) {
+                        if (response.success) {
+                            $("#students").kendoListView({
+                                dataSource: {
+                                    data: response.data
+                                },
+                                template: `
+                                <div class="k-card">
+                                    <div class="card-header">#: c_studentName #</div>
+                                    <div class="card-body">Class ID: #: c_classId #</div>
+                                </div>
+                            `
+                            });
+                        } else {
+                            $("#students").html("<p>No students found.</p>");
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error fetching students:", xhr.responseText);
+                        $("#students").html("<p>Error loading students.</p>");
+                    }
+                });
+            }
+
+            // ✅ Load Students on Page Load
+            loadStudents();
+
+            function loadUpcomingClasses() {
+                $.ajax({
+                    url: "/Dashboard/GetUpcomingClasses",
+                    type: "GET",
+                    success: function (response) {
+                        if (response.success) {
+                            $("#classSchedule").kendoListView({
+                                dataSource: {
+                                    data: response.data
+                                },
+                                template: `
+                        <div class="k-card">
+                            <div class="card-header">Subject ID: #: SubjectId #</div>
+                            <div class="card-body">
+                                Time: #: StartTime  # - #: EndTime # <br>
+                                Weekday: #: Weekday #
+                            </div>
+                        </div>
+                    `
+                            });
+                        } else {
+                            $("#classSchedule").html("<p>No upcoming classes.</p>");
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("Error fetching classes:", xhr.responseText);
+                        $("#classSchedule").html("<p>Error loading classes.</p>");
+                    }
+                });
+            }
+            loadUpcomingClasses();
+
+            function loadRecentUpload() {
+                $.ajax({
+                    url: "/Dashboard/GetLatestFile",
+                    type: "GET",
+                    success: function (response) {
+                        console.log("🔹 API Response:", response); // ✅ Debugging log
+
+                        if (response && response.FileName) {  // ✅ Ensure correct property name
+                            console.log("✅ Latest File Found:", response.FileName);
+
+                            var fileHtml = `
+                    <div class="k-card">
+                        <div class="card-header">Recent Upload</div>
+                        <div class="card-body">
+                            <p><strong>File Name:</strong> ${response.FileName}</p>
+                            <p><strong>Type:</strong> ${response.FileType}</p>
+                            <p><strong>Uploaded On:</strong> ${new Date(response.UploadDate).toLocaleString()}</p>
+                            <a href="${response.FilePath}" target="_blank">Download</a>
+                        </div>
+                    </div>
+                `;
+
+                            $("#fileManager").html(fileHtml);
+                        } else {
+                            console.log("❌ No file found in API response");
+                            $("#fileManager").html("<p>No recent uploads.</p>");
+                        }
+                    },
+                    error: function (xhr) {
+                        console.error("⚠️ Error fetching recent uploads:", xhr.responseText);
+                        $("#fileManager").html("<p>Error loading files.</p>");
+                    }
+                });
+            }
+
+                @* function loadRecentUpload() {
+                    $.ajax({
+                        url: "/Dashboard/GetLatestFile",
+                        type: "GET",
+                        success: function (response) {
+                            console.log("🔹 API Response:", response); // ✅ Debugging log
+
+                            if (response && response.FileName) {
+                                console.log("✅ Latest File Found:", response.FileName);
+
+                                var fileHtml = `
+                    <div class="k-card">
+                        <div class="card-header">Recent Upload</div>
+                        <div class="card-body">
+                            <p><strong>File Name:</strong> ${response.FileName}</p>
+                            <p><strong>Type:</strong> ${response.FileType}</p>
+                            <p><strong>Uploaded On:</strong> ${new Date(response.UploadDate).toLocaleString()}</p>
+                            <a href="${response.FilePath}" target="_blank">Download</a>
+                        </div>
+                    </div>
+                `;
+
+                                $("#fileManager").html(fileHtml);
+
+                                // ✅ Show PDF preview if the file is a PDF
+                                if (response.FileType === "pdf" || response.FileName.endsWith(".pdf")) {
+                                    $("#pdfViewerContainer").show();
+                                    $("#pdfViewer").kendoPDFViewer({
+                                        pdfjsProcessing: {
+                                            file: response.FilePath
+                                        },
+                                        width: "100%",
+                                        height: 500,
+                                        toolbar: {
+                                            items: [
+                                                "pager", "zoom", "download", "print"
+                                            ]
+                                        }
+                                    });
+                                } else {
+                                    $("#pdfViewerContainer").hide();
+                                }
+                            } else {
+                                console.log("❌ No file found in API response");
+                                $("#fileManager").html("<p>No recent uploads.</p>");
+                                $("#pdfViewerContainer").hide();
+                            }
+                        },
+                        error: function (xhr) {
+                            console.error("⚠️ Error fetching recent uploads:", xhr.responseText);
+                            $("#fileManager").html("<p>Error loading files.</p>");
+                            $("#pdfViewerContainer").hide();
+                        }
+                    });
+                } *@
+
+
+            // ✅ Load Recent Upload on Page Load
+            loadRecentUpload();
+
+
+
+            // ✅ Performance Analytics (Pie & Bar Charts)
+            $("#analyticsChart").kendoChart({
+                title: { text: "Student Performance" },
+                series: [
+                    { type: "pie", data: [{ category: "Pass", value: 70 }, { category: "Fail", value: 30 }] }
+                ]
+            });
+
+            // ✅ Real-time Notifications
+            $("#notifications").kendoNotification();
+            var notify = $("#notifications").data("kendoNotification");
+            notify.show("Welcome to Teacher Dashboard!", "info");
+        });
+
+
+         var timelineData = [
+            { date: "2024-03-01", title: "Project Kickoff", description: "Initial project meeting and planning." },
+            { date: "2024-03-05", title: "Design Phase", description: "UI/UX team started the design process." },
+            { date: "2024-03-10", title: "Development Started", description: "Frontend and backend development begins." },
+            { date: "2024-03-20", title: "Testing Phase", description: "Quality assurance and bug fixing." },
+            { date: "2024-03-30", title: "Project Launch", description: "Deployment and go-live!" }
+        ];
+
+        // Initialize Kendo Timeline
+        $("#timeline").kendoTimeline({
+            dataSource: {
+                data: timelineData
+            },
+            dateField: "date",
+            titleField: "title",
+            descriptionField: "description",
+            orientation: "vertical" // Can be "horizontal" or "vertical"
+        });
+    
+    </script>
+
+

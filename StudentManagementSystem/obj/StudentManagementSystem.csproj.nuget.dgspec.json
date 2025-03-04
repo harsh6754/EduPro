@@ -138,6 +138,10 @@
             "Razorpay": {
               "target": "Package",
               "version": "[3.1.4, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[9.0.2, )"
             }
           },
           "imports": [

@@ -1,0 +1,165 @@
+@{
+    ViewData["Title"] = "Syllabus Page";
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PDF Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            min-height: 500px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .input-field {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .k-button {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        #pdfViewer {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Upload PDF Document</h2>
+
+        <form id="uploadForm">
+            <label>Upload PDF:</label>
+            <input type="file" id="fileUpload" class="input-field" accept=".pdf" required>
+
+            <label>File Name:</label>
+            <input id="fileName" class="input-field" readonly>
+
+            <label>File Type:</label>
+            <input id="fileType" class="input-field" readonly>
+
+            <label>Upload Date:</label>
+            <input id="uploadDate" class="input-field" type="date" required>
+
+            <label>Subject:</label>
+            <select id="subjectDropdown" class="input-field" required>
+                <option value="">Select Subject...</option>
+                <option value="1">Math</option>
+                <option value="2">Physics</option>
+                <option value="3">Chemistry</option>
+                <option value="4">Biology</option>
+                <option value="5">Computer Science</option>
+            </select>
+
+            <button type="submit" id="submit" class="k-button">Upload</button>
+        </form>
+
+        <!-- ✅ PDF Viewer Area -->
+        <div id="pdfViewer">
+            <p>No PDF selected for preview.</p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            // ✅ Handle file selection & PDF Preview
+            $("#fileUpload").change(function () {
+                let file = this.files[0];
+
+                if (file) {
+                    $("#fileName").val(file.name);
+                    $("#fileType").val(file.name.split('.').pop()); // Extract and display file type
+
+                    // ✅ PDF Preview
+                    if (file.type === "application/pdf") {
+                        let reader = new FileReader();
+                        reader.onload = function (e) {
+                            $("#pdfViewer").html(`<iframe src="${e.target.result}" width="100%" height="400px"></iframe>`);
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        $("#pdfViewer").html("<p>Preview not available for this file type.</p>");
+                    }
+                }
+            });
+
+            // ✅ Handle form submission via AJAX
+            $("#uploadForm").submit(function (e) {
+                e.preventDefault();
+
+                let fileInput = $("#fileUpload")[0].files[0];
+                if (!fileInput) {
+                    alert("Please select a PDF file before submitting.");
+                    return;
+                }
+
+                let formData = new FormData();
+                formData.append("File", fileInput);
+                formData.append("FileName", $("#fileName").val() || fileInput.name);
+                formData.append("FileType", $("#fileType").val());
+                formData.append("UploadDate", $("#uploadDate").val());
+                formData.append("SubjectId", $("#subjectDropdown").val());
+                formData.append("FilePath", null);  // Append FilePath with null
+                formData.append("TeacherId", 8);  // Append TeacherId
+
+                // ✅ Debugging FormData
+                console.log("📌 FormData Contents:");
+                console.log("FileName:", formData.get("FileName"));
+                console.log("FileType:", formData.get("FileType"));
+                console.log("UploadDate:", formData.get("UploadDate"));
+                console.log("SubjectId:", formData.get("SubjectId"));
+                console.log("FilePath:", formData.get("FilePath"));
+
+                $.ajax({
+                    url: "http://localhost:5215/Upload/AddMaterial", // Full URL to your endpoint
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        console.log("✅ Success:", response);
+                        alert(response.message);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("❌ Error:", xhr.responseText);
+                        alert("Error uploading file: " + xhr.responseText);
+                    }
+                });
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

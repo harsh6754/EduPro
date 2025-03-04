@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kendo UI Dashboard</title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2024.1.120/styles/kendo.default-v2.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+<script src="https://kendo.cdn.telerik.com/2024.1.120/js/kendo.all.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+        }
+        #drawer {
+            width: 250px;
+        }
+        #content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Kendo Drawer (Sidebar) -->
+    <div id="drawer"></div>
+    
+    
+
+    <script>
+        $(document).ready(function () {
+            // Initialize Kendo Drawer
+            $("#drawer").kendoDrawer({
+                template: `
+                    <ul class="k-drawer-items">
+                        <li class="k-drawer-item" onclick="loadContent('Dashboard', 'Welcome to your dashboard.')">Dashboard</li>
+                        <li class="k-drawer-item" onclick="loadContent('Reports', 'View your reports here.')">Reports</li>
+                        <li class="k-drawer-item" onclick="loadContent('Settings', 'Adjust your preferences.')">Settings</li>
+                    </ul>
+                `,
+                mode: "push",
+                position: "left"
+            });
+        });
+
+        function loadContent(title, content) {
+            $("#pageTitle").text(title);
+            $("#pageContent").text(content);
+        }
+    </script>
+</body>
+</html>

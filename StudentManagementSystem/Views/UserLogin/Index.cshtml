@@ -120,7 +120,7 @@
                     } else if (role === "Student") {
                         window.location.href = "/StudentDashboard/Index";
                     } else if (role === "Teacher") {
-                        window.location.href = "/Teacher/Index";
+                        window.location.href = "/Dashboard/Index";
                     }
                 });
             }
@@ -218,7 +218,7 @@
                         const dashboardUrls = {
                             "Admin": "/AdminDashboard/Index",   
                             "Student": "/StudentDashboard/Index",
-                            "Teacher": "/TeacherDashboard/Index"
+                            "Teacher": "/Dashboard/Index"
                         };
 
                         window.location.href = dashboardUrls[role] || "/"; // Default to home if role is unknown

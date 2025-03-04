@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 
+builder.Services.AddScoped<ITeacherInterface, TeacherRepository>();
 builder.Services.AddScoped<ITeacherRating, TeacherRatingRepository>();
 builder.Services.AddScoped<IUserLoginInterface, UserLoginRepository>(); 
 builder.Services.AddScoped<IAdminInterface,AdminDashboardRepository>();
@@ -18,6 +19,13 @@ builder.Services.AddScoped<NpgsqlConnection>(provider =>
     var configuration = provider.GetRequiredService<IConfiguration>();
     return new NpgsqlConnection(configuration.GetConnectionString("pgconnection"));
 });
+
+builder.Services
+    .AddControllersWithViews()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 
 builder.Services.AddSession(option =>{
     option.IdleTimeout = TimeSpan.FromMinutes(30);

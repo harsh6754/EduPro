@@ -1,30 +1,11 @@
 @{
-    ViewData["Title"] = "Admin Dashboard";
+    ViewBag.Title = "Add Exam Timetable";
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
-
+<h2>Upload Timetable</h2>
+<div id="validation-success"></div>
 <div class="container mt-5">
-    <div class="card shadow-lg p-4">
-        <h3 class="text-center text-primary mb-4">Upload Exam Timetable</h3>
-        <div id="validation-success" class="mb-3"></div>
-        
-        <form id="e-form" class="d-flex flex-column gap-3">
-            <div class="form-group">
-                <label class="fw-bold">Exam Timetable</label>
-                <input type="file" id="img" name="Image" class="form-control border-primary shadow-sm" required />
-            </div>
-
-            <div class="form-group">
-                <label class="fw-bold">Select Class</label>
-                <input id="classes-dropdown" name="Classes" required />
-            </div>
-
-            <div class="d-flex justify-content-center mt-3 gap-3">
-                <button type="submit" class="btn btn-success btn-lg shadow-sm">Submit</button>
-                <button type="reset" class="btn btn-warning btn-lg shadow-sm">Clear</button>
-            </div>
-        </form>
-    </div>
+    <form id="e-form"></form>
 </div>
 
 <script>
@@ -32,47 +13,76 @@
         const validationSuccess = $('#validation-success');
         loadClasses();
 
-        $("#classes-dropdown").kendoDropDownList({
-            optionLabel: "Select Class",
-            dataSource: [],
-            dataTextField: "text",
-            dataValueField: "value",
-            filter: "contains",
-            height: 200
-        });
-
         $("#e-form").kendoForm({
             validateable: {
                 validateOnBlur: true,
                 validationSummary: false,
                 errorTemplate: '<span class="k-error"></span>'
             },
+            items: [
+                {
+                    field: "Image",
+                    label: "Exam Timetable",
+                    validation: "Please upload the Timetable",
+                    editor: function (container, options) {
+                        $('<input type="file" id="img" name="' + options.field + '" required/>')
+                            .appendTo(container)
+                            .kendoTextBox();
+                    }
+                },
+                {
+                    field: "Classes",
+                    label: "Classes",
+                    validation: "Please select the class",
+                    editor: function (container, options) {
+                        $('<input id="classes-dropdown" name="' + options.field + '" required/>')
+                            .appendTo(container)
+                            .kendoDropDownList({
+                                optionLabel: "Select Class",
+                                dataSource: [],
+                                dataTextField: "text",
+                                dataValueField: "value",
+                                filter: "contains"
+                            });
+                    }
+                }
+            ],
+            buttonsTemplate: '<button type="submit" class="k-button k-button-lg k-button-solid-success">Submit</button>' +
+                '<button type="reset" class="k-button k-button-lg k-button-solid-warning">Clear</button>',
+            validateField: function () {
+                validationSuccess.html('');
+            },
             submit: function (e) {
                 e.preventDefault();
-                validationSuccess.html("");
-
                 const formData = new FormData();
-                const fileInput = $('#img')[0].files[0];
-                const selectedClass = $("#classes-dropdown").data("kendoDropDownList").value();
+                var fileInput = $('#img')[0].files[0];
+                var selectedClass = $("#classes-dropdown").data("kendoDropDownList").value();
 
-                if (fileInput) formData.append("Image", fileInput);
-                if (selectedClass) formData.append("CClassId", selectedClass);
+                if (fileInput) {
+                    formData.append("Image", fileInput);
+                }
+                if (selectedClass) {
+                    formData.append("CClassId", selectedClass);
+                }
 
                 $.ajax({
-                    url: "/AdminDashboard/AddExamTimetable",
+                    url: "/AdminDashboard/Add",
                     type: "POST",
                     data: formData,
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        console.log(response);
                         if (response.success) {
                             window.location.href = "/AdminDashboard/DisplayAllETable";
                         } else {
-                            showErrorMessage(response.message);
+                            validationSuccess.html("<div class='k-messagebox k-messagebox-error'><p>" + response.message + "</p></div>");
                         }
                     },
-                    error: function (xhr) {
-                        showErrorMessage(xhr.responseText);
+                    error: function (xhr, status, error) {
+                        console.log(xhr);
+                        var errors = JSON.stringify(xhr.responseText);
+                        validationSuccess.html(`<div class='k-messagebox k-messagebox-error'>${errors}</div>`);
                     }
                 });
             },
@@ -88,28 +98,18 @@
                 url: "/AdminDashboard/GetClasses",
                 type: "GET",
                 success: function (response) {
+                    console.log(response);
                     var dropdown = $("#classes-dropdown").data("kendoDropDownList");
                     dropdown.setDataSource({
                         data: response.map(c => ({ text: c.c_className, value: c.c_classId }))
                     });
                 },
                 error: function (xhr) {
-                    showErrorMessage(xhr.responseText);
+                    console.log(xhr);
+                    validationSuccess.html(`<div class='k-messagebox k-messagebox-error'>${xhr.responseText}</div>`);
                 }
             });
         }
 
-        function showErrorMessage(message) {
-            validationSuccess.html(`<div class='alert alert-danger'><strong>Error:</strong> ${message}</div>`);
-        }
     });
 </script>
-
-<style>
-    .container {
-        max-width: 600px;
-    }
-    .card {
-        border-radius: 15px;
-    }
-</style>

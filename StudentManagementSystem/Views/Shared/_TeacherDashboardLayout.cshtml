@@ -1,0 +1,263 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - StudentManagementSystem</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/StudentManagementSystem.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/kendo/kendo.default-v2.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/kendo/kendo.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .navbar {
+            background: #34495e !important;
+            color: white;
+            padding: 15px;
+            font-size: 20px;
+        }
+
+        #sidebar {
+            position: fixed;
+            left: 0;
+            @* top: 70px; *@
+            width: 250px;
+            height: calc(100vh - 70px);
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            transition: width 0.3s;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-menu li {
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .sidebar-menu li:hover {
+            background: #1abc9c;
+        }
+
+        .sidebar-menu i {
+            width: 25px;
+            margin-right: 10px;
+        }
+
+        .toggle-btn {
+            width: 100%;
+            background: #1abc9c;
+            border: none;
+            padding: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #main-content {
+            margin-left: 250px;
+            flex-grow: 1;
+            padding: 20px;
+            transition: margin-left 0.3s;
+            height: calc(100vh - 70px); /* Ensure it fills remaining space */
+    overflow-y: auto; /* Enable scrolling only for content */
+        }
+
+        .collapsed {
+            width: 60px !important;
+        }
+
+        .collapsed+#main-content {
+            margin-left: 60px !important;
+        }
+
+        .sidebar-menu li {
+            list-style: none;
+            margin: 10px 0;
+        }
+
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            font-size: 16px;
+            position: relative;
+            border-radius: 5px;
+        }
+
+        .sidebar-menu li a.active {
+            background: white;
+            border: 2px solid black;
+            padding: 10px 15px;
+            font-weight: bold;
+            border-radius: 30px;
+            /* Oval effect */
+            position: relative;
+        }
+
+        .sidebar-menu li a.active::before,
+        .sidebar-menu li a.active::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 20px;
+            background: white;
+            border: 2px solid black;
+            border-radius: 50%;
+        }
+
+        .sidebar-menu li a.active::before {
+            left: -10px;
+        }
+
+        .sidebar-menu li a.active::after {
+            right: -10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Dashboard"
+                    asp-action="Index">Student Management System</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+ 
+    <div class="d-flex">
+        <div id="sidebar">
+            <div class="sidebar-header">
+                <span id="user-avatar"></span>
+            </div>
+            <h1 style="display: flex; justify-content: center; align-items: center;">Teacher</h1>
+            <ul class="sidebar-menu">
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="Upload" asp-action="Index">
+                        <i class="fas fa-user"></i> Upload Material
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="Syllabus" asp-action="Index">
+                        <i class="fas fa-calendar-alt"></i> Upload Syllabus
+                    </a>
+                </li>
+            
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="javascript:void(0);" onclick="confirmLogout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div id="main-content">
+            @RenderBody()
+        </div>
+    </div>
+
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        $(document).ready(function () {
+            $(".sidebar-menu li a").click(function () {
+                $(".sidebar-menu li a").removeClass("active"); // Remove active from all
+                $(this).addClass("active"); // Add active class to clicked item
+            });
+            $("#user-avatar").kendoAvatar({
+                type: "image",
+                image: "https://via.placeholder.com/50", // Replace with actual user image URL
+                size: "large",
+                shape: "circle"
+            });
+        });
+
+        function toggleSidebar() {
+            let sidebar = $("#sidebar");
+            let mainContent = $("#main-content");
+
+            if (sidebar.hasClass("collapsed")) {
+                sidebar.removeClass("collapsed");
+                mainContent.removeClass("collapsed");
+            } else {
+                sidebar.addClass("collapsed");
+                mainContent.addClass("collapsed");
+            }
+        }
+
+        function confirmLogout() {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You will be logged out!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, Logout"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Logged Out!",
+                        text: "You have been logged out successfully.",
+                        icon: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = "/UserLogin/Index"; // Redirect after confirmation
+                    });
+                }
+            });
+        }
+
+        function navigateTo(page) {
+            window.location.href = "/" + page;
+        }
+    </script>
+</body>
+
+</html>
