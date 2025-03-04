@@ -15,36 +15,82 @@ namespace Repositories.Implementations
             _connection = connection;
         }
 
-        public async Task<List<TeacherInfo>> GetTeachersByClassIdAsync(int classId)
-{
-    var teachers = new List<TeacherInfo>();
-    await _connection.OpenAsync();
+        public async Task<t_material> GetLatestUploadedFile()
+        {
+            try
+            {
+                if (_connection.State != System.Data.ConnectionState.Open)
+                {
+                    await _connection.OpenAsync();
+                }
 
-    string query = @"
+                string query = @"
+    SELECT c_material_id, c_filename, c_filetype, c_uploaddate, c_subject_id, c_teacher_id, c_filepath, c_subjectname
+    FROM t_materials m
+    join t_subjects s on m.c_subject_id = s.c_subid";
+
+
+                using (var cmd = new NpgsqlCommand(query, _connection))
+                {
+
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            return new t_material
+                            {
+                                MaterialId = reader.GetInt32(0),
+                                FileName = reader.GetString(1),
+                                FileType = reader.GetString(2),
+                                UploadDate = reader.GetDateTime(3),
+                                SubjectId = reader.GetInt32(4),
+                                TeacherId = reader.GetInt32(5),
+                                FilePath = reader.GetString(6),
+                                SubjectName = reader.GetString(7)
+                            };
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<List<TeacherInfo>> GetTeachersByClassIdAsync(int classId)
+        {
+            var teachers = new List<TeacherInfo>();
+            await _connection.OpenAsync();
+
+            string query = @"
         SELECT t.c_tid, t.c_teachername
 FROM t_teachers t
 INNER JOIN t_student s ON t.c_class_id = s.c_class_id
 WHERE s.c_id = @StudentId;
 ";
 
-    using (var cmd = new NpgsqlCommand(query, _connection))
-    {
-        cmd.Parameters.AddWithValue("studentId", classId);
-        using (var reader = await cmd.ExecuteReaderAsync())
-        {
-            while (await reader.ReadAsync())
+            using (var cmd = new NpgsqlCommand(query, _connection))
             {
-                teachers.Add(new TeacherInfo
+                cmd.Parameters.AddWithValue("studentId", classId);
+                using (var reader = await cmd.ExecuteReaderAsync())
                 {
-                    c_tid = reader.GetInt32(0),
-                    c_teachername = reader.GetString(1)
-                });
+                    while (await reader.ReadAsync())
+                    {
+                        teachers.Add(new TeacherInfo
+                        {
+                            c_tid = reader.GetInt32(0),
+                            c_teachername = reader.GetString(1)
+                        });
+                    }
+                }
             }
-        }
-    }
 
-    return teachers;
-}
+            return teachers;
+        }
 
         public async Task<t_TeacherRating> InsertTeacherRatingAsync(int c_stud_id, int c_teacher_id, int c_rating)
         {

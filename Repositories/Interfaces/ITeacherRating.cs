@@ -10,6 +10,7 @@ namespace Repositories.Interfaces
     {
     Task<List<TeacherInfo>> GetTeachersByClassIdAsync(int classId);
     Task<t_TeacherRating> InsertTeacherRatingAsync(int c_stud_id, int c_teacher_id, int c_rating);
+    Task<t_material> GetLatestUploadedFile();
 
     }
 }

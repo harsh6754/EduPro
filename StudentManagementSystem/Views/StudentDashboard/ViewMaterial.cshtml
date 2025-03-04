@@ -1,0 +1,109 @@
+@{
+    ViewData["Title"] = "View Material";
+    var teachingMaterials = ViewBag.TeachingMaterials;
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+
+<!-- Kendo UI TabStrip -->
+<div id="teachingMaterialsTab">
+    <ul>
+        <li class="k-state-active">Latest 15 Days Materials</li>
+        <li>Latest 15 Materials</li>
+        <li>All Materials (Accordion View)</li>
+    </ul>
+
+    <!-- Latest 15 Days Materials -->
+    <div>
+        <h3>Materials Uploaded in the Last 15 Days</h3>
+        <div id="latest15DaysMaterials"></div>
+    </div>
+
+    <!-- Latest 15 Materials -->
+    <div>
+        <h3>Most Recently Uploaded 15 Materials</h3>
+        <div id="latest15Materials"></div>
+    </div>
+
+    <!-- All Materials in Accordion -->
+    <div>
+        <h3>All Teaching Materials (Year/Month/Date Wise)</h3>
+        <div id="teachingMaterialAccordion"></div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Static Data from ViewBag
+        var materials = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(teachingMaterials));
+
+        // Get current date and calculate 15 days ago
+        var today = new Date();
+        var last15Days = new Date();
+        last15Days.setDate(today.getDate() - 15);
+
+        // Filter materials from the last 15 days
+        var latest15DaysMaterials = materials.filter(material => new Date(material.UploadDate) >= last15Days);
+
+        // Get the latest 15 materials (sorted by upload date)
+        var latest15Materials = materials.sort((a, b) => new Date(b.UploadDate) - new Date(a.UploadDate)).slice(0, 15);
+
+        // Function to generate table HTML
+        function generateTable(materialsList) {
+            if (materialsList.length === 0) {
+                return "<p>No materials found.</p>";
+            }
+            var html = "<table class='k-table'><thead><tr><th>File Name</th><th>File Type</th><th>Subject</th><th>Download</th></tr></thead><tbody>";
+            materialsList.forEach(material => {
+                html += `<tr>
+                    <td>${material.FileName}</td>
+                    <td>${material.FileType}</td>
+                    <td>${material.SubjectName}</td>
+                    <td><a href="${material.FilePath}" class="k-button k-primary" download>Download</a></td>
+                </tr>`;
+            });
+            html += "</tbody></table>";
+            return html;
+        }
+
+        // Populate sections
+        $("#latest15DaysMaterials").html(generateTable(latest15DaysMaterials));
+        $("#latest15Materials").html(generateTable(latest15Materials));
+
+        // Group Data by Year, Month, and Date
+        var groupedByYear = {};
+        materials.forEach(material => {
+            var year = new Date(material.UploadDate).getFullYear();
+            var month = new Date(material.UploadDate).toLocaleString('default', { month: 'long' });
+            var date = new Date(material.UploadDate).toDateString();
+
+            if (!groupedByYear[year]) groupedByYear[year] = {};
+            if (!groupedByYear[year][month]) groupedByYear[year][month] = {};
+            if (!groupedByYear[year][month][date]) groupedByYear[year][month][date] = [];
+
+            groupedByYear[year][month][date].push(material);
+        });
+
+        // Build Kendo PanelBar (Accordion)
+        var panelBarData = Object.keys(groupedByYear).map(year => ({
+            text: year,
+            items: Object.keys(groupedByYear[year]).map(month => ({
+                text: month,
+                items: Object.keys(groupedByYear[year][month]).map(date => ({
+                    text: date,
+                    content: generateTable(groupedByYear[year][month][date])
+                }))
+            }))
+        }));
+
+        // Initialize Kendo PanelBar
+        $("#teachingMaterialAccordion").kendoPanelBar({
+            dataSource: panelBarData,
+            expandMode: "multiple"
+        });
+
+        // Initialize Kendo TabStrip
+        $("#teachingMaterialsTab").kendoTabStrip({
+            animation: { open: { effects: "fadeIn" } }
+        });
+    });
+</script>

@@ -33,10 +33,8 @@ namespace Repositories.Models
 
         [Required]
         public int SubjectId { get; set; } // The subject associated with the material, selected from a dropdown list
+        public string? SubjectName { get; set; } // The name of the subject, can be filled from the database
 
-        
-    
-         
     }
-        
+         
 }
