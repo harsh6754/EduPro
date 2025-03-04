@@ -30,5 +30,9 @@ namespace Repositories.Interfaces
 
         Task<List<t_Class>> GetAllClass(int id);
         Task<List<t_subject>> GetAllSubjectsByClass(int id);
+
+        Task<int> GetStudentCountByTeacherId(int teacherId);
+
+        Task<string> GetTeacherClassName(int teacherId);
     }
 }

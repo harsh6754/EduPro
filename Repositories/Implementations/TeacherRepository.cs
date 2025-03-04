@@ -113,7 +113,7 @@ namespace Repositories.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error in GetStudentsByTeacherId: " + ex.Message);
+                Console.WriteLine(ex.Message);
                 return new List<t_student_view>(); // Return empty list instead of null
             }
             finally
@@ -124,6 +124,53 @@ namespace Repositories.Implementations
                 }
             }
         }
+public async Task<int> GetStudentCountByTeacherId(int teacherId)
+{
+    try
+    {
+        if (_conn.State != System.Data.ConnectionState.Open)
+        {
+            await _conn.OpenAsync();
+        }
+
+        // Step 1: Get the teacher's class ID
+        string getClassIdQuery = "SELECT c_class_id FROM t_teachers WHERE c_tid = @teacherId";
+        int classId;
+
+        using (NpgsqlCommand classCmd = new NpgsqlCommand(getClassIdQuery, _conn))
+        {
+            classCmd.Parameters.AddWithValue("@teacherId", teacherId);
+            var result = await classCmd.ExecuteScalarAsync();
+            if (result == null)
+            {
+                return 0; // No class found for the teacher
+            }
+            classId = Convert.ToInt32(result);
+        }
+
+        // Step 2: Count students in the same class
+        string countQuery = "SELECT COUNT(*) FROM t_student WHERE c_classid = @classId";
+
+        using (NpgsqlCommand countCmd = new NpgsqlCommand(countQuery, _conn))
+        {
+            countCmd.Parameters.AddWithValue("@classId", classId);
+            var countResult = await countCmd.ExecuteScalarAsync();
+            return Convert.ToInt32(countResult);
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+        return 0; // Return 0 in case of an error
+    }
+    finally
+    {
+        if (_conn.State == System.Data.ConnectionState.Open)
+        {
+            await _conn.CloseAsync();
+        }
+    }
+}
 
         public async Task<List<t_classschedule>> GetUpcomingClassesForTeacher(int teacherId)
         {
@@ -186,7 +233,7 @@ ORDER BY
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error in GetUpcomingClassesForTeacher: " + ex.Message);
+                Console.WriteLine( ex.Message);
                 return new List<t_classschedule>(); // Return empty list if error
             }
             finally
@@ -294,7 +341,7 @@ ORDER BY
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine(ex.Message);
             }
             return null;
         }
@@ -335,7 +382,7 @@ ORDER BY
             }
             catch (System.Exception ex)
             {
-                System.Console.WriteLine("Error while complete topics:" + ex.Message);
+                System.Console.WriteLine(ex.Message);
                 return 0;
             }
             finally
@@ -553,6 +600,37 @@ ORDER BY
             return ts;
         }
 
+       public async Task<string> GetTeacherClassName(int teacherId)
+{
+    try
+    {
+        if (_conn.State != System.Data.ConnectionState.Open)
+        {
+            await _conn.OpenAsync();
+        }
+
+        string query = "SELECT c_classname FROM t_class WHERE c_classid = (SELECT c_class_id FROM t_teachers WHERE c_tid = @teacherId)";
+
+        using (NpgsqlCommand cmd = new NpgsqlCommand(query, _conn))
+        {
+            cmd.Parameters.AddWithValue("@teacherId", teacherId);
+            var result = await cmd.ExecuteScalarAsync();
+            return result?.ToString() ?? string.Empty;
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+        return string.Empty; // Return empty string if error
+    }
+    finally
+    {
+        if (_conn.State == System.Data.ConnectionState.Open)
+        {
+            await _conn.CloseAsync();
+        }
+    }
+}
 
     }
 }
