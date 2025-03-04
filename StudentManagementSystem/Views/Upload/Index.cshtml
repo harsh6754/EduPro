@@ -75,7 +75,7 @@
                 <option value="1">Math</option>
                 <option value="2">Physics</option>
                 <option value="3">Chemistry</option>
-                <option value="4">Biology</option>
+                <option value="4">Hindi</option>
                 <option value="5">Computer Science</option>
             </select>
 
@@ -112,7 +112,7 @@
                     }
                 }
             });
-
+@* 
             // ✅ Handle form submission via AJAX
             $("#uploadForm").submit(function (e) {
                 e.preventDefault();
@@ -122,7 +122,14 @@
                     alert("Please select a PDF file before submitting.");
                     return;
                 }
+let teacherData = sessionStorage.getItem("Teacher");
 
+    if (teacherData) {
+        let teacher = JSON.parse(teacherData); // Convert JSON string to object
+
+        // ✅ Set TeacherId dynamically
+        let teacherId = teacher.TeacherId || 0;
+        console.log("📌 Retrieved TeacherId:", teacherId);
                 let formData = new FormData();
                 formData.append("File", fileInput);
                 formData.append("FileName", $("#fileName").val() || fileInput.name);
@@ -130,7 +137,7 @@
                 formData.append("UploadDate", $("#uploadDate").val());
                 formData.append("SubjectId", $("#subjectDropdown").val());
                 formData.append("FilePath", null);  // Append FilePath with null
-                formData.append("TeacherId", 8);  // Append TeacherId
+                formData.append("TeacherId", teacherId);  // Append TeacherId
 
                 // ✅ Debugging FormData
                 console.log("📌 FormData Contents:");
@@ -155,7 +162,68 @@
                         alert("Error uploading file: " + xhr.responseText);
                     }
                 });
-            });
+            }); *@
+              $("#uploadForm").submit(function (e) {
+        e.preventDefault();
+
+        let fileInput = $("#fileUpload")[0].files[0];
+        if (!fileInput) {
+            alert("❌ Please select a PDF file before submitting.");
+            return;
+        }
+
+        // ✅ Retrieve TeacherId from sessionStorage
+        let teacherData = sessionStorage.getItem("Teacher");
+
+        if (!teacherData) {
+            alert("❌ No teacher data found. Please log in again.");
+            console.error("❌ No teacher data found in sessionStorage.");
+            return;
+        }
+
+        let teacher = JSON.parse(teacherData); // Convert JSON string to object
+        let teacherId = teacher.TeacherId || 0; // Ensure a valid TeacherId
+
+        if (teacherId === 0) {
+            alert("❌ Invalid Teacher ID. Please log in again.");
+            return;
+        }
+
+        console.log("📌 Retrieved TeacherId:", teacherId);
+
+        // ✅ Create FormData
+        let formData = new FormData();
+        formData.append("File", fileInput);
+        formData.append("FileName", $("#fileName").val() || fileInput.name);
+        formData.append("FileType", $("#fileType").val());
+        formData.append("UploadDate", $("#uploadDate").val());
+        formData.append("SubjectId", $("#subjectDropdown").val());
+        formData.append("FilePath", null);  // Append FilePath with null
+        formData.append("TeacherId", teacherId);  // Append TeacherId dynamically
+
+        // ✅ Debugging FormData
+        console.log("📌 FormData Contents:");
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ": " + pair[1]);
+        }
+
+        // ✅ Send AJAX request
+        $.ajax({
+            url: "http://localhost:5194/Upload/AddMaterial", // Ensure correct API URL
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log("✅ Success:", response);
+                alert("✅ File uploaded successfully: " + response.message);
+            },
+            error: function (xhr, status, error) {
+                console.error("❌ Error:", xhr.responseText);
+                alert("❌ Error uploading file: " + xhr.responseText);
+            }
+        });
+    });
 
         });
     </script>

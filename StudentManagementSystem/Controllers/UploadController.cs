@@ -22,7 +22,11 @@ namespace mvc.Controllers
         {
             return View(); // Returns the Index view
         }
-
+public async Task<List<t_subject>> GetSubjectByClass(int id)
+        {
+            List<t_subject> tt = await _teacherRepository.GetAllSubjectsByClass(id);
+            return tt;
+        }
         [HttpPost]
         public async Task<IActionResult> AddMaterial([FromForm] t_material materialData, [FromForm] IFormFile File)
         {

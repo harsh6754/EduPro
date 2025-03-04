@@ -34,11 +34,13 @@ namespace Repositories.Models
         [Column("c_subjectid")]
         public int? SubjectId { get; set; }
 
+         public string? SubjectName { get; set; }
+
         // [ForeignKey("Teacher")]
         [Column("c_teacherid")]
         public int? TeacherId { get; set; }
-
         
+   
 }
 }
 

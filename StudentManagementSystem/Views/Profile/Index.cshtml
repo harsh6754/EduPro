@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Profile";  
+    Layout = "~/Views/Shared/_TeacherDashboardLayout.cshtml";
+}
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
+
+    <h2>Teacher Profile</h2>
+
+    <!-- ✅ Display Data from sessionStorage -->
+    <p><strong>Teacher ID:</strong> <span id="teacherId"></span></p>
+    <p><strong>Name:</strong> <span id="teacherName"></span></p>
+    <p><strong>Email:</strong> <span id="teacherEmail"></span></p>
+    <p><strong>Mobile:</strong> <span id="teacherMobile"></span></p>
+    <p><strong>Date of Birth:</strong> <span id="teacherDOB"></span></p>
+    <p><strong>Experience:</strong> <span id="teacherExperience"></span> years</p>
+    <p><strong>Qualification:</strong> <span id="teacherQualification"></span></p>
+    <p><strong>Expert Subject:</strong> <span id="teacherExpertSubject"></span></p>
+    <p><strong>Class ID:</strong> <span id="teacherClassId"></span></p>
+    <p><strong>Subject ID:</strong> <span id="teacherSubjectId"></span></p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // ✅ Retrieve teacher data from sessionStorage
+            let teacherData = sessionStorage.getItem("Teacher");
+
+            if (teacherData) {
+                let teacher = JSON.parse(teacherData); // Convert JSON string to object
+
+                // ✅ Update the HTML with the stored data
+                document.getElementById("teacherId").innerText = teacher.TeacherId || "N/A";
+                document.getElementById("teacherName").innerText = teacher.T_Name || "N/A";
+                document.getElementById("teacherEmail").innerText = teacher.T_Email || "N/A";
+                document.getElementById("teacherMobile").innerText = teacher.T_MobileNumber || "N/A";
+                document.getElementById("teacherDOB").innerText = teacher.T_DateOfBirth ? new Date(teacher.T_DateOfBirth).toLocaleDateString() : "N/A";
+                document.getElementById("teacherExperience").innerText = teacher.T_Experience || "N/A";
+                document.getElementById("teacherQualification").innerText = teacher.T_Qualification || "N/A";
+                document.getElementById("teacherExpertSubject").innerText = teacher.T_ExpertSubject || "N/A";
+                document.getElementById("teacherClassId").innerText = teacher.T_Class_Id || "N/A";
+                document.getElementById("teacherSubjectId").innerText = teacher.T_SubjectId || "N/A";
+            } else {
+                console.log("No teacher data found in sessionStorage.");
+            }
+        });
+    </script>

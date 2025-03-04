@@ -136,11 +136,25 @@ namespace Repositories.Implementations
 
                 // ✅ Query to get upcoming classes for a teacher
                 string query = @"
-        SELECT c_scheduleid, c_classid, c_starttime, c_endtime, c_weekday, c_subjectid, c_teacherid
-        FROM t_classschedule
-        WHERE c_teacherid = @teacherId
-        AND (c_weekday = TO_CHAR(NOW(), 'Day') OR c_starttime > CURRENT_TIME)
-        ORDER BY c_starttime ASC";
+        SELECT 
+    cs.c_scheduleid, 
+    cs.c_classid, 
+    cs.c_starttime, 
+    cs.c_endtime, 
+    cs.c_weekday, 
+    cs.c_subjectid, 
+    s.c_subjectname,  -- Joining subject name
+    cs.c_teacherid
+FROM 
+    t_classschedule cs
+JOIN 
+    t_subjects s ON cs.c_subjectid = s.c_subid  -- Join with subjects table
+WHERE 
+    cs.c_teacherid = @teacherId
+    AND (cs.c_weekday = TO_CHAR(NOW(), 'Day') OR cs.c_starttime > CURRENT_TIME)
+ORDER BY 
+    cs.c_starttime ASC";
+
 
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, _conn))
                 {
@@ -160,7 +174,8 @@ namespace Repositories.Implementations
                                 EndTime = reader["c_endtime"] as TimeSpan?,
                                 Weekday = reader["c_weekday"].ToString().Trim(),
                                 SubjectId = reader["c_subjectid"] as int?,
-                                TeacherId = reader["c_teacherid"] as int?
+                                TeacherId = reader["c_teacherid"] as int?,
+                                SubjectName = reader["c_subjectname"].ToString().Trim() // ✅ Added Subject Name
                             };
                             schedules.Add(schedule);
                         }

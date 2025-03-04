@@ -38,20 +38,20 @@ namespace mvc.Controllers
         {
             try
             {
-                // // ✅ Retrieve teacherId from session
-                // int? teacherId = HttpContext.Session.GetInt32("teacherId");
+                // ✅ Retrieve teacherId from session
+                int? teacherId = HttpContext.Session.GetInt32("TeacherId");
 
-                // if (teacherId == null)
-                // {
-                //     return Unauthorized(new { success = false, message = "Session expired or teacher not logged in." });
-                // }
-
-                // // ✅ Fetch students based on the teacher's class
-                // var students = await _teacherRepository.GetStudentsByTeacherId(teacherId.Value);
-                int teacherId = 9;
+                if (teacherId == null)
+                {
+                    return Unauthorized(new { success = false, message = "Session expired or teacher not logged in." });
+                }
 
                 // ✅ Fetch students based on the teacher's class
-                var students = await _teacherRepository.GetStudentsByTeacherId(teacherId);
+                var students = await _teacherRepository.GetStudentsByTeacherId(teacherId.Value);
+                // int teacherId = 9;
+
+                // ✅ Fetch students based on the teacher's class
+                // var students = await _teacherRepository.GetStudentsByTeacherId(teacherId);
 
                 if (students == null || students.Count == 0)
                 {
@@ -72,10 +72,14 @@ namespace mvc.Controllers
         {
             try
             {
-                // ✅ Retrieve teacherId from session (set manually if needed)
-                int teacherId =  9; // Temporary hardcoded ID
+              
+            int? teacherId = HttpContext.Session.GetInt32("TeacherId");
 
-                var upcomingClasses = await _teacherRepository.GetUpcomingClassesForTeacher(teacherId);
+                if (teacherId == null)
+                {
+                    return Unauthorized(new { success = false, message = "Session expired or teacher not logged in." });
+                }
+                var upcomingClasses = await _teacherRepository.GetUpcomingClassesForTeacher(teacherId.Value);
 
                 if (upcomingClasses == null || upcomingClasses.Count == 0)
                 {
@@ -96,10 +100,19 @@ namespace mvc.Controllers
         {
             try
             {
-                // ✅ Retrieve teacherId from session (set manually if needed)
-                int teacherId =  8; // Temporary hardcoded ID
+ // ✅ Retrieve teacherId from session
+                int? teacherId = HttpContext.Session.GetInt32("TeacherId");
 
-                var latestFile = await _teacherRepository.GetLatestUploadedFile(teacherId);
+                if (teacherId == null)
+                {
+                    return Unauthorized(new { success = false, message = "Session expired or teacher not logged in." });
+                }
+
+
+                // ✅ Retrieve teacherId from session (set manually if needed)
+                // int teacherId =  8; // Temporary hardcoded ID
+
+                var latestFile = await _teacherRepository.GetLatestUploadedFile(teacherId.Value);
 
                 if (latestFile != null)
                 {

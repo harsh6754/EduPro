@@ -80,10 +80,10 @@
         </div>
 
         <!-- Performance Analytics -->
-        <div class="card">
+        @* <div class="card">
             <h3>Performance Analytics</h3>
             <div id="analyticsChart"></div>
-        </div>
+        </div> *@
 
 
 
@@ -98,13 +98,13 @@
     <script>
         $(document).ready(function () {
             // ✅ Menu Navigation
-            $("#menu").kendoMenu({
+            @* $("#menu").kendoMenu({
                 dataSource: [
                     { text: "Dashboard" },
                     { text: "Classes", items: [{ text: "Schedule" }, { text: "Assignments" }] },
                     { text: "Uploads", items: [{ text: "Materials" }, { text: "Notes" }] }
                 ]
-            });
+            }); *@
 
             function loadStudents() {
                 $.ajax({
@@ -119,7 +119,7 @@
                                 template: `
                                 <div class="k-card">
                                     <div class="card-header">#: c_studentName #</div>
-                                    <div class="card-body">Class ID: #: c_classId #</div>
+                                    <div class="card-body">Class Name: #: c_classId #</div>
                                 </div>
                             `
                             });
@@ -149,7 +149,7 @@
                                 },
                                 template: `
                         <div class="k-card">
-                            <div class="card-header">Subject ID: #: SubjectId #</div>
+                            <div class="card-header">Subject Name: #: SubjectName #</div>
                             <div class="card-body">
                                 Time: #: StartTime  # - #: EndTime # <br>
                                 Weekday: #: Weekday #
@@ -186,7 +186,7 @@
                             <p><strong>File Name:</strong> ${response.FileName}</p>
                             <p><strong>Type:</strong> ${response.FileType}</p>
                             <p><strong>Uploaded On:</strong> ${new Date(response.UploadDate).toLocaleString()}</p>
-                            <a href="${response.FilePath}" target="_blank">Download</a>
+                            <a href="${response.FilePath}" target="_blank">View</a>
                         </div>
                     </div>
                 `;
@@ -267,12 +267,12 @@
 
 
             // ✅ Performance Analytics (Pie & Bar Charts)
-            $("#analyticsChart").kendoChart({
+            @* $("#analyticsChart").kendoChart({
                 title: { text: "Student Performance" },
                 series: [
                     { type: "pie", data: [{ category: "Pass", value: 70 }, { category: "Fail", value: 30 }] }
                 ]
-            });
+            }); *@
 
             // ✅ Real-time Notifications
             $("#notifications").kendoNotification();

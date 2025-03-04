@@ -159,7 +159,6 @@
     <div class="d-flex">
         <div id="sidebar">
             <div class="sidebar-header">
-                <span id="user-avatar"></span>
             </div>
             <h1 style="display: flex; justify-content: center; align-items: center;">Admin</h1>
             <ul class="sidebar-menu">
@@ -236,12 +235,6 @@
                 $(".sidebar-menu li a").removeClass("active"); // Remove active from all
                 $(this).addClass("active"); // Add active class to clicked item
             });
-            $("#user-avatar").kendoAvatar({
-                type: "image",
-                image: "https://via.placeholder.com/50", // Replace with actual user image URL
-                size: "large",
-                shape: "circle"
-            });
         });
 
         function toggleSidebar() {
@@ -286,5 +279,4 @@
         }
     </script>
 </body>
-
 </html>

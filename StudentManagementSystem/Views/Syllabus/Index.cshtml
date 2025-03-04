@@ -47,7 +47,19 @@
     <script>
         $(document).ready(function () {
             console.log("✅ Page Loaded. Initializing Kendo UI components...");
+// ✅ Retrieve TeacherId from sessionStorage
+    let teacherData = sessionStorage.getItem("Teacher");
+    let teacherId = 0;
 
+    if (teacherData) {
+        let teacher = JSON.parse(teacherData);
+        teacherId = teacher.TeacherId || 0;
+        console.log("📌 Retrieved TeacherId:", teacherId);
+    } else {
+        console.error("❌ No teacher data found in sessionStorage.");
+        alert("❌ No teacher data found. Please log in again.");
+        return;
+    }
             // ✅ Initialize Class Dropdown
             var classDropdown = $("#classDropdown").kendoDropDownList({
                 dataTextField: "c_className",
@@ -56,7 +68,7 @@
                 dataSource: {
                     transport: {
                         read: {
-                            url: "/Syllabus/GetClassName/8",
+                            url: `/Syllabus/GetClassName/${teacherId}`,
                             dataType: "json"
                         }
                     }
