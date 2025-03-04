@@ -11,5 +11,7 @@ namespace StudentManagementSystem.Models
         public string? c_className { get; set; }
 
         public t_Section? c_section { get; set; }
+
+        public int StudentCount { get; set; }
     }
 }

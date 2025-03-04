@@ -170,54 +170,6 @@ WHERE s.c_id = @StudentId;
 
             return teacherRating;
         }
-
-        public async Task<t_Exam> GetAllETimetableData(int classid)
-        {
-            Console.WriteLine("getClassid: " + classid);
-            t_Exam exam = new t_Exam();
-            try
-            {
-                await _connection.OpenAsync();
-                string query = @"SELECT 
-                t.c_eid,
-                t.c_classid, 
-                t.c_image,
-                c.c_classname
-                FROM t_timetable t 
-                LEFT JOIN t_class c
-                ON 
-                t.c_classid=c.c_classid
-                WHERE t.c_classid=@c_classid;";
-                using (NpgsqlCommand cmd = new NpgsqlCommand(query, _connection))
-                {
-                    cmd.Parameters.AddWithValue("@c_classid", classid);
-                    using (NpgsqlDataReader reader = await cmd.ExecuteReaderAsync())
-                    {
-                        if (reader.Read())
-                        {
-                            exam.CEid = Convert.ToInt32(reader["c_eid"]);
-                            exam.CClassId = Convert.ToInt32(reader["c_classid"]);
-                            exam.CImage = reader["c_image"].ToString();
-                            exam.Class = new t_Class()
-                            {
-                                c_classId = Convert.ToInt32(reader["c_classid"]),
-                                c_className = reader["c_classname"].ToString()
-                            };
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                await _connection.CloseAsync();
-            }
-            return exam;
-        }
-
     }
 }
 

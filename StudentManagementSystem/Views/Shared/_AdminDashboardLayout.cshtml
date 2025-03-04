@@ -163,6 +163,22 @@
             <h1 style="display: flex; justify-content: center; align-items: center;">Admin</h1>
             <ul class="sidebar-menu">
 
+                 @* <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="Admin" asp-action="SentNotification">
+                        <i class="fas fa-chart-line"></i> Sent Notification
+                    </a>
+                </li> *@
+                 <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="TeachersList">
+                        <i class="fas fa-chart-line"></i> Teachers List
+                    </a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="StudentCount" style="padding: 13px;">
+                        <i class="fas fa-chart-line"></i> Classwise Student
+                    </a>
+                </li>
+
                  <li class="nav-item">
                     <a class="nav-link text-white" asp-controller="Student" asp-action="Index">
                         <i class="fas fa-user"></i> Add Student Details
@@ -214,7 +230,6 @@
                         <i class="fas fa-chart-line"></i> Sent Notification
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link text-white" href="javascript:void(0);" onclick="confirmLogout()">
                         <i class="fas fa-sign-out-alt"></i> Logout

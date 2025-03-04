@@ -1,0 +1,114 @@
+ @{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+
+<div class="row">
+    @* <div class="col-md-6">
+        <h4>Tree View (Teachers & Students)</h4>
+        <div id="treeList"></div>
+    </div> *@   
+    @* <div class="col-md-6"> *@
+        <h1>Student Details</h1>
+        <div id="treeGrid"></div>
+    @* </div> *@
+</div>
+
+<script>
+    $(document).ready(function () {
+        loadStudents();
+    });
+
+    function loadStudents() {
+        $.ajax({
+            url: "/AdminDashboard/GetTeachersWithStudents",
+            type: 'GET',
+            success: function (response) {
+                console.log("Student Data:", response);
+
+                @* // Prepare TreeView Data
+                let treeData = [];
+                let teacherGroups = {};
+
+                response.forEach(teacher => {
+                    if (!teacherGroups[teacher.id]) {
+                        teacherGroups[teacher.id] = {
+                            id: teacher.id,
+                            text: `${teacher.text} (Teacher ID: ${teacher.id})`,
+                            items: [] // Holds students
+                        };
+                        treeData.push(teacherGroups[teacher.id]);
+                    }
+
+                    if (teacher.items && teacher.items.length > 0) {
+                        teacher.items.forEach(student => {
+                            teacherGroups[teacher.id].items.push({
+                                id: student.id,
+                                text: `${student.text}  (Student Id: ${student.id})`
+                            });
+                        });
+                    }
+                });
+
+                // Initialize Kendo TreeView
+                $("#treeList").kendoTreeView({
+                    dataSource: treeData,
+                    dataTextField: "text",
+                    loadOnDemand: false,
+                    expand: function (e) {
+                        console.log("Expanded node:", e.node);
+                    }
+                }); *@
+
+                // Prepare TreeList Data
+                let treeListData = [];
+                response.forEach(teacher => {
+                    treeListData.push({
+                        id: teacher.id,
+                        name: teacher.text,
+                        parentId: null // Root Node
+                    });
+
+                    if (teacher.items && teacher.items.length > 0) {
+                        teacher.items.forEach(student => {
+                            treeListData.push({
+                                id: student.id,
+                                name: student.text,
+                                parentId: teacher.id, // Nested under teacher
+                            });
+                        });
+                    }
+                });
+
+                // Initialize Kendo TreeList
+                $("#treeGrid").kendoTreeList({
+                    dataSource: {
+                        data: treeListData,
+                        schema: {
+                            model: {
+                                id: "id",
+                                parentId: "parentId",
+                                fields: {
+                                    id: { type: "number" },
+                                    parentId: { nullable: true },
+                                    name: { type: "string" }
+                                }
+                            }
+                        }
+                    },
+                    height: 500,
+                    columns: [
+                        { field: "id", title: "ID", width: 100 },
+                        { field: "name", title: "Name", width: 300 }
+                    ]
+                });
+
+
+            },
+            error: function (xhr) {
+                console.error("Error loading students:", xhr.responseText);
+            }
+        });
+    }
+</script>

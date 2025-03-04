@@ -1,0 +1,173 @@
+@using EduProj.Models
+@using Repositories.Models
+@model List<EduProj.Models.vm_Material>
+@{
+    var subjects = ViewBag.Sub as List<t_subject> ?? new List<t_subject>();
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Materials</title>
+    <!-- Bootstrap CSS -->
+    @* <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> *@
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .k-card {
+            margin-bottom: 20px;
+    using Repositories.Models;
+    using EduProj.Models;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        .k-card-header {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            border-radius: 8px 8px 0 0;
+            padding: 15px;
+        }
+
+        .k-card-body {
+            padding: 20px;
+        }
+
+        .k-listview {
+            border: none;
+            padding: 0;
+        }
+
+        .k-listview-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.3s ease;
+        }
+
+        .k-listview-item:last-child {
+            border-bottom: none;
+        }
+
+        .k-listview-item a {
+            color: #007bff;
+            text-decoration: none;
+            display: block;
+        }
+
+        .k-listview-item a:hover {
+            text-decoration: underline;
+        }
+
+        .k-listview-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h5 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-4">
+        @* @foreach (var teacherGroup in Model.GroupBy((Func<vm_Material, int>)(m => m.c_teacher_id ?? -1)))
+        { 
+            
+            var teachers = ViewBag.Teachers as List<t_Teacher>;
+            var teacherId = teacherGroup.Key; // Key is now non-nullable due to the null-coalescing operator
+            var teacher = teachers?.FirstOrDefault(t => t.c_tid == teacherId);
+
+            <div class="k-card">
+                <div class="k-card-header">
+                    <h5 class="k-card-title">Uploaded by: @teacher?.c_tname</h5>
+                </div>
+                <div class="k-card-body">
+                    <div class="k-listview">
+                        @foreach (var material in teacherGroup)
+                        {
+                            <div class="k-listview-item">
+                                <a href="@Url.Action("DownloadMaterial", "Student", new { id = material.c_material_id })">
+                                    @material.c_fileName (@material.c_fileType) - Uploaded on
+                                    @material.c_uploadDate.ToShortDateString() 
+                                    
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        } *@
+        @foreach (var teacherGroup in Model.GroupBy((Func<vm_Material, int>)(m => m.c_teacher_id ?? -1)))
+        {
+            
+                var teachers = ViewBag.Teachers as List<t_Teacher>;
+                var teacherId = teacherGroup.Key; // Key is now non-nullable due to the null-coalescing operator
+                var teacher = teachers?.FirstOrDefault(t => t.TeacherId == teacherId);
+
+                <div class="k-card">
+                    <div class="k-card-header">
+                        <h5 class="k-card-title">Uploaded by: @teacher?.T_Name</h5>
+                    </div>
+                    <div class="k-card-body">
+                        <div class="k-listview">
+                            @foreach (var material in teacherGroup)
+                            {
+                                <div class="k-listview-item">
+                                    <a href="@Url.Action("DownloadMaterial", "StudentDashboard", new { id = material.c_material_id })">
+                                        @material.c_fileName (@material.c_fileType) - Uploaded on
+                                        @material.c_uploadDate.ToShortDateString()
+                                        @foreach (var subject in subjects)
+                                        {
+                                            <span>@subject.c_subjectname</span> <!-- Show Subject Name -->
+                                        }
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            
+        }
+        @* @foreach (var subjectGroup in Model.GroupBy((Func<vm_Material, int>)(m => m.c_subid ?? -1)))
+        {
+            var subjects = ViewBag.Subjects as List<t_Subject>;
+            var subjectId = subjectGroup.Key; // Subject ID
+            var subject = subjects?.FirstOrDefault(s => s.c_subid == subjectId); // Get subject details
+
+            <div class="k-card">
+                <div class="k-card-header">
+                    <h5 class="k-card-title">Subject: @subject?.c_subname</h5> <!-- Show Subject Name -->
+                </div>
+                <div class="k-card-body">
+                    <div class="k-listview">
+                        @foreach (var material in subjectGroup)
+                        {
+                            <div class="k-listview-item">
+                                <a href="@Url.Action("DownloadMaterial", "Student", new { id = material.c_material_id })">
+                                    @material.c_fileName (@material.c_fileType) - Uploaded on
+                                    @material.c_uploadDate.ToShortDateString()
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        } *@
+
+    </div>
+</body>
+
+</html>

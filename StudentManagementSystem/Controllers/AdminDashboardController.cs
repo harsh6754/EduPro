@@ -42,14 +42,39 @@ namespace StudentManagementSystem.Controllers
         {
             return View();
         }
+
+        public IActionResult TeachersList()
+        {
+            return View();
+        }
+
+         public IActionResult StudentCount()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetStudentCountPerClass()
+        {
+            List<t_Student> data = await _exam.GetStudentCountPClass();
+            return Json(data);
+        }
+
+         public IActionResult GetTeachersWithStudents()
+        {
+            List<TeacherTreeViewModel> data = _exam.GetTeachersWithStudents();
+            return Json(data);
+        }
         public IActionResult DisplayAllETable()
         {
             return View();
         }
+        
+        [HttpGet]
         public async Task<IActionResult> GetAllETables()
         {
-            List<t_Exam> examVM = await _exam.GetAllETimetableData();
-            return Json(examVM);
+            List<t_Exam> exam = await _exam.GetAllETimetableData();
+            return Json(exam);
         }
         // public async Task<IActionResult> DisplayETable()
         // {

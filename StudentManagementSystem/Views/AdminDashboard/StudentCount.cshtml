@@ -1,0 +1,108 @@
+ @{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h2 class="page-title">Student Count per Class</h2>
+
+<div id="classListContainer" class="class-badges-container"></div>
+<style>
+    .page-title {
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .class-badges-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .class-badge {
+        background-color: white;
+        border: 2px solid;
+        border-radius: 10px;
+        padding: 15px;
+        min-width: 180px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        position: relative;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .class-badge:hover {
+        transform: scale(1.05);
+    }
+
+    .class-name {
+        display: block;
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .student-count {
+        display: block;
+        font-size: 14px;
+        color: #666;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        loadStudentCounts();
+    });
+
+    function loadStudentCounts() {
+        $.ajax({
+            url: "/AdminDashboard/GetStudentCountPerClass",
+            type: "GET",
+            contentType: "application/json",
+            success: function (response) {
+                console.log("Student Count Data:", response);
+
+                if (!Array.isArray(response) || response.length === 0) {
+                    $("#classListContainer").html("<p>No class data available.</p>");
+                    return;
+                }
+
+                let container = $("#classListContainer");
+                container.empty();
+
+                let colors = ["#3498db", "#e74c3c", "#2ecc71", "#f39c12", "#9b59b6", "#1abc9c"];
+
+                response.forEach((classData, index) => {
+                    if (!classData.c_class || classData.c_class.c_classId == null) {
+                        console.warn("Skipping item due to missing class data:", classData);
+                        return;
+                    }
+
+                    let classInfo = classData.c_class;
+                    let classId = classInfo.c_classId;
+                    let studentCount = classInfo.studentCount ?? 0;
+                    let className = classInfo.c_className ? classInfo.c_className : "No Name";
+                    let shadowColor = colors[index % colors.length];
+
+                    let badgeHtml = `
+                <div class="class-badge" style="border-color: ${shadowColor}; box-shadow: 5px 5px 15px ${shadowColor}80;">
+                    <span class="class-name">Class ${classId}</span>
+                    <span class="student-count">${studentCount} Students</span>
+                </div>
+                `;
+
+                    container.append(badgeHtml);
+                });
+            },
+            error: function (xhr) {
+                console.error("Error loading student count:", xhr.responseText);
+                $("#classListContainer").html("<p>Error fetching data.</p>");
+            }
+        });
+    }
+
+</script>

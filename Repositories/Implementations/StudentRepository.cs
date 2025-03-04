@@ -1,6 +1,8 @@
 using System.Data;
+using EduProj.Models;
 using Npgsql;
 using Repositories.Interfaces;
+using Repositories.Models;
 using StudentManagementSystem.Models;
 
 public class StudentRepository : IStudentInterface
@@ -284,6 +286,255 @@ public class StudentRepository : IStudentInterface
         }
         return tc;
     }
+
+    public async Task<List<t_subject>> GetAllSubjects()
+    {
+        var subjects = new List<t_subject>();
+        await _conn.CloseAsync();
+        await _conn.OpenAsync();
+        var query = "SELECT * FROM t_subjects";
+        using (var command = new NpgsqlCommand(query, _conn))
+        {
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                while (await reader.ReadAsync())
+                {
+                    subjects.Add(new t_subject
+                    {
+                        c_subid = Convert.ToInt32(reader["c_subid"]),
+                        c_subjectname = reader["c_subjectname"].ToString()
+                    });
+                }
+            }
+        }
+        await _conn.CloseAsync();
+        return subjects;
+    }
+
+    public async Task<List<t_Teacher>> GetAllTeachers()
+    {
+        var teachers = new List<t_Teacher>();
+        await _conn.CloseAsync();
+        await _conn.OpenAsync();
+        var query = "SELECT * FROM t_teachers";
+        using (var command = new NpgsqlCommand(query, _conn))
+        {
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                while (await reader.ReadAsync())
+                {
+                    teachers.Add(new t_Teacher
+                    {
+                        TeacherId = Convert.ToInt32(reader["c_tid"]),
+                        T_Name = reader["c_teachername"].ToString(),
+                        T_Email = reader["c_temail"].ToString()
+                    });
+                }
+            }
+            await _conn.CloseAsync();
+        }
+        return teachers;
+    }
+
+    #region Material Methods
+
+  public async Task<List<vm_Material>> GetAllMaterials()
+{
+    var materials = new List<vm_Material>();
+
+    await _conn.CloseAsync();
+    await _conn.OpenAsync();
+    
+    var query = "SELECT * FROM t_materials";
+    using (var command = new NpgsqlCommand(query, _conn))
+    {
+        using (var reader = await command.ExecuteReaderAsync())
+        {
+            while (await reader.ReadAsync())
+            {
+                var material = new vm_Material
+                {
+                    c_material_id = Convert.ToInt32(reader["c_material_id"]),
+                    c_fileName = reader["c_fileName"].ToString(),
+                    c_fileType = reader["c_fileType"].ToString(),
+                    c_uploadDate = Convert.ToDateTime(reader["c_uploadDate"]),
+                    c_subject_id = reader["c_subject_id"] != DBNull.Value ? Convert.ToInt32(reader["c_subject_id"]) : (int?)null,
+                    c_teacher_id = reader["c_teacher_id"] != DBNull.Value ? Convert.ToInt32(reader["c_teacher_id"]) : (int?)null
+                };
+
+                materials.Add(material);
+            }
+        }
+    }
+
+    await _conn.CloseAsync(); // Close the connection after reading all materials
+
+    // Fetch teacher and subject data separately
+    foreach (var material in materials)
+    {
+        if (material.c_teacher_id.HasValue)
+            material.c_teacher = await GetTeachersByIds(material.c_teacher_id.Value);
+
+        if (material.c_subject_id.HasValue)
+            material.c_subject = await GetSubjectById(material.c_subject_id.Value);
+    }
+
+    return materials;
+}
+
+
+    public async Task<vm_Material> GetMaterialById(int id)
+    {
+        await _conn.CloseAsync();
+        await _conn.OpenAsync();
+        var query = "SELECT * FROM t_materials WHERE c_material_id = @Id";
+        using (var command = new NpgsqlCommand(query, _conn))
+        {
+            command.Parameters.AddWithValue("@Id", id);
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                if (await reader.ReadAsync())
+                {
+                    var material = new vm_Material
+                    {
+                        c_material_id = Convert.ToInt32(reader["c_material_id"]),
+                        c_fileName = reader["c_fileName"].ToString(),
+                        c_fileType = reader["c_fileType"].ToString(),
+                        c_uploadDate = Convert.ToDateTime(reader["c_uploadDate"]),
+                        c_subject_id = reader["c_subject_id"] != DBNull.Value ? Convert.ToInt32(reader["c_subject_id"]) : (int?)null,
+                        c_teacher_id = reader["c_teacher_id"] != DBNull.Value ? Convert.ToInt32(reader["c_teacher_id"]) : (int?)null
+                    };
+
+                    // Fetch teacher data if c_teacher_id is not null
+                    if (material.c_teacher_id.HasValue)
+                    {
+                        material.c_teacher = await GetTeachersByIds(material.c_teacher_id.Value);
+                    }
+
+                    // Fetch subject data if c_subject_id is not null
+                    if (material.c_subject_id.HasValue)
+                    {
+                        material.c_subject = await GetSubjectById(material.c_subject_id.Value);
+                    }
+
+                    return material;
+                }
+            }
+        }
+        await _conn.CloseAsync();
+        return null;
+    }
+
+    private async Task<t_Teacher> GetTeachersByIds(int teacherId)
+    {
+        await _conn.CloseAsync();
+        await _conn.OpenAsync();
+        var query = "SELECT * FROM t_teachers WHERE c_tid = @TeacherId";
+        using (var command = new NpgsqlCommand(query, _conn))
+        {
+            command.Parameters.AddWithValue("@TeacherId", teacherId);
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                if (await reader.ReadAsync())
+                {
+                    return new t_Teacher
+                    {
+                        TeacherId = Convert.ToInt32(reader["c_tid"]),
+                        T_Name = reader["c_teachername"].ToString(),
+                        T_Email = reader["c_temail"].ToString(),
+
+                    };
+                }
+            }
+        }
+        await _conn.CloseAsync();
+        return null;
+    }
+
+    private async Task<t_subject> GetSubjectById(int subjectId)
+    {
+        await _conn.CloseAsync();
+        await _conn.OpenAsync();
+        var query = "SELECT * FROM t_subjects WHERE c_subid = @SubjectId";
+        using (var command = new NpgsqlCommand(query, _conn))
+        {
+            command.Parameters.AddWithValue("@SubjectId", subjectId);
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                if (await reader.ReadAsync())
+                {
+                    return new t_subject
+                    {
+                        c_subid = Convert.ToInt32(reader["c_subid"]),
+                        c_subjectname = reader["c_subjectname"].ToString()
+                    };
+                }
+            }
+
+        }
+        await _conn.CloseAsync();
+        return null;
+    }
+
+    public async Task<List<vm_Material>> GetMaterialsBySubjectIds(List<int> subjectIds)
+    {
+        var materials = new List<vm_Material>();
+        await _conn.CloseAsync();
+        await _conn.OpenAsync();
+        var query = "SELECT * FROM t_materials WHERE c_subject_id = ANY(@SubjectIds)";
+        using (var command = new NpgsqlCommand(query, _conn))
+        {
+            command.Parameters.AddWithValue("@SubjectIds", subjectIds.ToArray());
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                while (await reader.ReadAsync())
+                {
+                    materials.Add(new vm_Material
+                    {
+                        c_material_id = Convert.ToInt32(reader["c_material_id"]),
+                        c_fileName = reader["c_fileName"].ToString(),
+                        c_fileType = reader["c_fileType"].ToString(),
+                        c_uploadDate = Convert.ToDateTime(reader["c_uploadDate"]),
+                        c_subject_id = Convert.ToInt32(reader["c_subject_id"]),
+                        c_teacher_id = Convert.ToInt32(reader["c_teacher_id"])
+                    });
+                }
+            }
+        }
+        await _conn.CloseAsync();
+        return materials;
+    }
+
+    #endregion
+
+    #region Get Teachers by IDs
+
+    public async Task<List<t_Teacher>> GetTeachersByIds(IEnumerable<int> teacherIds)
+    {
+        var teachers = new List<t_Teacher>();
+        await _conn.CloseAsync();
+        await _conn.OpenAsync();
+        var query = "SELECT * FROM t_teachers WHERE c_tid = ANY(@TeacherIds)";
+        using (var command = new NpgsqlCommand(query, _conn))
+        {
+            command.Parameters.AddWithValue("@TeacherIds", teacherIds.ToArray());
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                while (await reader.ReadAsync())
+                {
+                    teachers.Add(new t_Teacher
+                    {
+                        TeacherId = Convert.ToInt32(reader["c_tid"]),
+                        T_Name = reader["c_teachername"].ToString(),
+                        T_Email = reader["c_temail"].ToString(),
+                    });
+                }
+            }
+        }
+        await _conn.CloseAsync();
+        return teachers;
+    }
+    #endregion
 
 }
 

@@ -59,5 +59,8 @@ namespace Repositories.Interfaces
         Task<List<t_topic>> GetTopicNames();
         Task<List<t_Student>> GetAllStudents();
 
+                List<TeacherTreeViewModel> GetTeachersWithStudents();
+        Task<List<t_Student>> GetStudentCountPClass();
+
     }
 }

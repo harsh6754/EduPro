@@ -846,6 +846,95 @@ public async Task<bool> SendNotification(NotificationModel notification)
             }
             return tt;
         }
+
+        public List<TeacherTreeViewModel> GetTeachersWithStudents()
+    {
+        List<TeacherTreeViewModel> teachers = new List<TeacherTreeViewModel>();
+
+
+        _connection.Open();
+        string query = @"
+                    SELECT 
+                        t.c_tid AS teacher_id, 
+                        t.c_teachername AS teacher_name, 
+                        c.c_className AS class_name,
+                        s.c_id AS student_id, 
+                        s.c_name AS student_name
+                    FROM t_teachers t
+                    JOIN t_class c ON t.c_class_id = c.c_classid
+                    LEFT JOIN t_student s ON s.c_classid = c.c_classid
+                    ORDER BY t.c_tid, s.c_id;";
+
+        using (var cmd = new NpgsqlCommand(query, _connection))
+        {
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    int teacherId = reader.GetInt32(0);
+                    string teacherName = reader.GetString(1);
+                    string className = reader.GetString(2);
+                    int? studentId = reader.IsDBNull(3) ? (int?)null : reader.GetInt32(3);
+                    string studentName = reader.IsDBNull(4) ? null : reader.GetString(4);
+
+                    var teacher = teachers.FirstOrDefault(t => t.Id == teacherId);
+                    if (teacher == null)
+                    {
+                        teacher = new TeacherTreeViewModel
+                        {
+                            Id = teacherId,
+                            Text = $"{teacherName} ({className})",
+                            Items = new List<TeacherTreeViewModel>()
+                        };
+                        teachers.Add(teacher);
+                    }
+
+                    if (studentId.HasValue)
+                    {
+                        teacher.Items.Add(new TeacherTreeViewModel { Id = studentId.Value, Text = studentName });
+                    }
+                }
+            }
+
+        }
+        return teachers;
+    }
+    public async Task<List<t_Student>> GetStudentCountPClass()
+    {
+        List<t_Student> studentCounts = new List<t_Student>();
+        try
+        {
+            await _connection.OpenAsync();
+            string query = "SELECT c_classid, COUNT(c_id) FROM t_student GROUP BY c_classid ORDER BY c_classid;";
+            using (NpgsqlCommand cmd = new NpgsqlCommand(query, _connection))
+            {
+                using (NpgsqlDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
+                        t_Student t_Student = new t_Student()
+                        {
+                            c_class = new t_Class
+                            {
+                                c_classId = Convert.ToInt32(reader["c_classid"]),
+                                StudentCount= Convert.ToInt32(reader["count"])
+                            }
+                        };
+                        studentCounts.Add(t_Student);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            await _connection.CloseAsync();
+        }
+        return studentCounts;
+    }
     }
 
     }
