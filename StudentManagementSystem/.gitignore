@@ -1,0 +1,11 @@
+# Ignore bin and obj folders
+bin/
+obj/
+
+# Ignore configuration files
+appsettings.json
+appsettings.Development.json
+web.config
+
+# Ignore project file
+StudentManagementSystem.csproj
