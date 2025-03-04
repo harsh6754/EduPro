@@ -40,7 +40,7 @@
             dataSource: {
                 transport: {
                     read: {
-                        url: "/getStudentClasses",
+                        url: "/Admin/getStudentClasses",
                         dataType: "json"
                     }
                 }
@@ -54,7 +54,7 @@
             dataSource: {
                 transport: {
                     read: {
-                        url: "/GetAllSubjects",
+                        url: "/Admin/GetAllSubjects",
                         dataType: "json"
                     }
                 }
@@ -68,7 +68,7 @@
             dataSource: {
                 transport: {
                     read: {
-                        url: "/GetTopicNames",
+                        url: "/Admin/GetTopicNames",
                         dataType: "json"
                     }
                 }
@@ -87,7 +87,7 @@
             console.log(syllabusData);
 
             $.ajax({
-                url: "/CreateSyllabus",
+                url: "/Admin/CreateSyllabus",
                 type: "POST",
                 contentType: "application/json", // Send as JSON
                 data: JSON.stringify(syllabusData),
