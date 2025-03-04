@@ -1,0 +1,246 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notification System</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2024.1.117/js/kendo.all.min.js"></script>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2024.1.117/styles/kendo.default-v2.min.css" />
+
+    <style>
+        .notification-bell {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .notification-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 3px 6px; /* Smaller padding */
+            font-size: 10px; /* Smaller font size */
+            font-weight: bold;
+            min-width: 18px; /* Ensure consistent size for single and double digits */
+            text-align: center;
+            line-height: 1; /* Adjust line height for better alignment */
+        }
+        #bellIcon {
+            font-size: 24px; /* Increase the size of the bell icon */
+            color: #333; /* Default color */
+            cursor: pointer; /* Add pointer cursor for better UX */
+            transition: color 0.3s ease; /* Smooth color transition on hover */
+        }
+
+        #bellIcon:hover {
+            color: #007bff; /* Change color on hover */
+        }
+        .notification-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .notification-card h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+        .notification-card p {
+            margin: 0 0 10px;
+            font-size: 14px;
+        }
+        .notification-card button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .notification-card button:hover {
+            background-color: #0056b3;
+        }
+        .notification-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification-content {
+    flex: 1; /* Take up remaining space */
+    margin-right: 20px; /* Add some spacing between content and time */
+}
+
+.notification-content h3 {
+    margin: 0 0 5px;
+    font-size: 18px;
+}
+
+.notification-content p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: #666;
+    white-space: nowrap; /* Prevent time from wrapping */
+}
+
+.notification-card button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 20px; /* Add spacing between time and button */
+}
+
+.notification-card button:hover {
+    background-color: #0056b3;
+}
+    </style>
+</head>
+<body>
+
+    <div class="notification-bell" onclick="fetchAllNotifications()">
+        <i class="k-icon k-i-bell" id="bellIcon"></i>
+        <span id="notificationCount" class="notification-badge"></span>
+    </div>
+    
+    <div id="notificationContainer"></div>
+    <div id="notification"></div>
+
+    <script>
+        const userId = 40; // Replace with dynamic user ID if needed
+
+        function fetchUnreadNotifications() {
+            $.ajax({
+                url: `/GetUnreadNotificationCount/${encodeURIComponent(userId)}`,
+                type: "GET",
+                success: function (response) {
+                    if (response.count > 0) {
+                        $("#notificationCount").text(response.count).show();
+                    } else {
+                        $("#notificationCount").text('').hide();
+                    }
+                },
+                error: function () {
+                    console.log("Error fetching unread notifications.");
+                }
+            });
+        }
+
+        function fetchAllNotifications() {
+            $.ajax({
+                url: `/GetAllNotifications/${encodeURIComponent(userId)}`,
+                type: "GET",
+                success: function (response) {
+                    renderNotifications(response);
+                },
+                error: function () {
+                    console.log("Error fetching notifications.");
+                }
+            });
+        }
+
+        function renderNotifications(notifications) {
+            console.log(notifications);
+            let container = $("#notificationContainer");
+            container.empty();
+
+            if (notifications.length === 0) {
+                container.append('<p>No new notifications.</p>');
+                return;
+            }
+
+            notifications.forEach(notification => {
+                const createdAt = new Date(notification.createdAt);
+                const now = new Date();
+                const timeDifference = now - createdAt;
+
+                const secondsDifference = Math.floor(timeDifference / 1000);
+                const minutesDifference = Math.floor(secondsDifference / 60);
+                const hoursDifference = Math.floor(minutesDifference / 60);
+
+                let timeDisplay;
+                if (secondsDifference < 60) {
+                    timeDisplay = `${secondsDifference} second${secondsDifference !== 1 ? 's' : ''} ago`;
+                } else if (minutesDifference < 60) {
+                    timeDisplay = `${minutesDifference} minute${minutesDifference !== 1 ? 's' : ''} ago`;
+                } else if (hoursDifference < 24) {
+                    timeDisplay = `${hoursDifference} hour${hoursDifference !== 1 ? 's' : ''} ago`;
+                } else {
+                    timeDisplay = createdAt.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                }
+
+                let card = $(`
+                    <div class="notification-card">
+                        <div class="notification-content">
+                            <h3>${notification.title}</h3>
+                            <p>${notification.message}</p>
+                        </div>
+                        <div class="notification-time">${timeDisplay}</div>
+                        <button onclick="markAsRead(${notification.id})">Mark as Read</button>
+                    </div>
+                `);
+                container.append(card);
+            });
+        }
+
+        function markAsRead(notificationId) {
+            console.log(notificationId);
+            $.post(`/MarkAsRead/${encodeURIComponent(notificationId)}`, function () {
+                fetchUnreadNotifications();
+                fetchAllNotifications();
+            }).fail(() => {
+                console.log("Error marking notification as read.");
+            });
+        }
+
+        $(document).ready(function() {
+            fetchUnreadNotifications();
+            fetchAllNotifications();
+
+            // Kendo Notification Widget
+            let notification = $("#notification").kendoNotification({
+                position: { pinned: true, top: 30, right: 30 },
+                autoHideAfter: 5000,
+                stacking: "down"
+            }).data("kendoNotification");
+
+            setTimeout(() => {
+                let count = $("#notificationCount").text();
+                if (count && count !== "0") {
+                    notification.show({ title: "Notifications", message: `You have ${count} unread notifications.` }, "info");
+                }
+            }, 1000);
+
+            // Fetch updates periodically
+            setInterval(fetchUnreadNotifications, 5000);
+            setInterval(fetchAllNotifications, 10000);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+<!-- Styles -->
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f6f9;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .dropdown-container {
+        margin-bottom: 15px;
+        max-width: 400px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #0056b3;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .k-dropdown {
+        width: 100%;
+    }
+
+    #submitBtn {
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 6px;
+        background: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s;
+        display: block;
+        margin-top: 10px;
+    }
+
+    #submitBtn:hover {
+        background: #0056b3;
+    }
+
+    #scheduler {
+        margin-top: 20px;
+    }
+</style>
+
+<!-- Outer Class Selection Dropdown -->
+<div class="container">
+    <div class="dropdown-container">
+        <label for="classDropdown">Select Class:</label>
+        <input id="classDropdown" />
+    </div>
+
+    <button id="submitBtn">Load Schedule</button>
+
+    <!-- Scheduler -->
+    <div id="scheduler"></div>
+</div>
+
+<!-- Custom Subject & Teacher Selection Popup -->
+<div id="customEditor" style="display: none;">
+    <label>Select Subject:</label>
+    <input id="subjectDropdown" />
+    
+    <label>Select Teacher:</label>
+    <input id="teacherDropdown" />
+</div>
+
+<!-- Scripts -->
+<script>
+    $(document).ready(function () {
+        let selectedClassId = null;
+
+        /** CLASS DROPDOWN */
+        $("#classDropdown").kendoDropDownList({
+            optionLabel: "Select Class...",
+            dataTextField: "c_className",
+            dataValueField: "c_classId",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/getStudentClasses",
+                        dataType: "json"
+                    }
+                }
+            },
+            change: function (e) {
+                selectedClassId = this.value();
+            }
+        });
+
+        /** SUBJECT DROPDOWN */
+        $("#subjectDropdown").kendoDropDownList({
+            optionLabel: "Select Subject...",
+            dataTextField: "c_subjectname",
+            dataValueField: "c_subid",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/GetAllSubjects",
+                        dataType: "json"
+                    }
+                }
+            }
+        });
+
+        /** TEACHER DROPDOWN */
+        $("#teacherDropdown").kendoDropDownList({
+            optionLabel: "Select Teacher...",
+            dataTextField: "c_tName",
+            dataValueField: "c_tid",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/GetAllTeachers",
+                        dataType: "json"
+                    }
+                }
+            }
+        });
+
+        $("#submitBtn").click(function () {
+            if (!selectedClassId) {
+                alert("Please select a class.");
+                return;
+            }
+            loadScheduler(selectedClassId);
+        });
+
+        function loadScheduler(classId) {
+            // ✅ Destroy previous instance if exists
+            if ($("#scheduler").data("kendoScheduler")) {
+                $("#scheduler").data("kendoScheduler").destroy();
+                $("#scheduler").empty();
+            }
+
+            $("#scheduler").kendoScheduler({
+                date: new Date(),
+                views: [
+                    { type: "day", showWorkHours: true },
+                    { type: "week", showWorkHours: true },
+                    { type: "month" }
+                ],
+                editable: {
+                    update: true,
+                    resize: true,
+                    move: true,
+                    destroy: true
+                },
+                dataSource: new kendo.data.SchedulerDataSource({
+                    transport: {
+                        read: function (options) {
+                            $.ajax({
+                                url: "/GetSchedules",
+                                type: "GET",
+                                data: { classId: classId },
+                                dataType: "json",
+                                success: function (response) {
+                                    console.log("Full API Response:", response);
+
+                                    if (response.success && response.timetableList.length > 0) {
+                                        var today = new Date();
+
+                                        var events = response.timetableList.map(function (item) {
+                                            let start = convertToDateTime(today, item.c_starttime);
+                                            let end = convertToDateTime(today, item.c_endtime);
+
+                                            console.log("Event Data:", {
+                                                id: item.c_scheduleid,
+                                                title: item.c_subjectid + " - " + item.c_TeacherName,
+                                                start: start,
+                                                end: end
+                                            });
+
+                                            return {
+                                                id: item.c_scheduleid,
+                                                title: (item.c_SubjectName || "No Subject") + " - " + (item.c_TeacherName || "No Teacher"),
+                                                start: start,
+                                                end: end,
+                                                classId: item.c_classid,
+                                                color: "#87CEEB"
+                                            };
+                                        });
+
+                                        console.log("Processed Events:", events);
+                                        options.success(events);
+                                    } else {
+                                        console.warn("No timetable data found in API.");
+                                        options.success([]);
+                                    }
+                                },
+                                error: function () {
+                                    alert("Error fetching timetable.");
+                                    options.success([]);
+                                }
+                            });
+                        },
+                        //update timetable section
+                        update: function (options) {
+                            debugger
+                            var updatedEvent = options.data;
+
+                            console.log("Event Data Before Update:", updatedEvent);
+
+                            updatedEvent.sectionId = parseInt(updatedEvent.sectionId || $("#sectionDropdown").val() || 0);
+                            updatedEvent.week = parseInt(updatedEvent.week || $("#weekDropdown").val() || 0);
+
+                            // Validate and set subjectId and teacherId
+                            var subjectId = $("#subjectDropdown").val();
+                            var teacherId = $("#teacherDropdown").val();
+
+                            updatedEvent.subjectId = subjectId ? parseInt(subjectId) : null; // Set to null if invalid
+                            updatedEvent.teacherId = teacherId ? parseInt(teacherId) : null; // Set to null if invalid
+
+                            // Get subject and teacher names from dropdowns
+                            var subjectName = $("#subjectDropdown option:selected").text();
+                            var teacherName = $("#teacherDropdown option:selected").text();
+
+                            console.log("Event Data After Setting Defaults:", updatedEvent);
+
+                            // Send the data to the backend
+                            $.ajax({
+                                url: "/UpdateTimeTable",
+                                type: "PUT",
+                                contentType: "application/json",
+                                data: JSON.stringify({
+                                    c_scheduleid: updatedEvent.id,
+                                    c_classid: updatedEvent.classId,
+                                    c_Week: updatedEvent.week,
+                                    c_starttime: formatTime(updatedEvent.start),
+                                    c_endtime: formatTime(updatedEvent.end),
+                                    c_subjectid: updatedEvent.subjectId,
+                                    c_SubjectName: subjectName, // Add subject name
+                                    c_teacherid: updatedEvent.teacherId,
+                                    c_TeacherName: teacherName // Add teacher name
+                                }),
+                                success: function (response) {
+                                    console.log("Update Response:", response);
+                                    if (response.success) {
+                                        alert("Timetable updated successfully!");
+                                        options.success(updatedEvent);
+                                    } else {
+                                        alert("Failed to update timetable.");
+                                        options.error();
+                                    }
+                                },
+                                error: function (xhr) {
+                                    console.error("Error:", xhr.responseText);
+                                    alert("Error updating timetable.");
+                                    options.error();
+                                }
+                            });
+                        },
+
+                        //delete timetable section
+                        destroy: function (options) {
+                            var eventId = options.data.id;
+                            console.log("Deleting Event ID:", eventId);
+
+                            if (confirm("Are you sure you want to delete this event?")) {
+
+                                $.ajax({
+                                    url: "/DeleteTimeTable?id=" + eventId, // Your delete API endpoint
+                                    type: "DELETE",
+                                    contentType: "application/json",
+                                    data: JSON.stringify({ c_scheduleid: eventId }),
+                                    success: function (response) {
+                                        console.log("Delete Response:", response);
+                                        if (response.success) {
+                                            alert("Timetable deleted successfully!");
+                                            options.success();
+                                        } else {
+                                            alert("Failed to delete timetable.");
+                                            options.error();
+                                        }
+                                    },
+                                    error: function (xhr) {
+                                        console.error("Error:", xhr.responseText);
+                                        alert("Error deleting timetable.");
+                                        options.error();
+                                    }
+                                });
+                            }
+                            else {
+                                options.error(); // If the user cancels, do not proceed with the deletion
+                            }
+                        }
+                    },
+                    schema: {
+                        model: {
+                            id: "c_scheduleid",
+                            fields: {
+                                title: { from: "title", type: "string" },
+                                start: { from: "start", type: "date" },
+                                end: { from: "end", type: "date" },
+                                classId: { from: "classId", type: "number" },
+                                sectionId: { from: "sectionId", type: "number" },
+                                subjectId: { from: "subjectId", type: "number" },
+                                teacherId: { from: "teacherId", type: "number" },
+                                week: { from: "week", type: "number" }
+                            }
+                        }
+                    }
+                })
+            });  // <-- ✅ Closing bracket for kendoScheduler
+        }  // <-- ✅ Closing bracket for loadScheduler function
+
+        // ✅ Ensure the time conversion is correct
+        function convertToDateTime(date, timeSpan) {
+            if (!timeSpan || timeSpan === "00:00:00") return new Date(date);
+
+            let timeParts = timeSpan.split(":");
+            if (timeParts.length < 3) return new Date(date);
+
+            let hours = parseInt(timeParts[0], 10);
+            let minutes = parseInt(timeParts[1], 10);
+            let seconds = parseInt(timeParts[2], 10);
+
+            return new Date(date.getFullYear(), date.getMonth(), date.getDate(), hours, minutes, seconds);
+        }
+
+        // ✅ Convert Date to HH:mm:ss Format for API
+        function formatTime(date) {
+            if (!date || !(date instanceof Date)) {
+                console.error("Invalid date object:", date);
+                return "00:00:00"; // Fallback to avoid errors
+            }
+
+            var hours = date.getHours().toString().padStart(2, "0");
+            var minutes = date.getMinutes().toString().padStart(2, "0");
+            var seconds = date.getSeconds().toString().padStart(2, "0");
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Save Changes Button Click Event
+        $("#saveChanges").click(function () {
+            var subjectId = $("#subjectDropdown").val();
+            var teacherId = $("#teacherDropdown").val();
+            var eventId = $("#editModal").data("eventId");
+
+            var scheduler = $("#scheduler").data("kendoScheduler");
+            var event = scheduler.dataSource.get(eventId);
+
+            $.ajax({
+                url: "http://localhost:5246/api/Admin/UpdateTimeTable",
+                type: "PUT",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    c_TimetableID: eventId,
+                    c_ClassID: event.classId || 0,
+                    c_SectionID: event.sectionId || 0,
+                    c_Week: event.week || 0,
+                    c_StartTime: formatTime(event.start),
+                    c_EndTime: formatTime(event.end),
+                    c_SubjectID: subjectId || 0,
+                    c_TeacherID: teacherId || 0
+                }),
+                success: function (response) {
+                    if (response.success) {
+                        alert("Timetable updated successfully!");
+                        $("#scheduler").data("kendoScheduler").dataSource.read(); // ✅ Refresh data
+                    } else {
+                        alert("Failed to update timetable.");
+                    }
+                },
+                error: function (xhr) {
+                    console.error("Error:", xhr.responseText);
+                    alert("Error updating timetable.");
+                }
+            });
+        });  // ✅ Closing bracket for #saveChanges click function
+    });  // ✅ Closing bracket for $(document).ready
+</script>
+

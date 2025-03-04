@@ -1,0 +1,372 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<style>
+    /* Global Styles */
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f6f9;
+        padding: 20px;
+    }
+
+    /* Container for Dropdowns */
+    .dropdown-container {
+        margin-bottom: 20px;
+        max-width: 350px;
+    }
+
+    /* Label Styling */
+    label {
+        font-weight: 600;
+        font-size: 15px;
+        color: #0056b3;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    /* Custom Styling for DropDowns */
+    .k-dropdown, .form-control {
+        font-size: 14px;
+        border-radius: 8px !important;
+        padding: 12px !important;
+        border: 2px solid #007bff !important;
+        background: linear-gradient(145deg, #ffffff, #e3e6eb) !important;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 4px 6px rgba(0, 123, 255, 0.2);
+        color: #333 !important;
+        width: 100%;
+    }
+
+    /* Hover Effect */
+    .k-dropdown:hover, .form-control:hover {
+        border-color: #0056b3 !important;
+        background: #f0f8ff !important;
+    }
+
+    /* Focus Effect */
+    .k-dropdown:focus, .form-control:focus {
+        border-color: #004085 !important;
+        box-shadow: 0px 4px 8px rgba(0, 64, 133, 0.4);
+        background: white !important;
+    }
+
+    /* DropDown Arrow */
+    .k-dropdown .k-select {
+        background: transparent !important;
+        border-left: none !important;
+    }
+
+    /* Select Dropdown */
+    #sectiondropdown {
+        max-width: 350px;
+    }
+
+        /* Submit Button Styling */
+    #submitBtn {
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        background: #007bff;
+        color: white;
+        border: none;
+        cursor: not-allowed;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0px 4px 6px rgba(0, 123, 255, 0.2);
+        outline: none;
+        width: 100%;
+        max-width: 350px;
+        display: block;
+        margin-top: 10px;
+    }
+
+    /* Enabled Button State */
+    #submitBtn:enabled {
+        cursor: pointer;
+        background: #0056b3;
+        box-shadow: 0px 4px 8px rgba(0, 64, 133, 0.4);
+    }
+
+    /* Hover Effect */
+    #submitBtn:hover:enabled {
+        background: #004085;
+    }
+
+    /* Disabled State */
+    #submitBtn:disabled {
+        background: #cccccc;
+        color: #666;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+
+</style>
+
+<!-- Dropdowns -->
+<form id="selectionForm">
+    <div class="dropdown-container">
+        <label for="dropdownlist4">Start Time:</label>
+        <input type="time" id="dropdownlist4" name="starttime">
+    </div>
+
+    <div class="dropdown-container">
+        <label for="dropdownlist5">End Time:</label>
+        <input type="time" id="dropdownlist5" name="endtime">
+    </div>
+    <div class="dropdown-container">
+        <label for="dropdownlist1">Select Class:</label>
+        <input id="dropdownlist1" name="classId">
+    </div>
+
+    <div class="dropdown-container">
+        <label for="dropdownlist2">Select Subject:</label>
+        <input id="dropdownlist2" name="subjectId">
+    </div>
+
+    <div class="dropdown-container">
+        <label for="dropdownlist3">Select Teacher:</label>
+        <input id="dropdownlist3" name="teacherId">
+    </div>
+
+    <div class="dropdown-container">
+        <label for="weekday">Select WeekDay:</label>
+        <select name="weekday" id="weekday">
+            <option value="monday">Monday</option>
+            <option value="tuesday">Tuesday</option>
+            <option value="wednesday">Wednesday</option>
+            <option value="thursday">Thursday</option>
+            <option value="friday">Friday</option>
+            <option value="saturday">Saturday</option>
+        </select>
+    </div>
+
+    <!-- Submit Button -->
+    <button id="submitBtn" disabled type="submit">Submit</button>
+</form>
+
+<script>
+    $(document).ready(function () {
+    // Initialize dropdowns
+    let classDropdown = $("#dropdownlist1").kendoDropDownList({
+        optionLabel: "Select Class",
+        dataTextField: "c_className",
+        dataValueField: "c_classId",
+        dataSource: {
+            transport: {
+                read: {
+                    url: "/getStudentClasses",
+                    dataType: "json"
+                }
+            }
+        },
+        change: validateForm
+    }).data("kendoDropDownList");
+
+    let subjectDropdown = $("#dropdownlist2").kendoDropDownList({
+        optionLabel: "Select Subject",
+        dataTextField: "c_subjectname",
+        dataValueField: "c_subid",
+        dataSource: {
+            transport: {
+                read: {
+                    url: "/getAllSubjects",
+                    dataType: "json"
+                }
+            }
+        },
+        change: validateForm
+    }).data("kendoDropDownList");
+
+    let teacherDropdown = $("#dropdownlist3").kendoDropDownList({
+        optionLabel: "Select Teacher",
+        dataTextField: "c_tName",
+        dataValueField: "c_tid",
+        dataSource: {
+            transport: {
+                read: {
+                    url: "/getAllTeachers",
+                    dataType: "json"
+                }
+            }
+        },
+        change: validateForm
+    }).data("kendoDropDownList");
+
+    @* // Initialize Kendo Notification
+    let notification = $("#notification").kendoNotification({
+        position: {
+            pinned: true,
+            top: 30,
+            right: 30
+        },
+        autoHideAfter: 5000,
+        stacking: "down"
+    }).data("kendoNotification"); *@
+
+    // Validate form inputs
+            function validateForm() {
+            // Get values from the form
+            const startTime = $('#dropdownlist4').val(); // Returns value in "HH:MM" format (24-hour)
+            const endTime = $('#dropdownlist5').val(); // Returns value in "HH:MM" format (24-hour)
+            const day = $('#weekday').val();
+            // Check if all dropdowns and time inputs have values
+            const isFormValid = classDropdown.value() && 
+                                subjectDropdown.value() && 
+                                teacherDropdown.value() && 
+                                startTime && 
+                                endTime && day;
+
+            // Enable/disable the submit button based on form validity
+            $("#submitBtn").prop("disabled", !isFormValid);
+
+            // If the form is valid, validate the time slots
+            if (isFormValid) {
+                // Validate time slots
+                if (!validateTimeSlots(startTime, endTime)) {
+                    $("#submitBtn").prop("disabled", true); // Disable submit button if time slots are invalid
+                }
+            }
+        }
+
+        @* function validateTimeSlots(startTime, endTime) {
+            const schoolStartTime = "08:00"; // School starts at 8:00 AM
+            const schoolEndTime = "17:00"; // School ends at 5:00 PM
+
+            // Convert times to comparable format (HH:MM)
+            const start = startTime; // Already in "HH:MM" format
+            const end = endTime; // Already in "HH:MM" format
+
+            @* // Check if start time is before end time
+            if (start >= end) {
+                notification.show("Start time must be before end time.", "error");
+                return false;
+            }
+
+            // Check if time slots are within school timings
+            if (start < schoolStartTime || end > schoolEndTime) {
+                notification.show("Time slots must be between 8:00 AM and 5:00 PM.", "error");
+                return false;
+            } *@
+
+            // Check if the lecture duration is exactly one hour
+            @* const startDate = new Date(`1970-01-01T${start}:00`);
+            const endDate = new Date(`1970-01-01T${end}:00`);
+            const duration = (endDate - startDate) / (1000 * 60 * 60); // Duration in hours
+            if (duration !== 1) {
+                notification.show("Each lecture must be exactly one hour long.", "error");
+                return false;
+            }
+
+            return true; // Time slots are valid
+        } *@ 
+
+    // Validate time slots
+    function validateTimeSlots(startTime, endTime) {
+        const schoolStartTime = "08:00";
+        const schoolEndTime = "17:00";
+
+        if (startTime >= endTime) {
+            console.log("Start > end");
+            return false;
+        }
+
+        if (startTime < schoolStartTime || endTime > schoolEndTime) {
+            console.log("Enter valid School time");
+            return false;
+        }
+
+        const duration = (new Date(`1970-01-01T${endTime}:00`) - new Date(`1970-01-01T${startTime}:00`)) / (1000 * 60 * 60);
+        if (duration !== 1) {
+            console.log("Each lecture must be exactly one hour long.", "error");
+            return false;
+        }
+
+        return true;
+    }
+
+    // Check slot availability from backend
+    function checkSlotAvailability(startTime, endTime, classId, teacherId, day) {
+        console.log(startTime, endTime, teacherId, classId);
+        var slotData = new FormData();
+        slotData.append("StartTime", startTime);
+        slotData.append("EndTime", endTime);
+        slotData.append("ClassId", classId);
+        slotData.append("TeacherId", teacherId);
+        slotData.append("weekday", day);
+        return $.ajax({
+            url: "/CheckSlotAvailability",
+            type: "POST",
+            data: slotData,
+            contentType : false,
+            processData : false,
+            dataType: "json",
+            error : function(xhr, error){
+                console.log(xhr.responseJSON);
+            }
+        });
+    }
+
+    // Form submission
+    $("#selectionForm").submit(async function (event) {
+        event.preventDefault();
+
+        const startTime = $("#dropdownlist4").val();
+        const endTime = $("#dropdownlist5").val();
+        const classId = classDropdown.value();
+        const teacherId = teacherDropdown.value();
+        const day = $("#weekday").val();
+        // Validate time slots
+        if (!validateTimeSlots(startTime, endTime)) {
+            return;
+        }
+
+        // Check slot availability
+        try {
+            const response = await checkSlotAvailability(startTime, endTime, classId, teacherId, day);
+            if (response.isAvailable) {
+                // Submit form data
+                let formData = new FormData();
+                formData.append("c_classid", classId);
+                formData.append("c_subjectid", subjectDropdown.value());
+                formData.append("c_teacherid", teacherId);
+                formData.append("c_starttime", startTime);
+                formData.append("c_endtime", endTime);
+                formData.append("c_weekday", day);
+                console.log([...formData]);
+
+                $.ajax({
+                    url: "/CreateSchedule",
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    success: function (response) {
+                        Swal.fire({
+                            text: "Schedule Created",
+                            icon: "success"
+                        }).then(() => {
+                            $("#selectionForm")[0].reset(); // Correct way to reset the form
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error:", error);
+                        console.log(xhr.responseJSON);
+                    }
+                }); 
+            } else {
+                Swal.fire({
+                        text:"Time slot is not available.",
+                        icon: "error"
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                    text:"Failed to check slot availability.",
+                    icon: "error"
+            });
+        }
+    });
+});
+</script>

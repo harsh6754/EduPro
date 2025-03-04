@@ -1,9 +1,10 @@
-@{ 
-    Layout = null; 
+@{
+    Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,8 +95,10 @@
             flex-grow: 1;
             padding: 20px;
             transition: margin-left 0.3s;
-            height: calc(100vh - 70px); /* Ensure it fills remaining space */
-    overflow-y: auto; /* Enable scrolling only for content */
+            height: calc(100vh - 70px);
+            /* Ensure it fills remaining space */
+            overflow-y: auto;
+            /* Enable scrolling only for content */
         }
 
         .collapsed {
@@ -154,25 +157,27 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow">
             <div class="container-fluid">
-                <a class="navbar-brand text-white" asp-area="" asp-controller="StudentDashboard" asp-action="Index">Student Management System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" 
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand text-white" asp-area="" asp-controller="StudentDashboard"
+                    asp-action="Index">Student Management System</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
         </nav>
     </header>
-    
+
     <div class="d-flex">
         <div id="sidebar">
             <div class="sidebar-header">
-                <span id="user-avatar"></span>
+
             </div>
-             <h1 style="display: flex; justify-content: center; align-items: center;">Student</h1>
+            <h1 style="display: flex; justify-content: center; align-items: center;">Student</h1>
             <ul class="sidebar-menu">
                 <li class="nav-item">
                     <a class="nav-link text-white" asp-controller="StudentDashboard" asp-action="Index">
@@ -198,6 +203,11 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" asp-controller="StudentDashboard" asp-action="ViewMaterial">
                         <i class="fa fa-eye"></i> View Material
+                    </a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link text-white" asp-controller="Admin" asp-action="Notifications">
+                        <i class="fa fa-eye"></i> Notifications
                     </a>
                 </li>
                 <li class="nav-item">
@@ -226,19 +236,12 @@
 
     <script>
         $(document).ready(function () {
-             $(".sidebar-menu li a").click(function () {
-        $(".sidebar-menu li a").removeClass("active"); // Remove active from all
-        $(this).addClass("active"); // Add active class to clicked item
-    });
-            $("#user-avatar").kendoAvatar({
-                type: "image",
-                <img src="~/images/avatar.jpg" alt="Avatar" />
- // Replace with actual user image URL
-                size: "large",
-                shape: "circle"
+            $(".sidebar-menu li a").click(function () {
+                $(".sidebar-menu li a").removeClass("active"); // Remove active from all
+                $(this).addClass("active"); // Add active class to clicked item
             });
         });
-        
+
 
         function toggleSidebar() {
             let sidebar = $("#sidebar");
@@ -254,33 +257,36 @@
         }
 
         function confirmLogout() {
-    Swal.fire({
-        title: "Are you sure?",
-        text: "You will be logged out!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        cancelButtonColor: "#3085d6",
-        confirmButtonText: "Yes, Logout"
-    }).then((result) => {
-        if (result.isConfirmed) {
             Swal.fire({
-                title: "Logged Out!",
-                text: "You have been logged out successfully.",
-                icon: "success",
-                timer: 2000,
-                showConfirmButton: false
-            }).then(() => {
-                window.location.href = "/UserLogin/Index"; // Redirect after confirmation
+                title: "Are you sure?",
+                text: "You will be logged out!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, Logout"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Logged Out!",
+                        text: "You have been logged out successfully.",
+                        icon: "success",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    // Wait for 2 seconds before redirecting
+                    setTimeout(() => {
+                        window.location.href = "/UserLogin/Index";
+                    }, 2000);
+                }
             });
         }
-    });
-}
-
 
         function navigateTo(page) {
             window.location.href = "/" + page;
         }
     </script>
 </body>
+
 </html>

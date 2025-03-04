@@ -285,6 +285,14 @@
       "PackagePath": "staticwebassets\\student_images\\agrawalharsh10281@gmail.com.jpg"
     },
     {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\asas@hams.com.jpg",
+      "PackagePath": "staticwebassets\\student_images\\asas@hams.com.jpg"
+    },
+    {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\krishna@gmail.com.jpg",
+      "PackagePath": "staticwebassets\\student_images\\krishna@gmail.com.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.StudentManagementSystem.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

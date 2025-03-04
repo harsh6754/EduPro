@@ -1,0 +1,106 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<div id="grid"></div>
+
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2021.2.616/js/kendo.all.min.js"></script>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.common.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.default.min.css" />
+}
+
+<form id="syllabusForm">
+    <div>
+        <label for="classDropdown">Select Class:</label>
+        <input id="classDropdown" name="classId" style="width: 100%;" />
+    </div>
+    <div>
+        <label for="subjectDropdown">Select Subject:</label>
+        <input id="subjectDropdown" name="subjectId" style="width: 100%;" />
+    </div>
+    <div>
+        <label for="topicMultiSelect">Select Topics:</label>
+        <input id="topicMultiSelect" name="topics" style="width: 100%;" />
+    </div>
+
+    <button type="submit" id="addSyllabusBtn" class="k-button">Add Syllabus</button>
+</form>
+
+<script>
+    $(document).ready(function () {
+        var classDropdown = $("#classDropdown").kendoDropDownList({
+            dataTextField: "c_className",
+            dataValueField: "c_classId",
+            optionLabel: "Select Class",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/getStudentClasses",
+                        dataType: "json"
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+
+        var subjectDropdown = $("#subjectDropdown").kendoDropDownList({
+            dataTextField: "c_subjectname",
+            dataValueField: "c_subid",
+            optionLabel: "Select Subject",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/GetAllSubjects",
+                        dataType: "json"
+                    }
+                }
+            }
+        }).data("kendoDropDownList");
+
+        var topicMultiSelect = $("#topicMultiSelect").kendoMultiSelect({
+            dataTextField: "c_topicname",
+            dataValueField: "c_topicname",
+            placeholder: "Select Topics...",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/GetTopicNames",
+                        dataType: "json"
+                    }
+                }
+            }
+        }).data("kendoMultiSelect");
+
+        $("#syllabusForm").submit(function (event) {
+            event.preventDefault();
+
+            var syllabusData = {
+                c_class_id: classDropdown.value(),   // Ensure matching property name
+                c_subject_id: subjectDropdown.value(),
+                c_topicName: topicMultiSelect.value().join(",") // Convert array to comma-separated string
+            };
+
+            console.log(syllabusData);
+
+            $.ajax({
+                url: "/CreateSyllabus",
+                type: "POST",
+                contentType: "application/json", // Send as JSON
+                data: JSON.stringify(syllabusData),
+                success: function (response) {
+                    console.log(response);
+                    alert(response > 0 ? "Syllabus added successfully!" : "Failed to add syllabus.");
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText);
+                    console.log(error);
+                    alert("Error adding syllabus: " + error);
+                }
+            });
+        });
+    });
+</script>

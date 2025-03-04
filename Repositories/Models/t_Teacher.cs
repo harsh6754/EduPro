@@ -60,8 +60,29 @@ namespace Repositories.Models
         [Column("c_subjectId")]
         public int? T_SubjectId { get; set; } // Nullable Foreign Key
 
+        public static implicit operator t_Teacher(t_teacherGet v)
+        {
+            throw new NotImplementedException();
+        }
+
         // [ForeignKey("SubjectId")]
         // public virtual Subject? Subject { get; set; } // Navigation Property 
-    
+
+        public class t_teacherGet
+{
+    [Key]
+    public int c_tid{get;set;}
+
+    public string c_tName{get;set;}    
+}
+
+public class t_teacher_Assign
+{
+    [Key]
+    public int c_tid{get;set;}
+
+    public int c_subject_id{get;set;}
+    public int c_class_id{get;set;}
+}
 }
 }
