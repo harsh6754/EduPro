@@ -32,13 +32,17 @@
     <button type="submit" id="sendNotificationBtn" class="k-button k-primary">Send Notification</button>
 </form>
 
+<!-- Display Sent Notifications -->
+<h2>Sent Notifications</h2>
+<div id="notificationGrid"></div>
+
 <script>
     $(document).ready(function () {
         // Load Users into Dropdown
         $("#userDropdown").kendoDropDownList({
             dataTextField: "c_studentName",
             dataValueField: "c_studentId",
-            optionLabel: "Select Class",
+            optionLabel: "Select User",
             dataSource: {
                 transport: {
                     read: {
@@ -49,11 +53,69 @@
             }
         });
 
+        // Initialize Kendo Grid for Sent Notifications
+        var notificationGrid = $("#notificationGrid").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/GetSentNotifications",
+                        dataType: "json"
+                    },
+                    update: {
+                        url: function (data) {
+                            return "/UpdateNotification/" + data.Id;
+                        },
+                        type: "POST",
+                        contentType: "application/json",
+                        dataType: "json"
+                    },
+                    destroy: {
+                        url: function (data) {
+                            return "/DeleteNotification/" + data.Id;
+                        },
+                        type: "POST",
+                        dataType: "json"
+                    }
+                },
+                schema: {
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { type: "number", editable: false },
+                            ReceiverName: { type: "string", editable: false },
+                            Title: { type: "string", editable: true },
+                            Message: { type: "string", editable: true }
+                        }
+                    }
+                },
+                pageSize: 10
+            },
+            height: 400,
+            pageable: true,
+            editable: "inline",
+            columns: [
+                { field: "Id", title: "ID", width: "50px" },
+                { field: "ReceiverName", title: "User", width: "150px" },
+                { field: "Title", title: "Title", width: "200px" },
+                { field: "Message", title: "Message", width: "300px" },
+                {
+                    command: [
+                        { name: "edit", text: "Edit" },
+                        { name: "destroy", text: "Delete" }
+                    ],
+                    title: "Actions",
+                    width: "150px"
+                }
+            ]
+        }).data("kendoGrid");
+
         // Handle Form Submission with AJAX
         $("#syllabusForm").submit(function (event) {
             event.preventDefault();
 
             var formData = new FormData();
+            var selectedUser = $("#userDropdown").data("kendoDropDownList").text();
+            
             formData.append("receiverid", $("#userDropdown").val());
             formData.append("title", $("#title").val());
             formData.append("message", $("#message").val());
@@ -61,14 +123,29 @@
             $.ajax({
                 url: "/SendNotification",
                 type: "POST",
-                processData: false,  // Prevent jQuery from processing the data
-                contentType: false,   // Let the browser set the content type
+                processData: false,
+                contentType: false,
                 data: formData,
                 success: function (response) {
                     console.log("Response:", response);
                     alert(response.success ? response.message : "Failed to send notification.");
+                    
+                    // Add the new notification to the grid
+                    var newNotification = {
+                        Id: response.newId,
+                        ReceiverName: selectedUser,
+                        Title: $("#title").val(),
+                        Message: $("#message").val()
+                    };
+                    notificationGrid.dataSource.add(newNotification);
+                    notificationGrid.dataSource.read(); // Refresh grid
+
+                    // Clear form fields
+                    $("#userDropdown").data("kendoDropDownList").value("");
+                    $("#title").val("");
+                    $("#message").val("");
                 },
-                error: function (xhr, status, error) {
+                error: function (xhr) {
                     console.error("AJAX Error:", xhr.responseText);
                     alert("Error sending notification: " + xhr.responseText);
                 }
