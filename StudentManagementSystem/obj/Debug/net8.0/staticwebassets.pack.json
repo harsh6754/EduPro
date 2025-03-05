@@ -5,6 +5,18 @@
       "PackagePath": "staticwebassets\\StudentManagementSystem.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\Teaching_Material\\Computer.pdf",
+      "PackagePath": "staticwebassets\\Teaching_Material\\Computer.pdf"
+    },
+    {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\Teaching_Material\\Hindi.pdf",
+      "PackagePath": "staticwebassets\\Teaching_Material\\Hindi.pdf"
+    },
+    {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\Teaching_Material\\Science.pdf",
+      "PackagePath": "staticwebassets\\Teaching_Material\\Science.pdf"
+    },
+    {
       "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\Teaching_Material\\_Kendo Project -Student Management System(EduTrackPro).pdf",
       "PackagePath": "staticwebassets\\Teaching_Material\\_Kendo Project -Student Management System(EduTrackPro).pdf"
     },
@@ -37,8 +49,16 @@
       "PackagePath": "staticwebassets\\exam_timetable\\2_standard_Timetable.png"
     },
     {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\3_standard_Timetable.pdf",
+      "PackagePath": "staticwebassets\\exam_timetable\\3_standard_Timetable.pdf"
+    },
+    {
       "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\3_standard_Timetable.png",
       "PackagePath": "staticwebassets\\exam_timetable\\3_standard_Timetable.png"
+    },
+    {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\4_standard_Timetable.png",
+      "PackagePath": "staticwebassets\\exam_timetable\\4_standard_Timetable.png"
     },
     {
       "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\favicon.ico",

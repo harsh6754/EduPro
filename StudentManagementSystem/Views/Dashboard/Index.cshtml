@@ -183,6 +183,7 @@ function loadTeacherClassName() {
         error: function (xhr) {
             console.error("Error fetching class name:", xhr.responseText);
             $("#teacherClassNameBox").html("<p>Error loading class name.</p>");
+            
         }
     });
 }

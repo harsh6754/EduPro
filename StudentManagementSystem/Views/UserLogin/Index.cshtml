@@ -116,7 +116,7 @@
                     showConfirmButton: false
                 }).then(() => {
                     if (role === "Admin") {
-                        window.location.href = "/Student/Index";
+                        window.location.href = "/AdminDashboard/TeachersList";
                     } else if (role === "Student") {
                         window.location.href = "/StudentDashboard/Index";
                     } else if (role === "Teacher") {
@@ -186,7 +186,7 @@
         if(role === "Admin" && email === "admin@admin.com" && password === "admin") {
             showSuccessAlert(role);
             setTimeout(() => {
-                window.location.href = "/AdminDashboard/Index";
+                window.location.href = "/AdminDashboard/TeachersList";
             }, 1500);
             return;
         }

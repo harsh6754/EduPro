@@ -13,6 +13,11 @@
     <div id="studentsGrid"></div>
 </div>
 
+<div class="row mt-4">
+    <h2>Students Per Teacher Chart</h2>
+    <div id="studentsChart"></div>
+</div>
+
 <script>
     $(document).ready(function () {
         loadTeachersWithStudents();
@@ -27,8 +32,11 @@
 
                 let treeListData = [];
                 let studentData = [];
+                let teacherStudentCount = [];
 
                 response.forEach(teacher => {
+                    let studentCount = 0;
+                    
                     treeListData.push({
                         id: teacher.Id,
                         name: teacher.Text,
@@ -36,6 +44,8 @@
                     });
 
                     if (teacher.Items && teacher.Items.length > 0) {
+                        studentCount = teacher.Items.length;
+
                         teacher.Items.forEach(student => {
                             treeListData.push({
                                 id: student.Id,
@@ -50,6 +60,12 @@
                             });
                         });
                     }
+
+                    teacherStudentCount.push({
+                        teacherId: teacher.Id,
+                        teacherName: teacher.Text,
+                        studentCount: studentCount
+                    });
                 });
 
                 // Initialize Kendo TreeList
@@ -103,6 +119,37 @@
                         { field: "studentName", title: "Student Name", width: 300 }
                     ]
                 });
+
+                // Initialize Kendo Chart
+                $("#studentsChart").kendoChart({
+                    title: {
+                        text: "Number of Students per Teacher"
+                    },
+                    legend: {
+                        position: "top"
+                    },
+                    series: [{
+                        type: "bar",
+                        data: teacherStudentCount.map(item => item.studentCount),
+                        name: "Students Count"
+                    }],
+                    categoryAxis: {
+                        categories: teacherStudentCount.map(item => item.teacherName),
+                        title: {
+                            text: "Teachers"
+                        }
+                    },
+                    valueAxis: {
+                        title: {
+                            text: "Number of Students"
+                        }
+                    },
+                    tooltip: {
+                        visible: true,
+                        format: "{0} students"
+                    }
+                });
+
             },
             error: function (xhr) {
                 console.error("Error loading data:", xhr.responseText);
