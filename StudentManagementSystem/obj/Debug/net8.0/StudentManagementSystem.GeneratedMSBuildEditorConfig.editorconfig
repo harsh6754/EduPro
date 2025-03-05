@@ -9,195 +9,195 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = StudentManagementSystem
 build_property.RootNamespace = StudentManagementSystem
-build_property.ProjectDir = C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\EduPro\EduPro\EduPro\StudentManagementSystem\
+build_property.ProjectDir = C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\EduPro\EduPro\EduPro\StudentManagementSystem
+build_property.MSBuildProjectDirectory = C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/AdminDashboard/AddExamTimetable.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/AddExamTimetable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcQWRkRXhhbVRpbWV0YWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/AdminDashboard/DisplayAllETable.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/DisplayAllETable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcRGlzcGxheUFsbEVUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/AdminDashboard/EditExamTimetable.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/EditExamTimetable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcRWRpdEV4YW1UaW1ldGFibGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/AdminDashboard/ExamTimeTable.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/ExamTimeTable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcRXhhbVRpbWVUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/AdminDashboard/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/AdminDashboard/StudentCount.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/StudentCount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcU3R1ZGVudENvdW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/AdminDashboard/TeachersList.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/AdminDashboard/TeachersList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5EYXNoYm9hcmRcVGVhY2hlcnNMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Admin/AddSyllabus.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Admin/AddSyllabus.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkU3lsbGFidXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Admin/CreateSchedule.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Admin/CreateSchedule.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlU2NoZWR1bGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Admin/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Admin/ManageSchedule.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Admin/ManageSchedule.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTWFuYWdlU2NoZWR1bGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Admin/Notifications.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Admin/Notifications.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTm90aWZpY2F0aW9ucy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Admin/SentNotification.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Admin/SentNotification.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2VudE5vdGlmaWNhdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Dashboard/Db.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Dashboard/Db.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXERiLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Dashboard/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Dashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Home/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Home/Privacy.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Payment/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Payment/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5bWVudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Profile/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Profile/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Register/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Register/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Shared/Error.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Shared/_AdminDashboardLayout.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Shared/_AdminDashboardLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkRhc2hib2FyZExheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Shared/_AdminLayout.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Shared/_StudentDashboardLayout.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Shared/_StudentDashboardLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TdHVkZW50RGFzaGJvYXJkTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Shared/_TeacherDashboardLayout.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Shared/_TeacherDashboardLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9UZWFjaGVyRGFzaGJvYXJkTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/StudentDashboard/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/StudentDashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudERhc2hib2FyZFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/StudentDashboard/ManageSchedule.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/StudentDashboard/ManageSchedule.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudERhc2hib2FyZFxNYW5hZ2VTY2hlZHVsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/StudentDashboard/Material.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/StudentDashboard/Material.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudERhc2hib2FyZFxNYXRlcmlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/StudentDashboard/SyllabusProgress.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/StudentDashboard/SyllabusProgress.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudERhc2hib2FyZFxTeWxsYWJ1c1Byb2dyZXNzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/StudentDashboard/TeacherRating.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/StudentDashboard/TeacherRating.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudERhc2hib2FyZFxUZWFjaGVyUmF0aW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/StudentDashboard/TimeTable.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/StudentDashboard/TimeTable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudERhc2hib2FyZFxUaW1lVGFibGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/StudentDashboard/UpComingExam.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/StudentDashboard/UpComingExam.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudERhc2hib2FyZFxVcENvbWluZ0V4YW0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/StudentDashboard/ViewMaterial.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/StudentDashboard/ViewMaterial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudERhc2hib2FyZFxWaWV3TWF0ZXJpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/StudentDashboard/_MaterialsPartial.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/StudentDashboard/_MaterialsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudERhc2hib2FyZFxfTWF0ZXJpYWxzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Student/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Student/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Student/List.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Student/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3R1ZGVudFxMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Syllabus/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Syllabus/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3lsbGFidXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/TeacherDashboard/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/TeacherDashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVhY2hlckRhc2hib2FyZFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/TeacherLogin/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/TeacherLogin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVhY2hlckxvZ2luXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/TeacherRating/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/TeacherRating/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVhY2hlclJhdGluZ1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Upload/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Upload/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXBsb2FkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/UserLogin/Index.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/UserLogin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckxvZ2luXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/_ViewImports.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/_ViewStart.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/agarw/OneDrive/Desktop/Casepoint/Training/EduPro/EduPro/EduPro/StudentManagementSystem/Views/Shared/_Layout.cshtml]
+[C:/Users/agarw/OneDrive/Desktop/EduPro/StudentManagementSystem/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-kqem6kkl2p
