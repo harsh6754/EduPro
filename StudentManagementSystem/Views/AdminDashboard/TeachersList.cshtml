@@ -65,17 +65,17 @@
                 let treeListData = [];
                 response.forEach(teacher => {
                     treeListData.push({
-                        id: teacher.id,
-                        name: teacher.text,
+                        id: teacher.Id,
+                        name: teacher.Text,
                         parentId: null // Root Node
                     });
 
                     if (teacher.items && teacher.items.length > 0) {
                         teacher.items.forEach(student => {
                             treeListData.push({
-                                id: student.id,
-                                name: student.text,
-                                parentId: teacher.id, // Nested under teacher
+                                id: student.Id,
+                                name: student.Text,
+                                parentId: teacher.id // Nested under teacher
                             });
                         });
                     }

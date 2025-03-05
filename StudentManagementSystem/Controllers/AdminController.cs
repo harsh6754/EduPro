@@ -50,8 +50,8 @@ public class AdminController : Controller
     public async Task<List<t_Student>> GetAllStudent()
     {
         List<t_Student> st = await _admin.GetAllStudents();
-        return st;
-    }
+        return st;
+    }
     public ActionResult Notifications()
     {
         return View();

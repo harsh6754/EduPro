@@ -27,12 +27,12 @@
                 response.forEach((res) => {
                     var card = `<div class="k-card mt-5" style="width: 300px;">
                     <div class="k-card-header">
-                        <img src="../../exam_timetable/${res.cImage}" alt="..." style="width: 300px;height:300px; position: relative;right: 17px;">
+                        <img src="../../exam_timetable/${res.CImage}" alt="..." style="width: 300px;height:300px; position: relative;right: 17px;">
                     </div>
                     <div class="k-card-body">
-                        <p>Class ${res.class.c_className} Exam Timetable</p>
+                        <p>Class ${res.Class.c_className} Exam Timetable</p>
                     </div>
-                    <button onclick="deleteETable(${res.cClassId})" class="k-button k-button-lg k-button-solid-error">Delete</button>
+                    <button onclick="deleteETable(${res.CClassId})" class="k-button k-button-lg k-button-solid-error">Delete</button>
                     </div>`
                     $('#tcards').append(card);
                 });
