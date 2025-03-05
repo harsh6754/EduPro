@@ -81,8 +81,11 @@
             $.ajax({
                 url: '/Payment/VerifyPayment',
                 type: 'POST',
-                data: JSON.stringify(paymentResponse),
-                contentType: "application/json",
+                data: {
+                    razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                    razorpay_order_id: paymentResponse.razorpay_order_id,
+                    razorpay_signature: paymentResponse.razorpay_signature
+                },
                 success: function (response) {
                     if (response.success) {
                         alert("Payment Successful!");

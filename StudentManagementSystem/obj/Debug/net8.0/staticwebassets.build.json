@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Vh7WFEvgA+ZBDnFl/kMzZLqUJL68+PIy/LhpdbKi67Y=",
+  "Hash": "ZBqQafs19Lt+xGpfgHDM+brrtzfWtqAksiHJ5Mih4nY=",
   "Source": "StudentManagementSystem",
   "BasePath": "_content/StudentManagementSystem",
   "Mode": "Default",
@@ -129,6 +129,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\exam_timetable\\1_standard_Timetable.png"
+    },
+    {
+      "Identity": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\10_standard_Timetable.jpg",
+      "SourceId": "StudentManagementSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\",
+      "BasePath": "_content/StudentManagementSystem",
+      "RelativePath": "exam_timetable/10_standard_Timetable.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\exam_timetable\\10_standard_Timetable.jpg"
     },
     {
       "Identity": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\10_standard_Timetable.png",

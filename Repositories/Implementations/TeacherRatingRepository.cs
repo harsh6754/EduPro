@@ -64,19 +64,21 @@ namespace Repositories.Implementations
 
         public async Task<List<TeacherInfo>> GetTeachersByClassIdAsync(int classId)
         {
+            System.Console.WriteLine(classId);
             var teachers = new List<TeacherInfo>();
             await _connection.OpenAsync();
 
             string query = @"
-        SELECT t.c_tid, t.c_teachername
-FROM t_teachers t
-INNER JOIN t_student s ON t.c_class_id = s.c_class_id
-WHERE s.c_id = @StudentId;
+                    SELECT t.c_tid, t.c_teachername
+                    FROM t_teachers t
+                    INNER JOIN t_student s 
+                    ON t.c_class_id = s.c_classid
+                    WHERE s.c_id = @StudentId;
 ";
 
             using (var cmd = new NpgsqlCommand(query, _connection))
             {
-                cmd.Parameters.AddWithValue("studentId", classId);
+                cmd.Parameters.AddWithValue("@studentId", classId);
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {
                     while (await reader.ReadAsync())

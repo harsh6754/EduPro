@@ -303,6 +303,16 @@
                         pageSize: 5
                     },
                     height: 500,
+                    toolbar: ["pdf", "search"],
+                        pdf: {
+                            fileName: "Student_List.pdf",
+                            allPages: true,
+                            paperSize: "A4",
+                            margin: { top: "1cm", right: "1cm", bottom: "1cm", left: "1cm" },
+                            repeatHeaders: true,
+                            scale: 0.8,
+                            landscape: true
+           },
                     pageable: true,
                     sortable: true,
                     filterable: true,

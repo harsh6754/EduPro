@@ -28,59 +28,60 @@ namespace StudentManagementSystem.Controllers
         }
 
         [HttpGet]
-public async Task<IActionResult> GetTeachersByStudentId(int studentId)
-{
-    try
-    {
-        if (studentId <= 0)
+        public async Task<IActionResult> GetTeachersByStudentId(int studentId)
         {
-            return BadRequest("Invalid student ID.");
+
+            try
+            {
+                // if (studentId <= 0)
+                // {
+                //     return BadRequest("Invalid student ID.");
+                // }
+
+                // Fetch classId based on studentId
+                var classId = await _teacherRatingRepository.GetTeachersByClassIdAsync(studentId);
+                if (classId == null)
+                {
+                    return NotFound("Student not found or class ID missing.");
+                }
+                return Ok(GetTeachersByStudentId);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error retrieving teachers: {ex.Message}");
+            }
         }
 
-        // Fetch classId based on studentId
-        var classId = await _teacherRatingRepository.GetTeachersByClassIdAsync(studentId);
-        if (classId == null)
+
+        [HttpPost]
+        public async Task<IActionResult> InsertTeacherRating(t_TeacherRating teacherRating)
         {
-            return NotFound("Student not found or class ID missing.");
+            // Log incoming request
+            Console.WriteLine($"Received Rating: {teacherRating.c_rating}");
+
+            if (teacherRating.c_rating < 1 || teacherRating.c_rating > 5)
+            {
+                return BadRequest("Rating must be between 1 and 5.");
+            }
+
+            try
+            {
+                var result = await _teacherRatingRepository.InsertTeacherRatingAsync(
+                    teacherRating.c_stud_id,
+                    teacherRating.c_teacher_id,
+                    teacherRating.c_rating
+                );
+
+                if (result == null)
+                    return BadRequest("Failed to insert rating. Ensure the class has an assigned teacher.");
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error inserting teacher rating: {ex.Message}");
+            }
         }
-        return Ok(GetTeachersByStudentId);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, $"Error retrieving teachers: {ex.Message}");
-    }
-}
-
-
-[HttpPost]
-public async Task<IActionResult> InsertTeacherRating(t_TeacherRating teacherRating)
-{
-    // Log incoming request
-    Console.WriteLine($"Received Rating: {teacherRating.c_rating}");
-
-    if (teacherRating.c_rating < 1 || teacherRating.c_rating > 5)
-    {
-        return BadRequest("Rating must be between 1 and 5.");
-    }
-
-    try
-    {
-        var result = await _teacherRatingRepository.InsertTeacherRatingAsync(
-            teacherRating.c_stud_id, 
-            teacherRating.c_teacher_id, 
-            teacherRating.c_rating
-        );
-
-        if (result == null)
-            return BadRequest("Failed to insert rating. Ensure the class has an assigned teacher.");
-
-        return Ok(result);
-    }
-    catch (Exception ex)
-    {
-        return StatusCode(500, $"Error inserting teacher rating: {ex.Message}");
-    }
-}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
