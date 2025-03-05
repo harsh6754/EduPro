@@ -3,68 +3,10 @@
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
 
-<div class="admin-dashboard">
-    <h2 class="text-center mb-4">Admin Dashboard</h2>
-
-    <!-- Dashboard Cards -->
-    <div class="dashboard-cards">
-        <div class="k-card">
-            <h3>Total Users</h3>
-            <p>1,250</p>
-        </div>
-        <div class="k-card">
-            <h3>Active Users</h3>
-            <p>980</p>
-        </div>
-        <div class="k-card">
-            <h3>New Signups</h3>
-            <p>120</p>
-        </div>
-        <div class="k-card">
-            <h3>Pending Requests</h3>
-            <p>30</p>
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+        <div class="card-body text-center">
+            <h2 class="card-title">Welcome to Admin Panel</h2>
         </div>
     </div>
-
-    <!-- Admin Grid -->
-    <div id="dashboardGrid"></div>
-
-    <!-- Admin Chart -->
-    <div id="adminChart"></div>
-
-    <script>
-        $(document).ready(function () {
-            // Kendo Grid (Static Data)
-            $("#dashboardGrid").kendoGrid({
-                dataSource: {
-                    data: [
-                        { id: 1, name: "Harsh Agrawal", email: "harsh@example.com", role: "Super Admin", createdDate: "2024-01-01" },
-                        { id: 2, name: "John Doe", email: "john@example.com", role: "Admin", createdDate: "2024-01-15" }
-                    ],
-                    pageSize: 5
-                },
-                pageable: true,
-                sortable: true,
-                filterable: true,
-                columns: [
-                    { field: "id", title: "ID", width: "80px" },
-                    { field: "name", title: "Name", width: "200px" },
-                    { field: "email", title: "Email", width: "250px" },
-                    { field: "role", title: "Role", width: "150px" },
-                    { field: "createdDate", title: "Created Date", width: "150px" }
-                ]
-            });
-
-            // Kendo Chart (User Growth)
-            $("#adminChart").kendoChart({
-                title: { text: "User Growth (Last 6 Months)" },
-                legend: { position: "bottom" },
-                seriesDefaults: { type: "line" },
-                series: [{ name: "Users", data: [400, 600, 750, 900, 1100, 1250] }],
-                categoryAxis: { categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"] },
-                valueAxis: { labels: { format: "{0}" } },
-                tooltip: { visible: true, format: "{0}" }
-            });
-        });
-    </script>
 </div>

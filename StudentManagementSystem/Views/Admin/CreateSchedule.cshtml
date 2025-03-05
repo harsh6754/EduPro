@@ -156,7 +156,7 @@
         dataSource: {
             transport: {
                 read: {
-                    url: "/getStudentClasses",
+                    url: "/Admin/getAllClass",
                     dataType: "json"
                 }
             }
@@ -171,7 +171,7 @@
         dataSource: {
             transport: {
                 read: {
-                    url: "/getAllSubjects",
+                    url: "/Admin/getAllSubjects",
                     dataType: "json"
                 }
             }
@@ -296,7 +296,7 @@
         slotData.append("TeacherId", teacherId);
         slotData.append("weekday", day);
         return $.ajax({
-            url: "/CheckSlotAvailability",
+            url: "/Admin/CheckSlotAvailability",
             type: "POST",
             data: slotData,
             contentType : false,
@@ -337,7 +337,7 @@
                 console.log([...formData]);
 
                 $.ajax({
-                    url: "/CreateSchedule",
+                    url: "/Admin/CreateSchedule",
                     type: "POST",
                     processData: false,
                     contentType: false,
