@@ -9,12 +9,14 @@
 
 <script>
     $(document).ready(function () {
-         // Replace '1' with the actual student ID
+        var classId = JSON.parse(sessionStorage.getItem("Student"));
+
+        // Replace '1' with the actual student ID
         $("#teachersGrid").kendoGrid({
             dataSource: {
                 transport: {
                     read: {
-                        url: "/TeacherRating/GetTeachersByStudentId",  // Replace '1' dynamically if needed
+                        url: `/TeacherRating/GetAllTeachers/${classId.c_class.c_classId}`,  // Replace '1' dynamically if needed
                         dataType: "json"
                     },
                     update: {
@@ -24,36 +26,36 @@
                         contentType: "application/json",
                         data: function (dataItem) {
                             return JSON.stringify({
-                                c_teacher_id:GetInt32(dataItem.c_teacher_id),  // Ensure it's a number
+                                c_teacher_id: GetInt32(dataItem.c_teacher_id),  // Ensure it's a number
                                 c_stud_id: GetInt32(dataItem.c_stud_id),        // Ensure it's a number
                                 c_rating: GetInt32(dataItem.c_rating)           // Convert rating to a number
                             });
                         },
                         complete: function () {
                             $("#teachersGrid").data("kendoGrid").dataSource.read();
-                        }                   
+                        }
                     }
                 },
                 schema: {
-    model: {
-        id: "c_teacher_id", // Unique identifier for the teacher
-        fields: {
-            c_teacher_id: { type: "int", editable: false }, // Read-only teacher ID
-            c_stud_id: { type: "int", editable: false }, // Read-only student ID
-            c_rating: { type: "int", validation: { required: true, min: 1, max: 5 } } // Maps to c_rating in C#
-        }
-    }
-}, 
+                    model: {
+                        id: "c_teacher_id", // Unique identifier for the teacher
+                        fields: {
+                            c_teacher_id: { type: "int", editable: false }, // Read-only teacher ID
+                            c_stud_id: { type: "int", editable: false }, // Read-only student ID
+                            c_rating: { type: "int", validation: { required: true, min: 1, max: 5 } } // Maps to c_rating in C#
+                        }
+                    }
+                },
                 pageSize: 10
             },
             pageable: true,
             sortable: true,
             toolbar: ["create"],
             columns: [
-    { field: "c_teachername", title: "Teacher Name", width: "200px", editable: false },
-    { field: "c_rating", title: "Rating", template: ratingTemplate, editor: ratingEditor, width: "180px" },
-    { command: ["edit"], title: "Actions", width: "150px" }
-],
+                { field: "c_teachername", title: "Teacher Name", width: "200px", editable: false },
+                { field: "c_rating", title: "Rating", template: ratingTemplate, editor: ratingEditor, width: "180px" },
+                { command: ["edit"], title: "Actions", width: "150px" }
+            ],
             editable: {
                 mode: "popup", // Open popup for editing
                 window: {
@@ -65,33 +67,33 @@
 
     // Function to display star rating in the grid
     function ratingTemplate(dataItem) {
-    if (!dataItem.c_rating || dataItem.c_rating === 0) {
-        return "<span class='blank-stars'>☆ ☆ ☆ ☆ ☆</span>"; // Show blank stars if no rating
-    }
+        if (!dataItem.c_rating || dataItem.c_rating === 0) {
+            return "<span class='blank-stars'>☆ ☆ ☆ ☆ ☆</span>"; // Show blank stars if no rating
+        }
 
-    let stars = "";
-    for (let i = 1; i <= 5; i++) {
-        stars += i <= dataItem.c_rating ? "★ " : "☆ ";
+        let stars = "";
+        for (let i = 1; i <= 5; i++) {
+            stars += i <= dataItem.c_rating ? "★ " : "☆ ";
+        }
+        return "<span class='star-rating'>" + stars.trim() + "</span>";
     }
-    return "<span class='star-rating'>" + stars.trim() + "</span>";
-}
 
 
     // Custom Kendo Rating Editor with default value
-   function ratingEditor(container, options) {
-    var input = $('<input name="c_rating" required />').appendTo(container);
-    
-    input.kendoRating({
-        min: 1,
-        max: 5,
-        precision: "half"
-    });
+    function ratingEditor(container, options) {
+        var input = $('<input name="c_rating" required />').appendTo(container);
 
-    var ratingWidget = input.data("kendoRating");
-    if (ratingWidget) {
-        ratingWidget.value(options.model.c_rating || null); // Set to null if not set
+        input.kendoRating({
+            min: 1,
+            max: 5,
+            precision: "half"
+        });
+
+        var ratingWidget = input.data("kendoRating");
+        if (ratingWidget) {
+            ratingWidget.value(options.model.c_rating || null); // Set to null if not set
+        }
     }
-}
 
 </script>
 

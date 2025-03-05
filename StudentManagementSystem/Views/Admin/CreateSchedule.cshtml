@@ -296,7 +296,7 @@
         slotData.append("TeacherId", teacherId);
         slotData.append("weekday", day);
         return $.ajax({
-            url: "/Admin/CheckSlotAvailability",
+            url: "/CheckSlotAvailability",
             type: "POST",
             data: slotData,
             contentType : false,

@@ -62,38 +62,38 @@ namespace Repositories.Implementations
             return null;
         }
 
-        public async Task<List<TeacherInfo>> GetTeachersByClassIdAsync(int classId)
-        {
-            System.Console.WriteLine(classId);
-            var teachers = new List<TeacherInfo>();
-            await _connection.OpenAsync();
+        //         public async Task<List<TeacherInfo>> GetTeachersByClassIdAsync(int classId)
+        //         {
+        //             System.Console.WriteLine(classId);
+        //             var teachers = new List<TeacherInfo>();
+        //             await _connection.OpenAsync();
 
-            string query = @"
-                    SELECT t.c_tid, t.c_teachername
-                    FROM t_teachers t
-                    INNER JOIN t_student s 
-                    ON t.c_class_id = s.c_classid
-                    WHERE s.c_id = @StudentId;
-";
+        //             string query = @"
+        //                     SELECT t.c_tid, t.c_teachername
+        //                     FROM t_teachers t
+        //                     INNER JOIN t_student s 
+        //                     ON t.c_class_id = s.c_classid
+        //                     WHERE s.c_id = @StudentId;
+        // ";
 
-            using (var cmd = new NpgsqlCommand(query, _connection))
-            {
-                cmd.Parameters.AddWithValue("@studentId", classId);
-                using (var reader = await cmd.ExecuteReaderAsync())
-                {
-                    while (await reader.ReadAsync())
-                    {
-                        teachers.Add(new TeacherInfo
-                        {
-                            c_tid = reader.GetInt32(0),
-                            c_teachername = reader.GetString(1)
-                        });
-                    }
-                }
-            }
+        //             using (var cmd = new NpgsqlCommand(query, _connection))
+        //             {
+        //                 cmd.Parameters.AddWithValue("@studentId", classId);
+        //                 using (var reader = await cmd.ExecuteReaderAsync())
+        //                 {
+        //                     while (await reader.ReadAsync())
+        //                     {
+        //                         teachers.Add(new TeacherInfo
+        //                         {
+        //                             c_tid = reader.GetInt32(0),
+        //                             c_teachername = reader.GetString(1)
+        //                         });
+        //                     }
+        //                 }
+        //             }
 
-            return teachers;
-        }
+        //             return teachers;
+        //         }
 
         public async Task<t_TeacherRating> InsertTeacherRatingAsync(int c_stud_id, int c_teacher_id, int c_rating)
         {
@@ -104,7 +104,7 @@ namespace Repositories.Implementations
                 await _connection.OpenAsync();
 
                 // Step 1: Get the class ID of the student
-                string getClassIdSql = "SELECT c_classid FROM t_student WHERE c_id = @StudentId";
+                string getClassIdSql = "SELECT c_class_id FROM t_teachers WHERE c_class_id = @classId";
 
                 int c_class_id;
                 using (var cmd = new NpgsqlCommand(getClassIdSql, _connection))
@@ -171,6 +171,35 @@ namespace Repositories.Implementations
             }
 
             return teacherRating;
+        }
+
+        public async Task<List<TeacherInfo>> GetTeachersByStudentId(int classId)
+        {
+            System.Console.WriteLine(classId);
+            var teachers = new List<TeacherInfo>();
+            await _connection.OpenAsync();
+
+            string query = @"
+                    SELECT * FROM t_teachers WHERE c_class_id = @classId;
+";
+
+            using (var cmd = new NpgsqlCommand(query, _connection))
+            {
+                cmd.Parameters.AddWithValue("@classId", classId);
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        teachers.Add(new TeacherInfo
+                        {
+                            c_tid = reader.GetInt32(0),
+                            c_teachername = reader.GetString(1)
+                        });
+                    }
+                }
+            }
+
+            return teachers;
         }
     }
 }

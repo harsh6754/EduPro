@@ -31,6 +31,9 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            padding: 0px;
+            @* margin:0px; *@
+
         }
 
         .navbar {
@@ -187,14 +190,14 @@
 
                 <li class="nav-item">
                     <a class="nav-link text-white" asp-controller="StudentDashboard" asp-action="TimeTable">
-                        <i class="fas fa-calendar-alt"></i> Timetable Display
+                        <i class="fas fa-calendar-alt"></i> Exam TimeTable
                     </a>
                 </li>
-                <li class="nav-item">
+                @* <li class="nav-item">
                     <a class="nav-link text-white" asp-controller="StudentDashboard" asp-action="UpComingExam">
                         <i class="fas fa-book"></i> Upcoming Exam
                     </a>
-                </li>
+                </li> *@
                 <li class="nav-item">
                     <a class="nav-link text-white" asp-controller="StudentDashboard" asp-action="SyllabusProgress">
                         <i class="fas fa-chart-line"></i> Syllabus Progress

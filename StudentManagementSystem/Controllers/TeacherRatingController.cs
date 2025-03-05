@@ -27,30 +27,30 @@ namespace StudentManagementSystem.Controllers
             return View();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetTeachersByStudentId(int studentId)
-        {
+        // [HttpGet]
+        // public async Task<IActionResult> GetTeachersByStudentId(int studentId)
+        // {
 
-            try
-            {
-                // if (studentId <= 0)
-                // {
-                //     return BadRequest("Invalid student ID.");
-                // }
+        //     try
+        //     {
+        //         // if (studentId <= 0)
+        //         // {
+        //         //     return BadRequest("Invalid student ID.");
+        //         // }
 
-                // Fetch classId based on studentId
-                var classId = await _teacherRatingRepository.GetTeachersByClassIdAsync(studentId);
-                if (classId == null)
-                {
-                    return NotFound("Student not found or class ID missing.");
-                }
-                return Ok(GetTeachersByStudentId);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error retrieving teachers: {ex.Message}");
-            }
-        }
+        //         // Fetch classId based on studentId
+        //         var classId = await _teacherRatingRepository.GetTeachersByClassIdAsync(studentId);
+        //         if (classId == null)
+        //         {
+        //             return NotFound("Student not found or class ID missing.");
+        //         }
+        //         return Ok(GetTeachersByStudentId);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, $"Error retrieving teachers: {ex.Message}");
+        //     }
+        // }
 
 
         [HttpPost]
@@ -80,6 +80,23 @@ namespace StudentManagementSystem.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, $"Error inserting teacher rating: {ex.Message}");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllTeachers(int classId){
+            try
+            {
+                var teachers = await _teacherRatingRepository.GetTeachersByStudentId(classId);
+                if (teachers == null)
+                {
+                    return NotFound("No teachers found.");
+                }
+                return Ok(teachers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error retrieving teachers: {ex.Message}");
             }
         }
 
