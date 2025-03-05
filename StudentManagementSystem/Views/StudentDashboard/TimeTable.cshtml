@@ -3,4 +3,77 @@
     Layout = "../Shared/_StudentDashboardLayout.cshtml";
 }
 
-<h1>Time Table</h1>
+<style>
+    #tcards {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        gap: 15px;
+    }
+    .k-card {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+    }
+    .download-btn {
+        margin-top: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .download-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<h2>Exam Timetables</h2>
+<div id="responsemessage"></div>
+<div class="container" id="tcards"></div>
+
+<script>
+    $(document).ready(function () {
+        loadETables();
+    });
+
+    function loadETables() {
+        $('#tcards').empty();
+        $.ajax({
+            url: "/StudentDashboard/GetAllETables",
+            type: "GET",
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                response.forEach((res) => {
+                    var imagePath = `../../exam_timetable/${res.CImage}`;
+                    var card = `<div class="k-card mt-5" style="width: 300px;">
+                        <div class="k-card-header">
+                            <img src="${imagePath}" alt="Exam Timetable" style="width: 300px;height:300px; position: relative;right: 17px;">
+                        </div>
+                        <div class="k-card-body">
+                            <p>Class ${res.Class.c_className} Exam Timetable</p>
+                            <button class="download-btn" onclick="downloadImage('${imagePath}')">Download</button>
+                        </div>
+                    </div>`;
+                    $('#tcards').append(card);
+                });
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                $('#responsemessage').addClass("k-messagebox k-messagebox-error");
+                $('#responsemessage').text(xhr.responseText);
+            }
+        });
+    }
+
+    function downloadImage(imageUrl) {
+        var link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = imageUrl.split('/').pop(); // Extracts file name
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+</script>

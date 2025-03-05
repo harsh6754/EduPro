@@ -1,68 +1,33 @@
- @{
+@{
     ViewData["Title"] = "Admin Dashboard";
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
 
-
 <div class="row">
-    @* <div class="col-md-6">
-        <h4>Tree View (Teachers & Students)</h4>
-        <div id="treeList"></div>
-    </div> *@   
-    @* <div class="col-md-6"> *@
-        <h1>Student Details</h1>
-        <div id="treeGrid"></div>
-    @* </div> *@
+    <h1>Teachers Details</h1>
+    <div id="treeGrid"></div>
+</div>
+
+<div class="row mt-4">
+    <h2>Students of Selected Teacher</h2>
+    <div id="studentsGrid"></div>
 </div>
 
 <script>
     $(document).ready(function () {
-        loadStudents();
+        loadTeachersWithStudents();
     });
 
-    function loadStudents() {
+    function loadTeachersWithStudents() {
         $.ajax({
             url: "/AdminDashboard/GetTeachersWithStudents",
             type: 'GET',
             success: function (response) {
-                console.log("Student Data:", response);
+                console.log("Data:", response);
 
-                @* // Prepare TreeView Data
-                let treeData = [];
-                let teacherGroups = {};
-
-                response.forEach(teacher => {
-                    if (!teacherGroups[teacher.id]) {
-                        teacherGroups[teacher.id] = {
-                            id: teacher.id,
-                            text: `${teacher.text} (Teacher ID: ${teacher.id})`,
-                            items: [] // Holds students
-                        };
-                        treeData.push(teacherGroups[teacher.id]);
-                    }
-
-                    if (teacher.items && teacher.items.length > 0) {
-                        teacher.items.forEach(student => {
-                            teacherGroups[teacher.id].items.push({
-                                id: student.id,
-                                text: `${student.text}  (Student Id: ${student.id})`
-                            });
-                        });
-                    }
-                });
-
-                // Initialize Kendo TreeView
-                $("#treeList").kendoTreeView({
-                    dataSource: treeData,
-                    dataTextField: "text",
-                    loadOnDemand: false,
-                    expand: function (e) {
-                        console.log("Expanded node:", e.node);
-                    }
-                }); *@
-
-                // Prepare TreeList Data
                 let treeListData = [];
+                let studentData = [];
+
                 response.forEach(teacher => {
                     treeListData.push({
                         id: teacher.Id,
@@ -70,12 +35,18 @@
                         parentId: null // Root Node
                     });
 
-                    if (teacher.items && teacher.items.length > 0) {
-                        teacher.items.forEach(student => {
+                    if (teacher.Items && teacher.Items.length > 0) {
+                        teacher.Items.forEach(student => {
                             treeListData.push({
                                 id: student.Id,
                                 name: student.Text,
-                                parentId: teacher.id // Nested under teacher
+                                parentId: teacher.Id // Nested under teacher
+                            });
+
+                            studentData.push({
+                                teacherId: teacher.Id,
+                                studentId: student.Id,
+                                studentName: student.Text
                             });
                         });
                     }
@@ -101,14 +72,48 @@
                     columns: [
                         { field: "id", title: "ID", width: 100 },
                         { field: "name", title: "Name", width: 300 }
-                    ]
+                    ],
+                    selectable: "row",
+                    change: function (e) {
+                        let selectedRow = this.select();
+                        let selectedItem = this.dataItem(selectedRow);
+
+                        if (selectedItem && !selectedItem.parentId) { // Check if it's a teacher
+                            loadStudentGrid(selectedItem.id, studentData);
+                        }
+                    }
                 });
 
-
+                // Initialize empty student grid
+                $("#studentsGrid").kendoGrid({
+                    dataSource: {
+                        data: [],
+                        schema: {
+                            model: {
+                                fields: {
+                                    studentId: { type: "number" },
+                                    studentName: { type: "string" }
+                                }
+                            }
+                        }
+                    },
+                    height: 300,
+                    columns: [
+                        { field: "studentId", title: "Student ID", width: 100 },
+                        { field: "studentName", title: "Student Name", width: 300 }
+                    ]
+                });
             },
             error: function (xhr) {
-                console.error("Error loading students:", xhr.responseText);
+                console.error("Error loading data:", xhr.responseText);
             }
         });
+    }
+
+    function loadStudentGrid(teacherId, studentData) {
+        let filteredStudents = studentData.filter(student => student.teacherId === teacherId);
+
+        let grid = $("#studentsGrid").data("kendoGrid");
+        grid.dataSource.data(filteredStudents);
     }
 </script>

@@ -33,6 +33,10 @@
       "PackagePath": "staticwebassets\\exam_timetable\\2_standard_Timetable.jpg"
     },
     {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\2_standard_Timetable.png",
+      "PackagePath": "staticwebassets\\exam_timetable\\2_standard_Timetable.png"
+    },
+    {
       "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\3_standard_Timetable.png",
       "PackagePath": "staticwebassets\\exam_timetable\\3_standard_Timetable.png"
     },

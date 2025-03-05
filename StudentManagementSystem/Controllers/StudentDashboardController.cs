@@ -15,16 +15,18 @@ namespace StudentManagementSystem.Controllers
     {
         private readonly ILogger<StudentDashboardController> _logger;
         private readonly ITeacherRating _teach;
+        private readonly IAdminInterface _admin;
 
         private readonly IStudentInterface _student;
 
 
 
-        public StudentDashboardController(ILogger<StudentDashboardController> logger, ITeacherRating teach, IStudentInterface student)
+        public StudentDashboardController(ILogger<StudentDashboardController> logger, ITeacherRating teach, IStudentInterface student,IAdminInterface admin)
         {
             _logger = logger;
             _teach = teach;
             _student = student;
+            _admin = admin;
         }
 
 
@@ -55,21 +57,22 @@ namespace StudentManagementSystem.Controllers
 
         public async Task<IActionResult> ViewMaterial()
         {
-            // Static Data for Teaching Materials
-        //     var teachingMaterials = new List<t_material>
-        // {
-        //     new t_material { MaterialId = 1, FileName = "Algebra_Basics.pdf", FileType = "PDF", UploadDate = DateTime.Parse("2024-02-10"), SubjectId = 1, FilePath = "/Content/Materials/Algebra_Basics.pdf", TeacherId = 1 },
-        //     new t_material { MaterialId = 2, FileName = "Newton_Laws.docx", FileType = "DOCX", UploadDate = DateTime.Parse("2024-02-15"), SubjectId = 2, FilePath = "/Content/Materials/Newton_Laws.docx", TeacherId = 1 },
-        //     new t_material { MaterialId = 3, FileName = "Grammar_Tips.pdf", FileType = "PDF", UploadDate = DateTime.Parse("2023-12-05"), SubjectId = 3, FilePath = "/Content/Materials/Grammar_Tips.pdf", TeacherId = 1 },
-        //     new t_material { MaterialId = 4, FileName = "Trigonometry.pdf", FileType = "PDF", UploadDate = DateTime.Parse("2023-11-20"), SubjectId = 2, FilePath = "/Content/Materials/Trigonometry.pdf", TeacherId = 1 },
-        //     new t_material { MaterialId = 5, FileName = "Chemistry_101.pdf", FileType = "PDF", UploadDate = DateTime.Parse("2022-06-15"), SubjectId = 1, FilePath = "/Content/Materials/Chemistry_101.pdf", TeacherId = 1 }
-        // };
+        
 
             var teachingMaterials = await _teach.GetLatestUploadedFile();
 
             ViewBag.TeachingMaterials = new List<t_material> { teachingMaterials };
             return View();
         }
+
+            [HttpGet]
+        public async Task<IActionResult> GetAllETables()
+        {
+            List<t_Exam> exam = await _admin.GetAllETimetableData();
+            return Json(exam);
+        }
+
+
 
         public ActionResult ManageSchedule()
     {
@@ -108,7 +111,7 @@ namespace StudentManagementSystem.Controllers
                 return NotFound();
             }
 
-            var filePath = Path.Combine("wwwroot/uploads", material.c_fileName);
+            var filePath = Path.Combine("wwwroot/Teaching_Material", material.c_fileName);
             if (!System.IO.File.Exists(filePath))
             {
                 return NotFound();

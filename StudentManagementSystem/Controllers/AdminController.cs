@@ -56,7 +56,7 @@ public class AdminController : Controller
     {
         return View();
     }
-    [HttpGet("getStudentClasses")]
+    // [HttpGet("getStudentClasses")]
     public async Task<IActionResult> GetAllClass()
     {
         try
@@ -70,7 +70,6 @@ public class AdminController : Controller
         }
     }
 
-    [HttpGet("GetAllSubjects")]
     public async Task<List<t_subject>> GetAllSubjects()
     {
         return await _admin.GetAllSubjects();
