@@ -170,72 +170,71 @@
                     </a>
                 </li> *@
                  <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="TeachersList">
-                        <i class="fas fa-chart-line"></i> Teachers List
-                    </a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="StudentCount" style="padding: 13px;">
-                        <i class="fas fa-chart-line"></i> Classwise Student
-                    </a>
-                </li>
+    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="TeachersList">
+        <i class="fas fa-chalkboard-teacher"></i> Teachers List
+    </a>
+</li>
 
-                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="Student" asp-action="Index">
-                        <i class="fas fa-user"></i> Add Student Details
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="AddExamTimetable">
-                        <i class="fas fa-user"></i> Add Exam TimeTable
-                    </a>
-                </li>
+<li class="nav-item">
+    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="StudentCount" style="padding: 13px;">
+        <i class="fas fa-users"></i> Classwise Student
+    </a>
+</li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="DisplayAllETable">
-                        <i class="fas fa-calendar-alt"></i> All Exam TimeTables
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="EditExamTimetable">
-                        <i class="fas fa-book"></i> Edit TimeTable
-                    </a>
-                </li>
-                @* <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="ExamTimeTable">
-                        <i class="fas fa-chart-line"></i> Exam TimeTable
-                    </a>
-                </li> *@
-                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="Admin" asp-action="AddSyllabus">
-                        <i class="fas fa-chart-line"></i> Add Syllabus
-                    </a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="Admin" asp-action="CreateSchedule">
-                        <i class="fas fa-chart-line"></i> Create Schedule
-                    </a>
-                </li>
-                 @* <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="ExamTimeTable">
-                        <i class="fas fa-chart-line"></i> 
-                    </a>
-                </li> *@
-                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="Admin" asp-action="ManageSchedule">
-                        <i class="fas fa-chart-line"></i> Manage Schedule
-                    </a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link text-white" asp-controller="Admin" asp-action="SentNotification">
-                        <i class="fas fa-chart-line"></i> Sent Notification
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="javascript:void(0);" onclick="confirmLogout()">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                </li>
+<li class="nav-item">
+    <a class="nav-link text-white" asp-controller="Student" asp-action="Index">
+        <i class="fas fa-user-plus"></i> Add Student Details
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="AddExamTimetable">
+        <i class="fas fa-calendar-plus"></i> Add Exam TimeTable
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="DisplayAllETable">
+        <i class="fas fa-calendar-alt"></i> All Exam TimeTables
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link text-white" asp-controller="AdminDashboard" asp-action="EditExamTimetable">
+        <i class="fas fa-edit"></i> Edit TimeTable
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link text-white" asp-controller="Admin" asp-action="AddSyllabus">
+        <i class="fas fa-book-open"></i> Add Syllabus
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link text-white" asp-controller="Admin" asp-action="CreateSchedule">
+        <i class="fas fa-calendar-check"></i> Create Schedule
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link text-white" asp-controller="Admin" asp-action="ManageSchedule">
+        <i class="fas fa-tasks"></i> Manage Schedule
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link text-white" asp-controller="Admin" asp-action="SentNotification">
+        <i class="fas fa-bell"></i> Sent Notification
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link text-white" href="javascript:void(0);" onclick="confirmLogout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+</li>
+
             </ul>
         </div>
         <div id="main-content">

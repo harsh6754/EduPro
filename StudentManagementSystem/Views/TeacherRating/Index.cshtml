@@ -10,13 +10,14 @@
 <script>
     $(document).ready(function () {
         var classId = JSON.parse(sessionStorage.getItem("Student"));
+        var id = classId.c_class.c_classId;
 
         // Replace '1' with the actual student ID
         $("#teachersGrid").kendoGrid({
             dataSource: {
                 transport: {
                     read: {
-                        url: `/TeacherRating/GetAllTeachers/${classId.c_class.c_classId}`,  // Replace '1' dynamically if needed
+                        url: "/TeacherRating/GetAllTeachers/?classId="+ id,  // Replace '1' dynamically if needed
                         dataType: "json"
                     },
                     update: {
@@ -54,7 +55,7 @@
             columns: [
                 { field: "c_teachername", title: "Teacher Name", width: "200px", editable: false },
                 { field: "c_rating", title: "Rating", template: ratingTemplate, editor: ratingEditor, width: "180px" },
-                { command: ["edit"], title: "Actions", width: "150px" }
+                { command: ["Rating"], title: "Actions", width: "150px" }
             ],
             editable: {
                 mode: "popup", // Open popup for editing

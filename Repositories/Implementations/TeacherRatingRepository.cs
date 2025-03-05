@@ -179,9 +179,7 @@ namespace Repositories.Implementations
             var teachers = new List<TeacherInfo>();
             await _connection.OpenAsync();
 
-            string query = @"
-                    SELECT * FROM t_teachers WHERE c_class_id = @classId;
-";
+            string query = @" SELECT * FROM t_teachers WHERE c_class_id = @classId;";
 
             using (var cmd = new NpgsqlCommand(query, _connection))
             {

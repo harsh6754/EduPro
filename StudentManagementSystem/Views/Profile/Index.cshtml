@@ -126,13 +126,16 @@
         // Hide the QR scanner
         document.getElementById("reader").style.display = "none";
 
-        // Apply a blur effect to the QR code
-        let qrcodeDiv = document.getElementById("qrcode");
-        qrcodeDiv.style.filter = "blur(10px)"; // Adjust blur intensity as needed
-        qrcodeDiv.style.pointerEvents = "none"; // Prevent further interaction
+        // Remove the overlay
+        document.getElementById("verificationOverlay").style.display = "none";
+
+        // Enable dashboard interaction
+        document.getElementById("dashboardContent").classList.remove("disable-interaction");
     } else {
         swal("Error", "QR Code mismatch!", "error");
     }
+}
+
 }
 
 

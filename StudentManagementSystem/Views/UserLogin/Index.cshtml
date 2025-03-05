@@ -17,7 +17,6 @@
         </form>
     </div>
 </div>
-
 <div id="validation-success"></div>
 
 <style>
@@ -120,7 +119,7 @@
                     } else if (role === "Student") {
                         window.location.href = "/StudentDashboard/Index";
                     } else if (role === "Teacher") {
-                        window.location.href = "/Dashboard/Index";
+                        window.location.href = "/Profile/Index";
                     }
                 });
             }
@@ -218,7 +217,7 @@
                         const dashboardUrls = {
                             "Admin": "/AdminDashboard/Index",   
                             "Student": "/StudentDashboard/Index",
-                            "Teacher": "/Dashboard/Index"
+                            "Teacher": "/Profile/Index"
                         };
 
                         window.location.href = dashboardUrls[role] || "/"; // Default to home if role is unknown
