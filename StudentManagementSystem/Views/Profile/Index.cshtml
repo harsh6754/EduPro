@@ -10,11 +10,16 @@
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
 
+<!-- Kendo UI CDN -->
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2024.1.130/styles/kendo.default-v2.min.css">
+<script src="https://kendo.cdn.telerik.com/2024.1.130/js/kendo.all.min.js"></script>
+
 <div class="container mt-4">
     <h2 class="text-center mb-4">Teacher Profile</h2>
 
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        <div class="col">
+    <!-- Kendo Splitter -->
+    <div id="profileSplitter">
+        <div>
             <div class="card shadow-lg h-100">
                 <div class="card-header bg-primary text-white">General Information</div>
                 <div class="card-body">
@@ -27,7 +32,7 @@
             </div>
         </div>
 
-        <div class="col">
+        <div>
             <div class="card shadow-lg h-100">
                 <div class="card-header bg-success text-white">Qualification & Experience</div>
                 <div class="card-body">
@@ -38,7 +43,7 @@
             </div>
         </div>
 
-        <div class="col">
+        <div>
             <div class="card shadow-lg h-100">
                 <div class="card-header bg-warning text-dark">Class & Subject Information</div>
                 <div class="card-body">
@@ -48,7 +53,7 @@
             </div>
         </div>
 
-        <div class="col">
+        <div>
             <div class="card shadow-lg h-100">
                 <div class="card-header bg-info text-white">QR Code Generation</div>
                 <div class="card-body text-center">
@@ -58,7 +63,7 @@
             </div>
         </div>
 
-        <div class="col">
+        <div>
             <div class="card shadow-lg h-100">
                 <div class="card-header bg-danger text-white">QR Code Scanner</div>
                 <div class="card-body text-center">
@@ -69,9 +74,19 @@
     </div>
 </div>
 
-
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    $(document).ready(function () {
+        $("#profileSplitter").kendoSplitter({
+            orientation: "vertical",
+            panes: [
+                { collapsible: true, size: "100%" },
+                { collapsible: true, size: "100%" },
+                { collapsible: true, size: "100%" },
+                { collapsible: true, size: "100%" },
+                { collapsible: true, size: "100%" }
+            ]
+        });
+
         let teacherData = sessionStorage.getItem("Teacher");
 
         if (teacherData) {
@@ -96,7 +111,7 @@
 
         if (teacherData) {
             let qrcodeDiv = document.getElementById("qrcode");
-            qrcodeDiv.innerHTML = ""; // Clear previous QR codes
+            qrcodeDiv.innerHTML = "";
 
             try {
                 let qrcodeData = JSON.stringify(JSON.parse(teacherData));
@@ -118,34 +133,20 @@
     }
 
     function onScanSuccess(qrCodeMessage) {
-    let teacherData = sessionStorage.getItem("Teacher");
-
-    if (teacherData === qrCodeMessage) {
-        swal("Success", "Account verified successfully!", "success");
-
-        // Hide the QR scanner
-        document.getElementById("reader").style.display = "none";
-
-        // Apply a blur effect to the QR code
-        let qrcodeDiv = document.getElementById("qrcode");
-        qrcodeDiv.style.filter = "blur(10px)"; // Adjust blur intensity as needed
-        qrcodeDiv.style.pointerEvents = "none"; // Prevent further interaction
-    } else {
-        swal("Error", "QR Code mismatch!", "error");
-    }
-}
-
-
-    @* function onScanSuccess(qrCodeMessage) {
         let teacherData = sessionStorage.getItem("Teacher");
 
         if (teacherData === qrCodeMessage) {
             swal("Success", "Account verified successfully!", "success");
+
             document.getElementById("reader").style.display = "none";
+
+            let qrcodeDiv = document.getElementById("qrcode");
+            qrcodeDiv.style.filter = "blur(10px)";
+            qrcodeDiv.style.pointerEvents = "none";
         } else {
             swal("Error", "QR Code mismatch!", "error");
         }
-    } *@
+    }
 
     let html5QrcodeScanner = new Html5QrcodeScanner(
         "reader", { fps: 10, qrbox: 250 }

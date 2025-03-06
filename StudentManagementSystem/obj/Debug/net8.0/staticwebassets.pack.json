@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\Teaching_Material\\Science.pdf"
     },
     {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\Teaching_Material\\Student_List.pdf",
+      "PackagePath": "staticwebassets\\Teaching_Material\\Student_List.pdf"
+    },
+    {
       "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\Teaching_Material\\_Kendo Project -Student Management System(EduTrackPro).pdf",
       "PackagePath": "staticwebassets\\Teaching_Material\\_Kendo Project -Student Management System(EduTrackPro).pdf"
     },
@@ -39,6 +43,10 @@
     {
       "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\1_standard_Timetable.jpg",
       "PackagePath": "staticwebassets\\exam_timetable\\1_standard_Timetable.jpg"
+    },
+    {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\1_standard_Timetable.pdf",
+      "PackagePath": "staticwebassets\\exam_timetable\\1_standard_Timetable.pdf"
     },
     {
       "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\1_standard_Timetable.png",

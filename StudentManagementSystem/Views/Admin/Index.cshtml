@@ -1,9 +1,17 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <style>
     /* Global Styles */
     body {
         font-family: 'Poppins', sans-serif;
         background-color: #f4f6f9;
-        padding: 20px;
+       
     }
 
     /* Container for Dropdowns */
@@ -129,7 +137,7 @@
             dataSource: {
                 transport: {
                     read: {
-                        url: "getStudentClasses",
+                        url: "/Admin/GetAllClass",
                         dataType: "json"
                     }
                 }
@@ -144,7 +152,7 @@
             dataSource: {
                 transport: {
                     read: {
-                        url: "getAllSubjects",
+                        url: "/Admin/GetAllSubjects",
                         dataType: "json"
                     }
                 }
@@ -180,25 +188,34 @@
             formData.append("c_subject_id", subjectDropdown.value());
             formData.append("c_tid", teacherDropdown.value());
 
-            console.log([...formData]);
+            console.log([...formData]); 
 
-            @* $.ajax({
+            $.ajax({
                 url: "AssignSubject",  
                 type: "POST",
                 processData: false, 
                 contentType: false, 
                 data: formData,
                 success: function (response) {
-                    alert("Data submitted successfully!");
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: "Data submitted successfully!",
+                    });
                 },
                 error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Failed to submit data. Please try again.",
+                    });
                     console.error("Error:", error);
-                    alert("Failed to submit data.");
                 }
-            }); *@
+            });
         });
     });
 </script>
+
 
 @* <div id="scheduler"></div>
 <script>

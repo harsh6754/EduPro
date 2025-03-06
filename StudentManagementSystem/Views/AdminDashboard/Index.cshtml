@@ -3,9 +3,38 @@
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
 
-<div class="container mt-4">
-    <div class="card shadow-lg p-4">
-        <div class="card-body text-center">
+<style>
+    /* Background Image */
+    body {
+        background-image: url('/image/Admin.png'); /* Correct image path */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Centered and Transparent Card */
+    .card {
+        background: rgba(255, 255, 255, 0.2); /* White with 20% opacity */
+        backdrop-filter: blur(10px); /* Glass effect */
+        border-radius: 10px;
+        width: 100%; /* Adjust width */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        margin-top: 16rem; /* Adjust margin */
+    }
+
+    /* Make text more visible */
+    .card-title {
+        color: white; /* Change text color to white */
+    }
+</style>
+
+<div class="container">
+    <div class="card shadow-lg p-4 text-center">
+        <div class="card-body">
             <h2 class="card-title">Welcome to Admin Panel</h2>
         </div>
     </div>
