@@ -77,6 +77,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\image\\Admin.png",
+      "PackagePath": "staticwebassets\\image\\Admin.png"
+    },
+    {
       "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\image\\d25e0db1-0dab-4d1e-ab6a-3bc18b853c51.jpg",
       "PackagePath": "staticwebassets\\image\\d25e0db1-0dab-4d1e-ab6a-3bc18b853c51.jpg"
     },

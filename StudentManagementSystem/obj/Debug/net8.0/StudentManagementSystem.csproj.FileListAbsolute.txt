@@ -254,3 +254,5 @@ C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\EduPro\EduPro\EduPro\StudentM
 C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\EduPro\EduPro\EduPro\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.pdb
 C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\EduPro\EduPro\EduPro\StudentManagementSystem\obj\Debug\net8.0\StudentManagementSystem.genruntimeconfig.cache
 C:\Users\agarw\OneDrive\Desktop\Casepoint\Training\EduPro\EduPro\EduPro\StudentManagementSystem\obj\Debug\net8.0\ref\StudentManagementSystem.dll
+C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\agarw\OneDrive\Desktop\EduPro\StudentManagementSystem\bin\Debug\net8.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll

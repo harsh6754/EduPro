@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4WYroLKbsYhqbmsJ90VoQtLYxlJupK/wxfQhLyo4W7U=",
+  "Hash": "z9RLTp31eqaPmQO15QNds/rh2IXA/AQAf5wOrUU3cLs=",
   "Source": "StudentManagementSystem",
   "BasePath": "_content/StudentManagementSystem",
   "Mode": "Default",
@@ -300,6 +300,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\image\\Admin.png",
+      "SourceId": "StudentManagementSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\",
+      "BasePath": "_content/StudentManagementSystem",
+      "RelativePath": "image/Admin.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\image\\Admin.png"
     },
     {
       "Identity": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\image\\d25e0db1-0dab-4d1e-ab6a-3bc18b853c51.jpg",

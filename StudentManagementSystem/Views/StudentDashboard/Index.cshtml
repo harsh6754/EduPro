@@ -61,11 +61,12 @@
 </div>
 
 <script>
+    
     $(document).ready(function () {
         let studentData = sessionStorage.getItem("Student");
-
         if (studentData) {
             studentData = JSON.parse(studentData);
+
 
             $("#studentId").text(studentData.c_studentId);
             $("#studentName").text(studentData.c_studentName);
@@ -132,6 +133,9 @@
                         $("#qrcode").addClass("blur-effect");
                         stopQRScanner(); // Stop scanner on verification
                         $("#scanStatus").text("Verified ✅").css("color", "green");
+                        sessionStorage.setItem("QRVerified", "true");
+                        studentData.c_studentStatus = "Verified";
+                        sessionStorage.setItem("Student", JSON.stringify(studentData));
                     });
                 } else {
                     Swal.fire({
@@ -151,6 +155,37 @@
         } else {
             kendo.alert("No student data found in session storage.");
         }
+
+        function preventNavigation(event){
+            let studentData = sessionStorage.getItem("Student");
+            if(studentData){
+                studentData = JSON.parse(studentData);
+                if(studentData.c_studentStatus !== "Verified"){
+                    event.preventDefault();
+                    Swal.fire({
+                        title: "Access Denied",
+                        text: "Please verify your account to access the dashboard!",
+                        icon: "warning",
+                        confirmButtonText: "OK"
+                    });
+                    return false;
+                }
+            }
+        }
+
+        $("a").on("click", preventNavigation);
+
+    // Prevent user from refreshing or leaving the page
+    window.onbeforeunload = function (event) {
+        let studentData = sessionStorage.getItem("Student");
+        if (studentData) {
+            studentData = JSON.parse(studentData);
+            if (studentData.c_studentStatus !== "Verified") {
+                return "You must verify your QR code before leaving this page.";
+            }
+        }
+    };
+
 
         // Kendo Button Click Event
         $("#editProfileBtn").kendoButton({

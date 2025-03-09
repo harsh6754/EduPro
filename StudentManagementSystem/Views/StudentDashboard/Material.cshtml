@@ -3,15 +3,14 @@
     Layout = "~/Views/Shared/_StudentDashboardLayout.cshtml";
     var materials = Model as List<EduProj.Models.vm_Material> ?? new List<EduProj.Models.vm_Material>();
     var subjects = ViewBag.Subjects as List<t_subject> ?? new List<t_subject>();
-    ViewBag.Sub = subjects;;
+    ViewBag.Sub = subjects;
     var teachers = ViewBag.Teachers as List<t_Teacher> ?? new List<t_Teacher>();
-    
 }
 
-<!-- Multi-Select Dropdown for Subjects -->
-<div class="form-group">
+<!-- Multi-Select Dropdown for Subjects with Enhanced UI -->
+<div class="form-group p-3 rounded shadow-sm bg-light">
     <label for="subjectDropdown" class="font-weight-bold">Select Subjects:</label>
-    <select id="subjectDropdown" multiple="multiple" class="form-control">
+    <select id="subjectDropdown" multiple="multiple" class="form-control border-primary">
         @foreach (var subject in subjects)
         {
             <option value="@subject.c_subid">@subject.c_subjectname</option>
@@ -19,11 +18,8 @@
     </select>
 </div>
 
-<!-- Fetch Materials Button -->
-@* <button id="filterButton" class="btn btn-primary mt-2">Fetch Materials</button> *@
-
 <!-- Display Materials Grouped by Teacher -->
-<div id="materialsContainer" class="mt-3"></div>
+<div id="materialsContainer" class="mt-3 p-3 rounded shadow-sm bg-white"></div>
 
 <!-- jQuery and Kendo UI for AJAX Filtering -->
 <script>
@@ -35,8 +31,15 @@
 
     console.log("jQuery version:", $.fn.jquery);
 
+    // Apply Kendo MultiSelect with bounce effect
     $("#subjectDropdown").kendoMultiSelect({
-        placeholder: "Select subjects..."
+        placeholder: "Select subjects...",
+        tagMode: "single",
+        autoClose: false,
+        filter: "contains",
+        open: function(e) {
+            $(e.sender.ul).hide().slideDown(300);
+        }
     });
 
     function updateMaterials() {
@@ -46,7 +49,12 @@
             type: "POST",
             data: { subjectIds: selectedSubjects },
             success: function (data) {
-                $("#materialsContainer").html(data);
+                $("#materialsContainer")
+                    .hide()
+                    .html(data)
+                    .css({ opacity: 0, transform: "translateY(10px)" }) 
+                    .show()
+                    .animate({ opacity: 1, transform: "translateY(0)" }, 500);
             },
             error: function () {
                 alert("Error fetching materials.");
@@ -54,13 +62,8 @@
         });
     }
 
-    @* $("#filterButton").click(function () {
-        updateMaterials();
-    }); *@
-
     $("#subjectDropdown").on("change", function () {
         updateMaterials();
     });
 });
-
 </script>
