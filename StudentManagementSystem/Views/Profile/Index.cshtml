@@ -67,7 +67,7 @@
             <div class="card shadow-lg h-100">
                 <div class="card-header bg-danger text-white">QR Code Scanner</div>
                 <div class="card-body text-center">
-                    <div id="reader" style="width: 100%;"></div>
+                    <div id="reader" style="width: 100%;height:300px;"></div>
                 </div>
             </div>
         </div>
@@ -132,24 +132,21 @@
         }
     }
 
-    function onScanSuccess(qrCodeMessage) {
+        function onScanSuccess(qrCodeMessage) {
         let teacherData = sessionStorage.getItem("Teacher");
 
         if (teacherData === qrCodeMessage) {
             swal("Success", "Account verified successfully!", "success");
-
-            document.getElementById("reader").style.display = "none";
-
-            let qrcodeDiv = document.getElementById("qrcode");
-            qrcodeDiv.style.filter = "blur(10px)";
-            qrcodeDiv.style.pointerEvents = "none";
+            $("#reader").hide();
+            $("#qrcode").css({ filter: "blur(10px)", pointerEvents: "none" });
         } else {
             swal("Error", "QR Code mismatch!", "error");
         }
     }
 
-    let html5QrcodeScanner = new Html5QrcodeScanner(
-        "reader", { fps: 10, qrbox: 250 }
-    );
+    let html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+        fps: 10,
+        qrbox: { width: 250, height: 250 }  // Adjust size
+    });
     html5QrcodeScanner.render(onScanSuccess);
 </script>
