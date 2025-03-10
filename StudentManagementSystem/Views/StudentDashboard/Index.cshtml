@@ -61,7 +61,7 @@
 </div>
 
 <script>
-    
+
     $(document).ready(function () {
         let studentData = sessionStorage.getItem("Student");
         if (studentData) {
@@ -156,11 +156,11 @@
             kendo.alert("No student data found in session storage.");
         }
 
-        function preventNavigation(event){
+        function preventNavigation(event) {
             let studentData = sessionStorage.getItem("Student");
-            if(studentData){
+            if (studentData) {
                 studentData = JSON.parse(studentData);
-                if(studentData.c_studentStatus !== "Verified"){
+                if (studentData.c_studentStatus !== "Verified") {
                     event.preventDefault();
                     Swal.fire({
                         title: "Access Denied",
@@ -175,16 +175,16 @@
 
         $("a").on("click", preventNavigation);
 
-    // Prevent user from refreshing or leaving the page
-    window.onbeforeunload = function (event) {
-        let studentData = sessionStorage.getItem("Student");
-        if (studentData) {
-            studentData = JSON.parse(studentData);
-            if (studentData.c_studentStatus !== "Verified") {
-                return "You must verify your QR code before leaving this page.";
+        // Prevent user from refreshing or leaving the page
+        window.onbeforeunload = function (event) {
+            let studentData = sessionStorage.getItem("Student");
+            if (studentData) {
+                studentData = JSON.parse(studentData);
+                if (studentData.c_studentStatus !== "Verified") {
+                    return "You must verify your QR code before leaving this page.";
+                }
             }
-        }
-    };
+        };
 
 
         // Kendo Button Click Event
