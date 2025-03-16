@@ -7,35 +7,45 @@
   <title>WebAuth</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: "Arial", sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
       margin: 0;
-      background-color: #f4f4f4;
+      background: url("https://developers.google.com/identity/passkeys/key-visual2.png") no-repeat center center/cover;
+      padding: 1rem;
     }
 
     input[type="email"] {
       padding: 1rem;
-      font-size: 1.5rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-bottom: 1.5rem;
-      width: 80%;
-      max-width: 400px;
+      font-size: 1.2rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      width: 85%;
+      max-width: 380px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    input[type="email"]:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
     }
 
     button {
-      padding: 1rem 2rem;
-      font-size: 1.5rem;
+      padding: 1rem;
+      font-size: 1.2rem;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
       margin: 0.5rem;
-      width: 80%;
-      max-width: 400px;
+      width: 85%;
+      max-width: 380px;
+      transition: all 0.3s ease;
     }
 
     button[data-signup] {
@@ -43,81 +53,78 @@
       color: white;
     }
 
+    button[data-signup]:hover {
+      background-color: #0056b3;
+    }
+
     button[data-login] {
       background-color: #28a745;
       color: white;
     }
 
+    button[data-login]:hover {
+      background-color: #1e7e34;
+    }
+
     dialog[data-modal] {
-  padding: 2rem;
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  max-width: 90%;
-  width: 400px;
-  text-align: center;
-  position: relative;
-  animation: fadeIn 0.3s ease-out;
-}
+      padding: 2rem;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      background: white;
+      max-width: 90%;
+      width: 400px;
+      text-align: center;
+      animation: fadeIn 0.3s ease-out;
+    }
 
-dialog[data-modal]::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
-}
+    dialog[data-modal]::backdrop {
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(6px);
+    }
 
-dialog[data-modal] button[data-close] {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: #555;
-}
+    dialog[data-modal] button[data-close] {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #777;
+      transition: color 0.3s;
+    }
 
-dialog[data-modal] button[data-close]:hover {
-  color: #000;
-}
+    dialog[data-modal] button[data-close]:hover {
+      color: #000;
+    }
 
-dialog[data-modal] div[data-content] {
-  font-size: 1.2rem;
-  color: #444;
-  margin-top: 10px;
-}
+    dialog[data-modal] div[data-content] {
+      font-size: 1.1rem;
+      color: #333;
+      margin-top: 12px;
+    }
 
-@keyframes fadeIn {
-  from {
-    transform: scale(0.95);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
+    @keyframes fadeIn {
+      from {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
   </style>
 </head>
-<body style="display: flex; flex-direction: column; gap: 1rem">
-  <input
-    data-email
-    type="email"
-    placeholder="Email"
-  />
+<body>
+  <input data-email type="email" placeholder="Enter your email" />
   <button data-signup>Sign Up</button>
   <button data-login>Log In</button>
-  <dialog data-modal class="p-6 bg-white rounded-2xl shadow-lg max-w-lg w-full">
-    <button
-      data-close
-      class="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-2xl font-bold"
-    >
-      &times;
-    </button>
-    <div class="text-center">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Notification</h2>
-      <div data-content class="text-lg text-gray-600"></div>
-    </div>
+  <dialog data-modal>
+    <button data-close>&times;</button>
+    <h2>Notification</h2>
+    <div data-content></div>
   </dialog>
   
   <script type="module" src="/main.js"></script>
