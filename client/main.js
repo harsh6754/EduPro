@@ -53,8 +53,8 @@ function updateLockoutTimer() {
 async function signup() {
   const email = emailInput.value.trim();
 
-  if (!email) {
-    showModalText("Please enter a valid email.");
+  if (email !== "admin@admin.com") {
+    showModalText("Something went wrong. Please try again.");
     return;
   }
 
@@ -93,6 +93,7 @@ async function signup() {
     showModalText("An error occurred during signup.");
   }
 }
+
 
 async function login() {
   const lockoutUntil = localStorage.getItem("lockoutUntil");
