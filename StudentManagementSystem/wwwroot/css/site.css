@@ -20,3 +20,86 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+/* Sidebar Styles */
+#sidebar {
+  width: 250px;
+  height: 100vh;
+  background: #343a40;
+  color: white;
+  position: fixed;
+  transition: all 0.3s;
+  overflow-y: auto;
+  padding-top: 20px;
+}
+
+#sidebar.collapsed {
+  width: 70px;
+}
+
+#sidebar h1 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  padding: 10px 20px;
+  transition: 0.3s;
+}
+
+.sidebar-menu li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-menu li a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+}
+
+.sidebar-menu li a i {
+  margin-right: 10px;
+}
+
+.sidebar-menu .active {
+  background: #007bff;
+  border-radius: 5px;
+}
+
+/* Main Content */
+#main-content {
+  margin-left: 250px;
+  padding: 20px;
+  transition: all 0.3s;
+}
+
+#main-content.collapsed {
+  margin-left: 70px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #sidebar {
+      width: 200px;
+      position: absolute;
+      left: -200px;
+  }
+  
+  #sidebar.active {
+      left: 0;
+  }
+
+  #main-content {
+      margin-left: 0;
+  }
+}

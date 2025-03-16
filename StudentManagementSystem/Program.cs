@@ -1,6 +1,7 @@
 using Npgsql;
 using Repositories.Interfaces;
 using Repositories.Implementations;
+using Microsoft.AspNetCore.DataProtection;
 
 
 
@@ -33,6 +34,8 @@ builder.Services.AddSession(option =>{
     option.Cookie.HttpOnly = true;
     option.Cookie.IsEssential = true;
 });
+
+
 
 var app = builder.Build();
 
