@@ -1,403 +1,403 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StudentManagementSystem.bundle.scp.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\StudentManagementSystem.bundle.scp.css",
       "PackagePath": "staticwebassets\\StudentManagementSystem.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\Teaching_Material\\Computer.pdf",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\Teaching_Material\\Computer.pdf",
       "PackagePath": "staticwebassets\\Teaching_Material\\Computer.pdf"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\Teaching_Material\\Hindi.pdf",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\Teaching_Material\\Hindi.pdf",
       "PackagePath": "staticwebassets\\Teaching_Material\\Hindi.pdf"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\Teaching_Material\\Science.pdf",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\Teaching_Material\\Science.pdf",
       "PackagePath": "staticwebassets\\Teaching_Material\\Science.pdf"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\Teaching_Material\\Student_List.pdf",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\Teaching_Material\\Student_List.pdf",
       "PackagePath": "staticwebassets\\Teaching_Material\\Student_List.pdf"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\Teaching_Material\\_Kendo Project -Student Management System(EduTrackPro).pdf",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\Teaching_Material\\_Kendo Project -Student Management System(EduTrackPro).pdf",
       "PackagePath": "staticwebassets\\Teaching_Material\\_Kendo Project -Student Management System(EduTrackPro).pdf"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\css\\site.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\0_standard_Timetable.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\exam_timetable\\0_standard_Timetable.jpg",
       "PackagePath": "staticwebassets\\exam_timetable\\0_standard_Timetable.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\10_standard_Timetable.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\exam_timetable\\10_standard_Timetable.jpg",
       "PackagePath": "staticwebassets\\exam_timetable\\10_standard_Timetable.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\10_standard_Timetable.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\exam_timetable\\10_standard_Timetable.png",
       "PackagePath": "staticwebassets\\exam_timetable\\10_standard_Timetable.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\1_standard_Timetable.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\exam_timetable\\1_standard_Timetable.jpg",
       "PackagePath": "staticwebassets\\exam_timetable\\1_standard_Timetable.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\1_standard_Timetable.pdf",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\exam_timetable\\1_standard_Timetable.pdf",
       "PackagePath": "staticwebassets\\exam_timetable\\1_standard_Timetable.pdf"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\1_standard_Timetable.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\exam_timetable\\1_standard_Timetable.png",
       "PackagePath": "staticwebassets\\exam_timetable\\1_standard_Timetable.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\2_standard_Timetable.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\exam_timetable\\2_standard_Timetable.jpg",
       "PackagePath": "staticwebassets\\exam_timetable\\2_standard_Timetable.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\2_standard_Timetable.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\exam_timetable\\2_standard_Timetable.png",
       "PackagePath": "staticwebassets\\exam_timetable\\2_standard_Timetable.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\3_standard_Timetable.pdf",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\exam_timetable\\3_standard_Timetable.pdf",
       "PackagePath": "staticwebassets\\exam_timetable\\3_standard_Timetable.pdf"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\3_standard_Timetable.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\exam_timetable\\3_standard_Timetable.png",
       "PackagePath": "staticwebassets\\exam_timetable\\3_standard_Timetable.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\exam_timetable\\4_standard_Timetable.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\exam_timetable\\4_standard_Timetable.png",
       "PackagePath": "staticwebassets\\exam_timetable\\4_standard_Timetable.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\favicon.ico",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\image\\Admin.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\image\\Admin.png",
       "PackagePath": "staticwebassets\\image\\Admin.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\image\\d25e0db1-0dab-4d1e-ab6a-3bc18b853c51.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\image\\d25e0db1-0dab-4d1e-ab6a-3bc18b853c51.jpg",
       "PackagePath": "staticwebassets\\image\\d25e0db1-0dab-4d1e-ab6a-3bc18b853c51.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\js\\site.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\LICENSE",
       "PackagePath": "staticwebassets\\lib\\bootstrap"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\kendo\\kendo.all.min.js",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\kendo\\kendo.all.min.js",
       "PackagePath": "staticwebassets\\lib\\kendo\\kendo.all.min.js"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\lib\\kendo\\kendo.default-v2.min.css",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\lib\\kendo\\kendo.default-v2.min.css",
       "PackagePath": "staticwebassets\\lib\\kendo\\kendo.default-v2.min.css"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\AA@gmail.com.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\AA@gmail.com.png",
       "PackagePath": "staticwebassets\\student_images\\AA@gmail.com.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\UniqueCoder6754@gmail.com.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\UniqueCoder6754@gmail.com.jpg",
       "PackagePath": "staticwebassets\\student_images\\UniqueCoder6754@gmail.com.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\a@gmail.com.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\a@gmail.com.png",
       "PackagePath": "staticwebassets\\student_images\\a@gmail.com.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\agarwalharsh67583@gmail.com.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\agarwalharsh67583@gmail.com.jpg",
       "PackagePath": "staticwebassets\\student_images\\agarwalharsh67583@gmail.com.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\agrawalharsh1008@gmail.com.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\agrawalharsh1008@gmail.com.jpg",
       "PackagePath": "staticwebassets\\student_images\\agrawalharsh1008@gmail.com.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\agrawalharsh101@gmail.com.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\agrawalharsh101@gmail.com.jpg",
       "PackagePath": "staticwebassets\\student_images\\agrawalharsh101@gmail.com.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\agrawalharsh10281@gmail.com.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\agrawalharsh10281@gmail.com.jpg",
       "PackagePath": "staticwebassets\\student_images\\agrawalharsh10281@gmail.com.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\agrawalharsh1028@gmail.com.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\agrawalharsh1028@gmail.com.png",
       "PackagePath": "staticwebassets\\student_images\\agrawalharsh1028@gmail.com.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\and@gmail.com.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\and@gmail.com.jpg",
       "PackagePath": "staticwebassets\\student_images\\and@gmail.com.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\asas@hams.com.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\asas@hams.com.jpg",
       "PackagePath": "staticwebassets\\student_images\\asas@hams.com.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\hhh@gmail.com.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\hhh@gmail.com.png",
       "PackagePath": "staticwebassets\\student_images\\hhh@gmail.com.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\jatin@gmail.com.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\jatin@gmail.com.png",
       "PackagePath": "staticwebassets\\student_images\\jatin@gmail.com.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\krishna@gmail.com.jpg",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\krishna@gmail.com.jpg",
       "PackagePath": "staticwebassets\\student_images\\krishna@gmail.com.jpg"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\lalu@gmail.com.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\lalu@gmail.com.png",
       "PackagePath": "staticwebassets\\student_images\\lalu@gmail.com.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\mamta@gmail.com.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\mamta@gmail.com.png",
       "PackagePath": "staticwebassets\\student_images\\mamta@gmail.com.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\mamu@gmail.com.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\mamu@gmail.com.png",
       "PackagePath": "staticwebassets\\student_images\\mamu@gmail.com.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\mm@gmail.com.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\mm@gmail.com.png",
       "PackagePath": "staticwebassets\\student_images\\mm@gmail.com.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\roahn@gmail.com.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\roahn@gmail.com.png",
       "PackagePath": "staticwebassets\\student_images\\roahn@gmail.com.png"
     },
     {
-      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\StudentManagementSystem\\wwwroot\\student_images\\sonu@gmail.com.png",
+      "Id": "C:\\Users\\agarw\\OneDrive\\Desktop\\EduPro\\studentmanagementsystem\\wwwroot\\student_images\\sonu@gmail.com.png",
       "PackagePath": "staticwebassets\\student_images\\sonu@gmail.com.png"
     },
     {
